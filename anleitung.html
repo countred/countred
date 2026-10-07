@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 130 130%22%3E%3Crect x=%221%22 y=%221%22 width=%22128%22 height=%22128%22 rx=%2224%22 fill=%22%23ebe9e2%22 stroke=%22%23d3d1c7%22 stroke-width=%222%22/%3E%3Ccircle cx=%2257%22 cy=%2220%22 r=%225.5%22 fill=%22%23b4b2a9%22/%3E%3Ccircle cx=%2273%22 cy=%2220%22 r=%225.5%22 fill=%22%23b4b2a9%22/%3E%3Ccircle cx=%2265%22 cy=%2296%22 r=%2224%22 fill=%22%232c2c2a%22/%3E%3Ctext x=%2265%22 y=%22108%22 text-anchor=%22middle%22 font-family=%22Helvetica,Arial,sans-serif%22 font-weight=%22700%22 font-size=%2227%22 fill=%22%23fff%22%3E2%3C/text%3E%3Ccircle cx=%2265%22 cy=%2256%22 r=%2224%22 fill=%22%23D94F3D%22/%3E%3Ccircle cx=%2265%22 cy=%2256%22 r=%2223%22 fill=%22none%22 stroke=%22%23C4402F%22 stroke-width=%222%22/%3E%3Ctext x=%2265%22 y=%2266%22 text-anchor=%22middle%22 font-family=%22Helvetica,Arial,sans-serif%22 font-weight=%22700%22 font-size=%2227%22 fill=%22%23fff%22%3E3%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#f5f4ef" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1a1a18" media="(prefers-color-scheme: dark)">
+<title>CountRed · Anleitung</title>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+
+--fs-xs: 12px;
+--fs-sm: 13px;
+--fs-md: 14px;
+--fs-lg: 15px;
+--fs-xl: 18px;
+--fs-xxl: 20px;
+
+--fs-read: 16px;
+
+  --bg:#f5f4ef;--bg2:#ebe9e2;--bg3:#fbfaf6;
+  --text:#2c2c2a;--text2:#5f5e5a;--text3:#888780;
+  --border:#d3d1c7;--border2:#b4b2a9;
+  --sel-bg:#dceafa;--sel-bd:#185fa5;
+  --lock-bd:#ba7517;
+  --win-cell-bg:#faeeda;--win-cell-bd:#ba7517;
+  --gruen:#1d9e75;
+  --red-fig-bg:#D94F3D;
+  --warn-bg:#fcebeb;--warn-bd:#e24b4a;--warn-tx:#a32d2d;
+}
+
+@media (max-width:520px){:root{ --fs-read: 17.5px; }}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1a1a18;--bg2:#252522;--bg3:#2c2c2a;
+  --text:#c2c0b6;--text2:#888780;--text3:#5f5e5a;
+  --border:#3d3d3a;--border2:#555;
+  --sel-bg:#123a63;--sel-bd:#4d90fe;
+  --lock-bd:#854f0b;
+  --win-cell-bg:#412402;--win-cell-bd:#ef9f27;
+  --gruen:#2bbf90;
+  --red-fig-bg:#E06050;
+  --warn-bg:#3a0f0f;--warn-bd:#791f1f;--warn-tx:#f09595;
+}}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,'SF Pro Text',sans-serif;}
+body{padding:max(env(safe-area-inset-top),10px) max(env(safe-area-inset-right),12px)
+            max(env(safe-area-inset-bottom),12px) max(env(safe-area-inset-left),12px);}
+#app{max-width:460px;height:100%;margin:0 auto;display:flex;flex-direction:column;gap:8px;}
+
+#head{flex:0 0 auto;display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+
+.wortmarke{font-size:var(--fs-xxl);letter-spacing:-.2px;line-height:1.2;}
+.wortmarke .wm-count{font-weight:400;color:var(--red-fig-bg);}
+.wortmarke .wm-red{font-weight:700;color:var(--text);}
+#head .t{font-size:var(--fs-sm);letter-spacing:-.2px;}
+
+@media print{
+  html,body{background:#fff;color:#2c2c2a;}
+  .wortmarke .wm-count{color:#5f5e5a;}
+  .wortmarke .wm-red{color:#2c2c2a;}
+}
+
+#head .n{font-size:var(--fs-sm);color:var(--text2);}
+#head .rechts{display:flex;align-items:baseline;gap:11px;}
+
+#btn-exit{background:none;border:none;padding:2px 0;cursor:pointer;font:inherit;
+  font-size:var(--fs-md);font-weight:700;
+  font-size:var(--fs-xs);color:var(--sel-bd);text-decoration:underline;text-underline-offset:3px;}
+#btn-exit:hover{opacity:.7;}
+#bar{flex:0 0 auto;height:4px;border-radius:2px;background:var(--bg2);overflow:hidden;}
+#bar > i{display:block;height:100%;background:var(--sel-bd);width:0;transition:width .25s;}
+#fassung{flex:0 0 auto;font-size:var(--fs-xs);color:var(--text3);margin-top:-3px;}
+
+#legal-footer{flex:0 0 auto;display:flex;justify-content:center;align-items:baseline;gap:7px;
+  padding-top:2px;font-size:var(--fs-xs);}
+#legal-footer a{color:var(--text3);text-decoration:underline;text-underline-offset:3px;}
+#legal-footer a:hover{opacity:.7;}
+#legal-footer .legal-sep{color:var(--text3);}
+
+#lesson,#lessonProbe{background:var(--bg3);border:1px solid var(--border);
+  border-radius:14px;padding:11px 13px;}
+
+#lesson{flex:0 0 auto;height:clamp(120px,23vh,186px);overflow-y:auto;}
+
+#lessonProbe{position:absolute;visibility:hidden;left:-9999px;top:0;height:auto;overflow:visible;}
+
+#lessonProbe h2{font-size:var(--fs-xl);font-weight:600;margin-bottom:5px;}
+#lessonProbe p{font-size:var(--fs-read);line-height:1.5;}
+#lessonProbe p + p{margin-top:6px;}
+#lessonProbe .rechnung{margin-top:7px;font-size:var(--fs-read);line-height:1.5;}
+#lessonProbe .aufgabe{margin-top:8px;font-size:var(--fs-read);font-weight:600;line-height:1.4;}
+#lesson h2{font-size:var(--fs-xl);font-weight:600;margin-bottom:5px;}
+#lesson p{font-size:var(--fs-read);line-height:1.5;color:var(--text2);}
+#lesson p + p{margin-top:6px;}
+#lesson b{color:var(--text);font-weight:600;}
+
+#lesson .rechnung{margin-top:7px;font-size:var(--fs-read);line-height:1.5;color:var(--text2);}
+#lesson .rechnung .sum{font-weight:700;color:var(--text);}
+#lesson .aufgabe{margin-top:8px;font-size:var(--fs-read);font-weight:600;color:var(--sel-bd);line-height:1.4;}
+
+#board-area{flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;}
+#board-container{display:grid;grid-template-columns:20px 1fr;grid-template-rows:1fr 20px;}
+#row-labels{grid-column:1;grid-row:1;display:grid;grid-template-rows:repeat(4,1fr);gap:6px;}
+.row-label{display:flex;align-items:center;justify-content:center;font-size:var(--fs-xs);color:var(--text3);font-weight:600;}
+#board-wrap{grid-column:2;grid-row:1;}
+#board{position:relative;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);
+  gap:6px;width:100%;height:100%;}
+#col-labels{grid-column:2;grid-row:2;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.col-label{text-align:center;font-size:var(--fs-xs);color:var(--text3);font-weight:600;}
+
+.cell{border-radius:14px;border:1px solid var(--border);background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  padding-bottom:7px;position:relative;flex-direction:column;gap:2px;
+  user-select:none;-webkit-user-select:none;touch-action:manipulation;
+  transition:transform .06s;}
+.cell:active{transform:scale(.94);}
+.stripe-dots{display:flex;gap:4px;position:absolute;top:6px;left:0;right:0;justify-content:center;}
+.stripe-dot{width:4.5px;height:4.5px;border-radius:50%;background:var(--border2);opacity:.9;}
+
+.cell.getan{background:var(--sel-bg);border-color:var(--sel-bd);}
+.cell.gesperrt{box-shadow:inset 0 0 0 2.5px var(--lock-bd);}
+.cell.sieg{background:var(--win-cell-bg)!important;border-color:var(--win-cell-bd)!important;
+  box-shadow:0 0 0 2.5px var(--win-cell-bd),inset 0 0 0 2px var(--win-cell-bd)!important;}
+.cell.zaehlt{box-shadow:inset 0 0 0 3px var(--gruen);}
+.cell.zaehlt.gesperrt{box-shadow:inset 0 0 0 3px var(--gruen),inset 0 0 0 6px var(--lock-bd);}
+.cell.tippen{animation:pulsBlau 1.3s ease-in-out infinite;}
+.cell.tippen.zaehlt{animation:pulsGruen 1.3s ease-in-out infinite;}
+@keyframes pulsBlau{0%,100%{box-shadow:0 0 0 2px var(--sel-bd);}50%{box-shadow:0 0 0 6px rgba(24,95,165,.30);}}
+@keyframes pulsGruen{0%,100%{box-shadow:inset 0 0 0 3px var(--gruen),0 0 0 2px var(--gruen);}
+                     50%{box-shadow:inset 0 0 0 3px var(--gruen),0 0 0 6px rgba(29,158,117,.30);}}
+
+.cell.abflug{animation:blitz 0.5s ease-in-out 1;}
+.cell.ankunft{animation:blitz 1.9s ease-in-out 1;}
+.cell.abflug-mit{animation:blitz 1.1s ease-in-out 1;}
+.cell.ankunft-mit{animation:blitz 2.6s ease-in-out 1;}
+@keyframes blitz{0%,100%{box-shadow:none;}45%{box-shadow:0 0 0 5px var(--sel-bd);background:var(--sel-bg);}}
+
+#bereich{position:absolute;pointer-events:none;border:1.5px solid var(--gruen);
+  border-radius:19px;display:none;z-index:2;}
+
+.figure{width:24px;height:24px;border-radius:50%;border:1.5px solid transparent;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;font-size:var(--fs-xs);font-weight:700;line-height:1;}
+.figure.black-fig{background:#2c2c2a;border-color:rgba(255,255,255,.08);color:#fff;}
+.figure.red-fig{background:var(--red-fig-bg);border-color:rgba(0,0,0,.08);color:#fff;}
+@media(prefers-color-scheme:dark){.figure.black-fig{background:#e0ddd6;border-color:rgba(0,0,0,.08);color:#1a1a18;}}
+
+.figure.getragen{opacity:.45;border-style:dashed;border-color:var(--text2);}
+.stack-wrap{display:flex;flex-direction:column;align-items:center;}
+.stack-wrap .figure:first-child{margin-bottom:-8px;z-index:1;position:relative;}
+.stack-wrap .figure:last-child{display:flex;align-items:flex-end;padding-bottom:2px;}
+
+#nav{flex:0 0 auto;display:flex;gap:8px;}
+.btn{flex:1;font-size:var(--fs-md);font-weight:500;padding:12px 8px;border-radius:12px;
+  border:1px solid var(--border);background:var(--bg3);cursor:pointer;color:var(--text2);
+  font-family:inherit;line-height:1;touch-action:manipulation;
+  transition:background .1s,border-color .1s,opacity .1s,transform .06s;}
+.btn:hover:not(:disabled){border-color:var(--border2);}
+.btn:active:not(:disabled){background:var(--bg2);transform:scale(.97);}
+.btn:disabled{opacity:.32;pointer-events:none;}
+.btn.primary{background:var(--sel-bg);border-color:var(--sel-bd);color:var(--sel-bd);font-weight:600;}
+#meldung{display:none;flex:0 0 auto;font-size:var(--fs-sm);line-height:1.5;padding:9px 12px;border-radius:12px;
+  border:1px solid var(--warn-bd);background:var(--warn-bg);color:var(--warn-tx);overflow-y:auto;}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div id="head"><span class="t wortmarke"><span class="wm-count">Count</span><span class="wm-red">Red</span></span>
+    <span class="rechts"><span class="n" id="stepno"></span><button type="button" id="btn-exit">Zum Spiel</button></span>
+  </div>
+  <div id="bar"><i id="barfill"></i></div>
+  <div id="fassung"></div>
+
+  <noscript>
+    <div style="padding:10px 12px;border-radius:12px;border:1px solid #ba7517;
+                background:#faeeda;color:#7a4c0a;font:500 13px/1.55 system-ui;">
+      <b>Diese Anleitung braucht JavaScript.</b> Sie rechnet jeden Zug mit derselben
+      Regelschicht wie das Spiel — ohne Skripte bleibt sie ein leeres Gerüst.
+      Manche Dateivorschauen auf dem Telefon führen keine Skripte aus; dann die Datei
+      im Browser öffnen oder gleich <b>countred.com/anleitung.html</b> aufrufen.
+      <br><br><span lang="en"><b>This guide needs JavaScript.</b> It calculates every move with the same
+      rule layer as the game — without scripts it remains an empty frame. Some file previews on phones
+      do not run scripts; in that case open the file in the browser, or go straight to
+      <b>countred.com/anleitung.html</b>.</span>
+    </div>
+  </noscript>
+  <div id="meldung"></div>
+
+  <div id="lesson">
+    <h2 id="ltitle"></h2>
+    <div id="ltext"></div>
+  </div>
+  <div id="lessonProbe" aria-hidden="true"></div>
+
+  <div id="board-area">
+    <div id="board-container">
+      <div id="row-labels">
+        <div class="row-label">1</div><div class="row-label">2</div>
+        <div class="row-label">3</div><div class="row-label">4</div>
+      </div>
+      <div id="board-wrap"><div id="board"><div id="bereich"></div></div></div>
+      <div id="col-labels">
+        <div class="col-label">A</div><div class="col-label">B</div>
+        <div class="col-label">C</div><div class="col-label">D</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="nav">
+    <button class="btn" id="btn-back">Zurück</button>
+    <button class="btn primary" id="btn-next">Weiter</button>
+  </div>
+
+  <div id="legal-footer">
+    <a id="legal-impressum" href="index.html#impressum">Impressum</a>
+    <span class="legal-sep" aria-hidden="true">·</span>
+    <a id="legal-datenschutz" href="index.html#datenschutz">Datenschutz</a>
+  </div>
+</div>
+
+<script>
+
+
+window.__anlGestartet = false;
+
+(function(){
+  var ex=document.getElementById('btn-exit');
+  if(ex) ex.onclick=function(){ location.href='index.html'; };
+})();
+
+window.__ANL_AUSFALL_TEXTE = {
+  de: { titel: 'Es gab ein technisches Problem mit der Anleitung.',
+        bitte: 'Bitte versuche es später nochmals.',
+        zurueck: 'Zum Spiel' },
+  en: { titel: 'There was a technical problem with the guide.',
+        bitte: 'Please try again later.',
+        zurueck: 'To the game' }
+};
+
+var __anlSprache = (function spracheWaehlen(){
+  try {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('countred-sprache') === 'en') return 'en';
+  } catch(e){}
+  return 'de';
+})();
+var __anlAT = window.__ANL_AUSFALL_TEXTE[__anlSprache] || window.__ANL_AUSFALL_TEXTE.de;
+window.__ANL_AUSFALL = '<b>' + __anlAT.titel + '</b><br>' + __anlAT.bitte;
+window.__anlAusfall = function(diagnose){
+  var el=document.getElementById('meldung');
+  if(el && el.style.display!=='block'){
+    el.style.display='block';
+    el.innerHTML=window.__ANL_AUSFALL;
+
+    var b=document.createElement('button');
+    b.type='button'; b.textContent=__anlAT.zurueck;
+    b.setAttribute('style','margin-top:10px;padding:8px 14px;border-radius:10px;'
+      + 'border:1.5px solid #ba7517;background:#fff;color:#7a4c0a;font:600 13px/1.2 system-ui;cursor:pointer;');
+    b.onclick=function(){ location.href='index.html'; };
+    el.appendChild(b);
+  }
+  if(diagnose) console.error('anleitung.html: '+String(diagnose));
+  ['lesson','board-area','nav','bar'].forEach(function(id){
+    var n=document.getElementById(id); if(n) n.style.display='none';
+  });
+};
+
+window.addEventListener('error', function(e){
+  if(window.__anlGestartet) return;
+  window.__anlAusfall('Hauptblock nicht gestartet — ' + String((e && e.message) || 'Unbekannter Fehler'));
+});
+
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    if(window.__anlGestartet) return;
+    window.__anlAusfall('der Programmteil wurde nicht ausgefuehrt (geprueft nach dem load-Ereignis).');
+  }, 400);
+});
+
+setTimeout(function(){
+  if(window.__anlGestartet) return;
+  window.__anlAusfall('der Programmteil wurde nicht ausgefuehrt (Deckenlimit 12 s).');
+}, 12000);
+</script>
+
+<script src="countred_rules.js?v=183" charset="utf-8"></script>
+
+<script>
+
+
+const LEARNER = 1, OPPONENT = 2, PARITY = 'odd';
+
+const ANL_FASSUNG = 'Anleitung · Fassung 79 · 02.10.2026';
+
+const SPRACHE = (function spracheWaehlen(){
+  try {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('countred-sprache') === 'en') return 'en';
+  } catch(e){}
+  return 'de';
+})();
+const TEXTE = {
+  de: {
+    zahl: n => String(n).replace('.', ','),
+    t: {
+      'anl.aufgabe.jetzt-antippen':                  'Jetzt {0} antippen.',
+      'anl.aufgabe.mitspieler-hebt':                 'Mit Weiter hebt dein Mitspieler {0} an.',
+      'anl.aufgabe.mitspieler-setzt':                'Mit Weiter setzt er sie auf {0} ab.',
+      'anl.aufgabe.tippe':                           'Tippe {0} an.',
+      'anl.aufloesen.a2.rechnung':                   'Du darfst anheben. Du hast den Stapel gebildet.',
+      'anl.aufloesen.a2.text#html':                  '<p>Leichter zu merken: Nur wer den Stapel gebildet hat, kann ihn wieder auflösen.</p>',
+      'anl.aufloesen.a3.text#html':                  '<p>Wichtig: nur die Top-Figur darf bewegt werden, nicht der Stapel als ganzes.</p><p>Strategie: mit jedem Zug einer roten Figur ändert sich die Parität vieler Felder. Da, wo die Figur weggezogen wird, und auch dort, wo sie abgesetzt wird. Nur im Stapel ist eine Figur also vor dem Zugriff deines Mitspielers sicher.</p>',
+      'anl.aufloesen.a4.text#html':                  '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Mit Weiter zieht der Mitspieler von 1D auf 2C:</p>',
+      'anl.aufloesen.a4.text-nach#html':             '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Dein Mitspieler ist von 1D auf 2C gezogen.</p>',
+      'anl.aufloesen.intro#html':                    '<p>Die Zugerlaubnis musst du genauso auch beim Anheben der Figur von einem Stapel beachten: Du darfst die Top-Figur anheben, wenn die Summe der <b>roten</b> Figuren im Stapel <b>ungerade</b> ist. In deinem Fall ist das 1 rote Figur. Die Parität des Mitspielers ist gerade, also sind es bei ihm 0 oder 2 rote Figuren.</p>',
+      'anl.aufloesen.titel':                         'Stapel auflösen',
+      'anl.beginn.a1.nachher#html':                  '<p>Du hast einen Stapel auf 4D gebildet.</p>',
+      'anl.beginn.a2.text#html':                     '<p>Grundsätzliches, bevor du die Zugerlaubnis kennenlernst: Du darfst jede Figur bewegen, rote <b>und</b> schwarze. Du darfst überall hinziehen. Es gibt keine vorgeschriebene Richtung. Es gibt keine Beschränkung der Zugweite. Du kannst Stapel bilden und wieder auflösen. Nur Zweierstapel, ein Top auf einer Basis. Beim Top spielen auch die Punkte und die Zahl auf der Figur keine Rolle.</p>',
+      'anl.beginn.intro#html':                       '<p>Die Punktezahl oben auf einem Feld (3, 2, 1 oder 0 Punkte) und die Zahl auf der Figur (3, 2, 1 oder 0) auf diesem Feld müssen übereinstimmen. Beispiel: Auf den leeren Feldern 2A, 2B, 2C oder 2D können nur Figuren mit einer <b>2</b> abgesetzt werden.</p>',
+      'anl.beginn.titel':                            'Spielbeginn',
+      'anl.bonus.a1.text#html':                      '<p>Den Dreier kann aber auch dein Mitspieler zum Vierer vervollständigen und gewinnen.</p><p>Lote mit zwei Varianten deines Bonuszuges diese strategischen Möglichkeiten aus.</p>',
+      'anl.bonus.a2.vorher#html':                    '<p>Ein <b>guter</b> Bonuszug:</p>',
+      'anl.bonus.a3.text#html':                      '<p>Zwischen den zwei schwarzen Figuren in Spalte A wird das Feld 2A frei. Für die passende dritte schwarze Figur und damit den nächsten möglichen Dreier ist die Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>.</p>',
+      'anl.bonus.a4.text#html':                      '<p>Die passende Figur mit Zahl auf der Figur und Punkte auf dem Feld (2) steht auf 2D und hat gerade ebenfalls deine Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>. Die andere passende Figur ist bereits im Dreier gesperrt.</p><p>Mit diesem Bonuszug hast du dir die perfekte Ausgangslage für deinen nächsten Dreier geschaffen und setzt deinen Mitspieler unter Druck.</p>',
+      'anl.bonus.a5.nachher#html':                   '<p>Dein Bonuszug ist korrekt, aber du schenkst dem Mitspieler damit direkt den Sieg. Drei Dinge musst du beachten:</p>',
+      'anl.bonus.a5.vorher#html':                    '<p>Ein <b>nicht so schlauer</b> Bonuszug — der Spielstand ist wieder wie vor der ersten Variante:</p>',
+      'anl.bonus.a6.text#html':                      '<p><b>Erstens:</b> Die Lücke zwischen den drei gleichfarbigen Figuren in Spalte C ermöglicht den Sieg, obwohl zuvor kein Dreier in dieser Spalte bestand.</p>',
+      'anl.bonus.a7.text#html':                      '<p><b>Zweitens:</b> Die für das Sieg-Feld 3C passenden roten Figuren werden beide von deinem Mitspieler in dem von ihm gebildeten Stapel auf 3D kontrolliert: Summe der roten Figuren im Stapel: <b>2 = gerade</b>. Zahl auf der Figur und Punkte auf dem Feld (1) stimmen überein für das Sieg-Feld 3C.</p>',
+      'anl.bonus.a8.text#html':                      '<p><b>Drittens:</b> Dein Mitspieler kann die Sieg-Figur direkt auf 3C absetzen: Summe der roten Nachbarfiguren und der Zugfigur: <b>4 = gerade</b>.</p><p>Mit Weiter zieht dein Mitspieler und gewinnt.</p>',
+      'anl.bonus.a8.zug.nachher#html':               '<p>Vier rote Figuren in Spalte C — dein Mitspieler hat gewonnen.</p>',
+      'anl.bonus.intro#html':                        '<p>Ein Dreier ist meistens gut, vor allem wegen dem Bonuszug.</p>',
+      'anl.bonus.titel':                             'Bonuszug und Taktik',
+      'anl.datenschutz':                             'Datenschutz',
+      'anl.dreier.a1.nachher#html':                  '<p>Du hast einen <b>Dreier</b> gebaut: 4B, 3B, 2B — drei schwarze übereinander.</p>',
+      'anl.dreier.a2.text#html':                     '<p>Jetzt gelten mehrere Besonderheiten. Die wichtigste: <b>Du bekommst einen Bonuszug.</b></p><p>Die drei unteren Figuren bleiben für den Rest des Spieles gesperrt. Stapeln darauf bleibt erlaubt, und die obere Figur darfst du auch wieder herunternehmen. Für die Parität zählen auch die gesperrten Figuren weiterhin mit.</p>',
+      'anl.dreier.intro#html':                       '<p>Erinnerst du dich an das Ziel: die vierte gleichfarbige Figur in einer Spalte? Es gibt noch ein Zwischenziel davor: die <b>dritte</b> gleichfarbige Figur in eine Spalte ziehen. Für den Dreier — und ebenso für den Vierer — zählt bei einem Stapel nur die untere Figur, nicht die darauf gestapelte.</p>',
+      'anl.dreier.titel':                            'Drei in einer Spalte',
+      'anl.erlaubnis.a5.text#html':                  '<p>Die Zugerlaubnis musst du genauso auch beim Absetzen der Figur beachten: Du darfst die Figur <b>absetzen</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>nach</b> dem Absetzen <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen.</p><p>Noch sind aber alle Felder belegt, also lernst du zuvor die Zugerlaubnis beim Stapel kennen …</p>',
+      'anl.erlaubnis.intro#html':                    '<p>Wer welche Figur ziehen darf, du oder dein Mitspieler, entscheidet allein die Parität: Du darfst eine Figur <b>anheben</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen.</p>',
+      'anl.erlaubnis.titel':                         'Zugerlaubnis',
+      'anl.fassung':                                 'Anleitung · Fassung {0} · {1}',
+      'anl.grund.gesperrt#html':                     '{0} ist eine <b>gesperrte</b> Basis-Figur im Dreier.',
+      'anl.grund.rest-rot#html':                     '— die rote Figur, die auf {0} liegen bleibt, zählt mit.',
+      'anl.grund.stapel-voll#html':                  'Auf {0} steht schon ein Stapel — mehr als zwei Figuren gehen nicht.',
+      'anl.grund.summe-nachbarn#html':               'Summe der roten Nachbarfiguren: {0}',
+      'anl.grund.summe-nachbarn-zugfigur#html':      'Summe der roten Nachbarfiguren und der Zugfigur: {0}',
+      'anl.grund.summe-stapel#html':                 'Summe der roten Figuren im Stapel: {0}',
+      'anl.grund.zahl-passt#html':                   'Zahl auf der Figur und Punkte auf dem Feld (<b>{0}</b>) stimmen überein.',
+      'anl.grund.zahl-passt-aber#html':              'Zahl auf der Figur und Punkte auf dem Feld (<b>{0}</b>) stimmen überein, aber:',
+      'anl.grund.zahl-passt-nicht#html':             'Die Figur trägt die <b>{0}</b>, das Feld {1} ist <b>{2}</b> Punkte wert — das passt nicht zusammen.',
+      'anl.impressum':                               'Impressum',
+      'anl.leerfeld.a2.nachher#html':                '<p>Jetzt kennst du alle Zugvarianten: Figur vom Feld anheben, auf einem Feld absetzen, auf eine Figur absetzen, von einer Figur anheben.</p>',
+      'anl.leerfeld.a2.vorher#html':                 '<p>Neuer Versuch.</p>',
+      'anl.leerfeld.intro#html':                     '<p>Du darfst eine Figur auf ein leeres Feld <b>absetzen</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>nach</b> dem Absetzen <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen. Nicht vergessen: Punktezahl auf dem Feld und Zahl auf der Figur müssen übereinstimmen.</p>',
+      'anl.leerfeld.titel':                          'Figur auf ein leeres Feld',
+      'anl.rest.a1.text#html':                       '<p>Passen gibt es nicht.</p>',
+      'anl.rest.a2.text#html':                       '<p>Wer keinen erlaubten Zug hat, setzt aus — der andere zieht nochmals.</p>',
+      'anl.rest.a3.text#html':                       '<p>Wer beginnt, entscheidet beim ersten Spiel der Zufall, ebenso, wer gerade und wer ungerade spielt. Beim Nochmal beginnt der Verlierer, nach einem Remis wechselt der Anziehende — und die Parität wechselt nach jedem Spiel.</p>',
+      'anl.rest.a4.text#html':                       '<p>Remis könnt ihr jederzeit vereinbaren. Steht dieselbe Stellung zum dritten Mal auf dem Brett, kannst du Remis einfordern, wenn du am Zug bist. Beim fünften Mal endet die Partie automatisch mit Remis, ebenso nach 50 Zügen ohne neuen Dreier.</p>',
+      'anl.rest.a5.text#html':                       '<p>Im Spiel kannst du nicht falsch ziehen. Tippst du eine Figur an, die du gerade nicht anheben oder nirgends absetzen kannst, dann siehst du unten, warum der Zug nicht erlaubt ist.</p>',
+      'anl.rest.titel':                              'Gut zu wissen',
+      'anl.schritt-von':                             'Schritt {0} von {1}',
+      'anl.seitentitel':                             'CountRed · Anleitung',
+      'anl.stapelbilden.intro#html':                 '<p>Beim Stapeln zählst du nur die roten Figuren im Stapel. Du darfst eine Figur auf eine andere setzen, wenn danach die Summe der <b>roten</b> Figuren im Stapel <b>ungerade</b> ist. In deinem Fall ist das 1 rote Figur. Die Parität des Mitspielers ist gerade, also sind es bei ihm 0 oder 2 rote Figuren.</p>',
+      'anl.stapelbilden.titel':                      'Stapel bilden',
+      'anl.summe.gerade':                            '{0} = gerade',
+      'anl.summe.ungerade':                          '{0} = ungerade',
+      'anl.urteil.du-absetzen#html':                 'Du darfst absetzen.',
+      'anl.urteil.du-anheben#html':                  'Du darfst anheben.',
+      'anl.urteil.du-nicht-absetzen#html':           'Du darfst <b>nicht</b> absetzen.',
+      'anl.urteil.du-nicht-anheben#html':            'Du darfst <b>nicht</b> anheben.',
+      'anl.urteil.du-nicht-stapeln#html':            'Du darfst <b>nicht</b> stapeln.',
+      'anl.urteil.du-stapeln#html':                  'Du darfst stapeln.',
+      'anl.urteil.er-absetzen#html':                 'Er darf absetzen.',
+      'anl.urteil.er-anheben#html':                  'Er darf anheben.',
+      'anl.urteil.er-nicht-absetzen#html':           'Er darf <b>nicht</b> absetzen.',
+      'anl.urteil.er-nicht-anheben#html':            'Er darf <b>nicht</b> anheben.',
+      'anl.urteil.er-nicht-stapeln#html':            'Er darf <b>nicht</b> stapeln.',
+      'anl.urteil.er-stapeln#html':                  'Er darf stapeln.',
+      'anl.weiter':                                  'Weiter',
+      'anl.ziel.intro#html':                         '<p>Gewonnen hat, wer die <b>vierte gleichfarbige Figur in eine Spalte</b> ziehen kann — A, B, C oder D.</p>',
+      'anl.ziel.nachher#html':                       '<p>Vier schwarze Figuren in Spalte B. Du hast gewonnen.</p>',
+      'anl.ziel.titel':                              'Spielziel',
+      'anl.zum-spiel':                               'Zum Spiel',
+      'anl.zum-spiel-kopf':                          'Zum Spiel',
+      'anl.zurueck':                                 'Zurück',
+    }
+  },
+
+  en: {
+    zahl: n => String(n),
+    t: {
+      'anl.aufgabe.jetzt-antippen':                  'Now tap {0}.',
+      'anl.aufgabe.mitspieler-hebt':                 'With Next, the other player lifts {0}.',
+      'anl.aufgabe.mitspieler-setzt':                'With Next, they set it down on {0}.',
+      'anl.aufgabe.tippe':                           'Tap {0}.',
+      'anl.aufloesen.a2.rechnung':                   'You may lift. You formed the stack.',
+      'anl.aufloesen.a2.text#html':                  '<p>Easier to remember: only the player who formed a stack can break it up again.</p>',
+      'anl.aufloesen.a3.text#html':                  '<p>Important: only the top piece may be moved, never the stack as a whole.</p><p>Strategy: every move of a red piece changes the parity of many squares — both where the piece is moved from and where it is set down. So a piece is only safe from the other player inside a stack.</p>',
+      'anl.aufloesen.a4.text#html':                  '<p>For the next example, the other player also makes their first move. With Next, the other player moves from 1D to 2C:</p>',
+      'anl.aufloesen.a4.text-nach#html':             '<p>For the next example, the other player also makes their first move. The other player has moved from 1D to 2C.</p>',
+      'anl.aufloesen.intro#html':                    '<p>The right to move also applies in exactly the same way when you lift the piece off a stack: you may lift the top piece if the sum of the <b>red</b> pieces in the stack is <b>odd</b>. In your case that is 1 red piece. The other player’s parity is even, so for them it is 0 or 2 red pieces.</p>',
+      'anl.aufloesen.titel':                         'Breaking up a stack',
+      'anl.beginn.a1.nachher#html':                  '<p>You have formed a stack on 4D.</p>',
+      'anl.beginn.a2.text#html':                     '<p>Some basics before you learn the right to move: you may move any piece, red <b>and</b> black. You may move anywhere. There is no set direction. There is no limit on how far a piece moves. You can form stacks and break them up again. Only two-piece stacks, one top piece on one base. For the top piece, the points and the number on the piece do not matter.</p>',
+      'anl.beginn.intro#html':                       '<p>The points at the top of a square (3, 2, 1 or 0 points) and the number on the piece (3, 2, 1 or 0) on that square must match. Example: on the empty squares 2A, 2B, 2C or 2D, only pieces with a <b>2</b> can be set down.</p>',
+      'anl.beginn.titel':                            'Starting the game',
+      'anl.bonus.a1.text#html':                      '<p>But the other player can also complete your triple to four in a column and win.</p><p>Explore these strategic possibilities with two versions of your bonus move.</p>',
+      'anl.bonus.a2.vorher#html':                    '<p>A <b>good</b> bonus move:</p>',
+      'anl.bonus.a3.text#html':                      '<p>Between the two black pieces in column A, square 2A becomes free. For the matching third black piece, and with it the next possible triple, the parity is: sum of the red neighbouring pieces: <b>3 = odd</b>.</p>',
+      'anl.bonus.a4.text#html':                      '<p>The matching piece, with number on the piece and points on the square (2), is on 2D and right now also has your parity: sum of the red neighbouring pieces: <b>3 = odd</b>. The other matching piece is already locked in the triple.</p><p>With this bonus move you have set yourself up perfectly for your next triple and put the other player under pressure.</p>',
+      'anl.bonus.a5.nachher#html':                   '<p>Your bonus move is correct, but it hands the other player the win straight away. There are three things to watch out for:</p>',
+      'anl.bonus.a5.vorher#html':                    '<p>A <b>not so clever</b> bonus move — the position is back to where it was before the first version:</p>',
+      'anl.bonus.a6.text#html':                      '<p><b>First:</b> the gap between the three pieces of the same colour in column C makes the win possible, even though there was no triple in this column before.</p>',
+      'anl.bonus.a7.text#html':                      '<p><b>Second:</b> the red pieces that fit the winning square 3C are both controlled by the other player, in the stack they formed on 3D: sum of the red pieces in the stack: <b>2 = even</b>. Number on the piece and points on the square (1) match for the winning square 3C.</p>',
+      'anl.bonus.a8.text#html':                      '<p><b>Third:</b> the other player can set the winning piece down on 3C straight away: sum of the red neighbouring pieces and the moving piece: <b>4 = even</b>.</p><p>With Next, the other player moves and wins.</p>',
+      'anl.bonus.a8.zug.nachher#html':               '<p>Four red pieces in column C — the other player has won.</p>',
+      'anl.bonus.intro#html':                        '<p>A triple is usually good, above all because of the bonus move.</p>',
+      'anl.bonus.titel':                             'Bonus move and tactics',
+      'anl.datenschutz':                             'Privacy',
+      'anl.dreier.a1.nachher#html':                  '<p>You have built a <b>triple</b>: 4B, 3B, 2B — three black pieces one above the other.</p>',
+      'anl.dreier.a2.text#html':                     '<p>Now several special rules apply. The most important: <b>you get a bonus move.</b></p><p>The three lower pieces stay locked for the rest of the game. Stacking on them is still allowed, and you may take the upper piece off again. The locked pieces still count for parity.</p>',
+      'anl.dreier.intro#html':                       '<p>Remember the aim: the fourth piece of the same colour in a column? There is an intermediate goal before that: moving the <b>third</b> piece of the same colour into a column. For the triple — and likewise for four in a column — only the lower piece of a stack counts, not the one stacked on top.</p>',
+      'anl.dreier.titel':                            'Three in a column',
+      'anl.erlaubnis.a5.text#html':                  '<p>The right to move applies in exactly the same way when you set the piece down: you may <b>set down</b> the piece if the sum of all <b>red</b> neighbouring pieces <b>after</b> setting it down is <b>odd</b>. If the moving piece itself is red, you must count it too.</p><p>But all squares are still occupied, so first you will learn the right to move for a stack …</p>',
+      'anl.erlaubnis.intro#html':                    '<p>Who may move which piece, you or the other player, is decided by parity alone: you may <b>lift</b> a piece if the sum of all <b>red</b> neighbouring pieces is <b>odd</b>. If the moving piece itself is red, you must count it too.</p>',
+      'anl.erlaubnis.titel':                         'The right to move',
+      'anl.fassung':                                 'How to play · Version {0} · {1}',
+      'anl.grund.gesperrt#html':                     '{0} is a <b>locked</b> base piece in the triple.',
+      'anl.grund.rest-rot#html':                     '— the red piece that stays on {0} counts too.',
+      'anl.grund.stapel-voll#html':                  'There is already a stack on {0} — no more than two pieces are possible.',
+      'anl.grund.summe-nachbarn#html':               'Sum of the red neighbouring pieces: {0}',
+      'anl.grund.summe-nachbarn-zugfigur#html':      'Sum of the red neighbouring pieces and the moving piece: {0}',
+      'anl.grund.summe-stapel#html':                 'Sum of the red pieces in the stack: {0}',
+      'anl.grund.zahl-passt#html':                   'Number on the piece and points on the square (<b>{0}</b>) match.',
+      'anl.grund.zahl-passt-aber#html':              'Number on the piece and points on the square (<b>{0}</b>) match, but:',
+      'anl.grund.zahl-passt-nicht#html':             'The piece carries a <b>{0}</b>, square {1} is worth <b>{2}</b> points — they do not match.',
+      'anl.impressum':                               'Legal notice',
+      'anl.leerfeld.a2.nachher#html':                '<p>Now you know every kind of move: lifting a piece from a square, setting it down on a square, setting it down on a piece, lifting it off a piece.</p>',
+      'anl.leerfeld.a2.vorher#html':                 '<p>Another try.</p>',
+      'anl.leerfeld.intro#html':                     '<p>You may <b>set down</b> a piece on an empty square if the sum of all <b>red</b> neighbouring pieces <b>after</b> setting it down is <b>odd</b>. If the moving piece itself is red, you must count it too. Don’t forget: the points on the square and the number on the piece must match.</p>',
+      'anl.leerfeld.titel':                          'A piece onto an empty square',
+      'anl.rest.a1.text#html':                       '<p>There is no passing.</p>',
+      'anl.rest.a2.text#html':                       '<p>A player with no legal move misses a turn — the other player moves again.</p>',
+      'anl.rest.a3.text#html':                       '<p>In the first game, chance decides who begins, and also who plays even and who plays odd. In Play again, the loser begins; after a draw, the first player changes — and parity changes after every game.</p>',
+      'anl.rest.a4.text#html':                       '<p>You can agree a draw at any time. If the same position is on the board for the third time, you can claim a draw when it is your move. The fifth time, the game ends automatically in a draw, and likewise after 50 moves without a new triple.</p>',
+      'anl.rest.a5.text#html':                       '<p>In the game you cannot make an illegal move. If you tap a piece that you cannot lift right now, or cannot set down anywhere, you will see below why the move is not allowed.</p>',
+      'anl.rest.titel':                              'Good to know',
+      'anl.schritt-von':                             'Step {0} of {1}',
+      'anl.seitentitel':                             'CountRed · How to play',
+      'anl.stapelbilden.intro#html':                 '<p>When stacking, you count only the red pieces in the stack. You may set one piece on another if afterwards the sum of the <b>red</b> pieces in the stack is <b>odd</b>. In your case that is 1 red piece. The other player’s parity is even, so for them it is 0 or 2 red pieces.</p>',
+      'anl.stapelbilden.titel':                      'Forming a stack',
+      'anl.summe.gerade':                            '{0} = even',
+      'anl.summe.ungerade':                          '{0} = odd',
+      'anl.urteil.du-absetzen#html':                 'You may set down.',
+      'anl.urteil.du-anheben#html':                  'You may lift.',
+      'anl.urteil.du-nicht-absetzen#html':           'You may <b>not</b> set down.',
+      'anl.urteil.du-nicht-anheben#html':            'You may <b>not</b> lift.',
+      'anl.urteil.du-nicht-stapeln#html':            'You may <b>not</b> stack.',
+      'anl.urteil.du-stapeln#html':                  'You may stack.',
+      'anl.urteil.er-absetzen#html':                 'They may set down.',
+      'anl.urteil.er-anheben#html':                  'They may lift.',
+      'anl.urteil.er-nicht-absetzen#html':           'They may <b>not</b> set down.',
+      'anl.urteil.er-nicht-anheben#html':            'They may <b>not</b> lift.',
+      'anl.urteil.er-nicht-stapeln#html':            'They may <b>not</b> stack.',
+      'anl.urteil.er-stapeln#html':                  'They may stack.',
+      'anl.weiter':                                  'Next',
+      'anl.ziel.intro#html':                         '<p>The winner is whoever can move the <b>fourth piece of the same colour into a column</b> — A, B, C or D.</p>',
+      'anl.ziel.nachher#html':                       '<p>Four black pieces in column B. You have won.</p>',
+      'anl.ziel.titel':                              'Aim of the game',
+      'anl.zum-spiel':                               'To the game',
+      'anl.zum-spiel-kopf':                          'To the game',
+      'anl.zurueck':                                 'Back',
+    }
+  }
+};
+function txt(schluessel, werte){
+  const s = TEXTE[SPRACHE] || TEXTE.de;
+  let wert = s.t[schluessel];
+  if(wert === undefined) return schluessel;
+  if(typeof wert === 'object') wert = (werte && Math.abs(werte.n) === 1) ? wert.eins : wert.andere;
+  return wert.replace(/\{(\w+)\}/g, (_, k) => {
+    const v = werte ? werte[k] : undefined;
+    return v === undefined ? ('{'+k+'}') : (typeof v === 'number' ? s.zahl(v) : String(v));
+  });
+}
+
+const ABFLUG_MS = 500,  ANKUNFT_MS = 1900;
+const ABFLUG_MIT_MS = 1100, ANKUNFT_MIT_MS = 2600;
+
+const RUECKNAHME_SPERRE_MS = 350;
+
+const KASTEN_MOBIL = 320, KASTEN_RECHNER = 240, KASTEN_GRENZE_PX = 520;
+function kastenDeckel(){
+
+  try{
+    const w = parseInt(new URLSearchParams(location.search).get('kasten'), 10);
+    if(isFinite(w) && w >= 120 && w <= 320) return w;
+  }catch(e){   }
+  return (window.innerWidth <= KASTEN_GRENZE_PX) ? KASTEN_MOBIL : KASTEN_RECHNER;
+}
+
+let weckerListe = [];
+function spaeter(fn, ms){
+  const t = setTimeout(function(){
+    weckerListe = weckerListe.filter(x => x !== t);
+    fn();
+  }, ms);
+  weckerListe.push(t);
+  return t;
+}
+function weckerAus(){ weckerListe.forEach(clearTimeout); weckerListe = []; }
+let phaseSeit = 0;
+
+const COL = {0:'A',1:'B',2:'C',3:'D'};
+const ROW = {3:'1',2:'2',1:'3',0:'4'};
+const CELL = {};
+for(let r=0;r<4;r++) for(let c=0;c<4;c++) CELL[ROW[r]+COL[c]] = [r,c];
+const lab = (r,c) => ROW[r]+COL[c];
+
+const RICHTUNGEN=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+const nachbarn=(r,c)=>RICHTUNGEN.map(a=>[r+a[0],c+a[1]]).filter(p=>p[0]>=0&&p[0]<4&&p[1]>=0&&p[1]<4);
+const roteAuf=(b,r,c)=>{const x=b[r][c];
+  if(x.stack) return (x.stack.bottom.color==='red'?1:0)+(x.stack.top.color==='red'?1:0);
+  return (x.piece && x.piece.color==='red') ? 1 : 0;};
+
+const summeSpan = n => '<span class="sum">' + ((n%2===1) ? txt('anl.summe.ungerade', {0:n}) : txt('anl.summe.gerade', {0:n})) + '</span>';
+
+const URTEIL = {
+  du: { ja:  {anheben:'anl.urteil.du-anheben#html',       stapeln:'anl.urteil.du-stapeln#html',       absetzen:'anl.urteil.du-absetzen#html'},
+        nein:{anheben:'anl.urteil.du-nicht-anheben#html', stapeln:'anl.urteil.du-nicht-stapeln#html', absetzen:'anl.urteil.du-nicht-absetzen#html'} },
+  er: { ja:  {anheben:'anl.urteil.er-anheben#html',       stapeln:'anl.urteil.er-stapeln#html',       absetzen:'anl.urteil.er-absetzen#html'},
+        nein:{anheben:'anl.urteil.er-nicht-anheben#html', stapeln:'anl.urteil.er-nicht-stapeln#html', absetzen:'anl.urteil.er-nicht-absetzen#html'} } };
+function urteil(spieler, ok, verb){
+  return txt(URTEIL[spieler===LEARNER ? 'du' : 'er'][ok ? 'ja' : 'nein'][verb]);
+}
+const summeNachbarn = (self, summe) =>
+  txt(self ? 'anl.grund.summe-nachbarn-zugfigur#html' : 'anl.grund.summe-nachbarn#html', {0:summeSpan(summe)});
+
+function fromSpec(spec, formedBy){
+  const b=[];
+  for(let r=0;r<4;r++){ b[r]=[]; for(let c=0;c<4;c++) b[r][c]={stripe:r,locked:false,piece:null,stack:null}; }
+  spec.forEach(function(row,i){
+    const r=3-i;
+    row.forEach(function(s,c){
+      if(s==='.') return;
+      const cell=b[r][c];
+      let rest=s, wem=formedBy;
+      const gl=rest.indexOf('=');
+      if(gl>=0){ wem=parseInt(rest.slice(gl+1),10); rest=rest.slice(0,gl); }
+      const teile=rest.split('/'), basePart=teile[0], topPart=teile[1];
+      if(basePart.indexOf('*')>=0) cell.locked=true;
+      const baseColor = basePart[0]==='r' ? 'red' : 'black';
+      cell.piece={color:baseColor, stripe:r};
+      if(topPart){
+        cell.stack={bottom:{color:baseColor,stripe:r},
+                    top:{color:topPart[0]==='r'?'red':'black', stripe:parseInt(topPart[1],10)},
+                    formedBy:wem};
+        cell.piece=cell.stack.bottom;
+      }
+    });
+  });
+  return b;
+}
+
+const ZIELSPEC = [
+  ['b/r3', '.'  , 'r'  , 'b'  ],
+  ['b'   , 'b*' , 'r'  , 'r'  ],
+  ['r'   , 'b*' , 'b'  , 'r'  ],
+  ['r'   , 'b*' , 'r'  , 'b'  ]
+];
+
+const DREIERSPEC = [
+  ['b'   , 'r'      , '.'  , 'b'      ],
+  ['r'   , 'b/r3=1' , 'r'  , 'b'      ],
+  ['b'   , '.'      , 'b'  , 'r/r1=2' ],
+  ['r'   , 'b'      , 'r'  , 'b'      ]
+];
+
+const BONUSSPEC = [
+  ['b'   , 'r'       , '.'  , 'b'      ],
+  ['r'   , 'b*/r3=1' , 'r'  , 'b'      ],
+  ['b'   , 'b*'      , '.'  , 'r/r1=2' ],
+  ['r'   , 'b*'      , 'r'  , 'b'      ]
+];
+
+function markAnheben(b, fr, fc, spieler){
+  const cell=b[fr][fc], mp=getMovingPiece(cell);
+  const ok  = canLift(b, fr, fc, spieler, PARITY);
+  if(cell.stack){
+
+    const n=countRedsInStack(cell.stack.bottom, cell.stack.top);
+    return {bereich:[[fr,fc]], zaehlt:(n>0?[[fr,fc]]:[]), tippen:[fr,fc], summe:n, ok:ok, stapel:true,
+      text: urteil(spieler, ok, 'anheben')+' '+txt('anl.grund.summe-stapel#html', {0:summeSpan(n)})};
+  }
+  if(cell.locked)
+    return {bereich:null, zaehlt:[], tippen:null, summe:null, ok:ok,
+      text: txt('anl.grund.gesperrt#html', {0:lab(fr,fc)})};
+  const bereich=[[fr,fc]].concat(nachbarn(fr,fc));
+  const zaehlt=bereich.filter(function(p){ return roteAuf(b,p[0],p[1])>0; });
+  const nb=countRedNeighbors(b,fr,fc), self=(mp.color==='red'?1:0), summe=nb+self;
+  return {bereich:bereich, zaehlt:zaehlt, tippen:[fr,fc], summe:summe, ok:ok,
+    text: urteil(spieler, ok, 'anheben')+' '+summeNachbarn(self, summe)};
+}
+function markAbsetzen(b, fr, fc, tr, tc, spieler){
+  const mp=getMovingPiece(b[fr][fc]), to=b[tr][tc];
+  const ok  = canDrop(b, fr, fc, tr, tc, spieler, PARITY);
+  if(to.piece && to.stack)
+    return {bereich:null, zaehlt:[], tippen:[tr,tc], summe:null, ok:ok,
+      text: urteil(spieler, ok, 'stapeln')+' '+txt('anl.grund.stapel-voll#html', {0:lab(tr,tc)})};
+  if(to.piece){
+    const n=countRedsInStack(to.piece, mp);
+    return {bereich:[[tr,tc]], zaehlt:(n>0?[[tr,tc]]:[]), tippen:[tr,tc], summe:n, ok:ok, stapel:true,
+      text: urteil(spieler, ok, 'stapeln')+' '+txt('anl.grund.summe-stapel#html', {0:summeSpan(n)})};
+  }
+  if(mp.stripe!==to.stripe)
+    return {bereich:null, zaehlt:[], tippen:[tr,tc], summe:null, ok:ok,
+      text: urteil(spieler, ok, 'absetzen')+' '+txt('anl.grund.zahl-passt-nicht#html', {0:mp.stripe, 1:lab(tr,tc), 2:to.stripe})};
+  const bereich=[[tr,tc]].concat(nachbarn(tr,tc));
+  const zaehlt=[]; let restRot=false;
+  for(let i=0;i<bereich.length;i++){
+    const r=bereich[i][0], c=bereich[i][1];
+    if(r===tr && c===tc){ if(mp.color==='red') zaehlt.push([r,c]); continue; }
+    if(r===fr && c===fc){
+      const st=b[fr][fc].stack;
+      if(st && st.bottom.color==='red'){ zaehlt.push([r,c]); restRot=true; }
+      continue;
+    }
+    if(roteAuf(b,r,c)>0) zaehlt.push([r,c]);
+  }
+  let n=countRedNeighbors(b,tr,tc,fr,fc);
+  if(restRot) n++;
+  const self=(mp.color==='red'?1:0), summe=n+self;
+  return {bereich:bereich, zaehlt:zaehlt, tippen:[tr,tc], summe:summe, ok:ok,
+    text: urteil(spieler, ok, 'absetzen')+' '
+        + txt(ok ? 'anl.grund.zahl-passt#html' : 'anl.grund.zahl-passt-aber#html', {0:to.stripe})+' '
+        + summeNachbarn(self, summe)
+        + (restRot ? ' '+txt('anl.grund.rest-rot#html', {0:lab(fr,fc)}) : '')};
+}
+
+const STEPS = [
+
+{ id:'ziel', title:txt('anl.ziel.titel'), setup:()=>fromSpec(ZIELSPEC, LEARNER),
+  intro:txt('anl.ziel.intro#html'),
+  aktionen:[
+    { art:'zug', von:'1D', nach:'1B', actor:LEARNER, roh:true, erwartet:'sieg',
+      nachher:txt('anl.ziel.nachher#html') }
+  ]},
+
+{ id:'beginn', title:txt('anl.beginn.titel'), setup:()=>initBoard(),
+  intro:txt('anl.beginn.intro#html'),
+  aktionen:[
+    { art:'zug', von:'1B', nach:'4D', actor:LEARNER, roh:true,
+      nachher:txt('anl.beginn.a1.nachher#html') },
+    { art:'lesen',
+      text:txt('anl.beginn.a2.text#html') }
+  ]},
+
+{ id:'erlaubnis', title:txt('anl.erlaubnis.titel'), setup:()=>initBoard(),
+  intro:txt('anl.erlaubnis.intro#html'),
+  aktionen:[
+    { art:'tippen', feld:'1B' },
+    { art:'tippen', feld:'3A', neu:true },
+    { art:'tippen', feld:'3C', neu:true },
+    { art:'tippen', feld:'1D', neu:true },
+    { art:'lesen', neu:true,
+      text:txt('anl.erlaubnis.a5.text#html') }
+  ]},
+
+{ id:'stapelbilden', title:txt('anl.stapelbilden.titel'), setup:()=>initBoard(),
+  intro:txt('anl.stapelbilden.intro#html'),
+  aktionen:[
+    { art:'zug',     von:'1B', nach:'4D', actor:LEARNER },
+    { art:'zug',     von:'3A', nach:'3D', actor:LEARNER, neu:true },
+    { art:'fehlzug', von:'1B', nach:'4C', actor:LEARNER, neu:true },
+    { art:'fehlzug', von:'3A', nach:'3C', actor:LEARNER, neu:true }
+  ]},
+
+{ id:'aufloesen', title:txt('anl.aufloesen.titel'), startet:OPPONENT,
+  aufbau:[['1B','4D',LEARNER]],
+  intro:txt('anl.aufloesen.intro#html'),
+  aktionen:[
+
+    { art:'tippen', feld:'4D' },
+
+    { art:'zeigen', feld:'4D', getan:'4D',
+      rechnung:txt('anl.aufloesen.a2.rechnung'), behauptet:['anheben','stapelhoheit'],
+      text:txt('anl.aufloesen.a2.text#html') },
+    { art:'zeigen', feld:'4D', getan:'4D',
+      text:txt('anl.aufloesen.a3.text#html') },
+    { art:'lesen',
+      text:txt('anl.aufloesen.a4.text#html'),
+      textNach:txt('anl.aufloesen.a4.text-nach#html'),
+      zugDanach:{ von:'1D', nach:'2C', actor:OPPONENT, roh:true } }
+  ]},
+
+{ id:'leerfeld', title:txt('anl.leerfeld.titel'),
+  aufbau:[['1B','4D',LEARNER],['1D','2C',OPPONENT]],
+  intro:txt('anl.leerfeld.intro#html'),
+  aktionen:[
+    { art:'fehlzug', von:'4D', nach:'1B', actor:LEARNER },
+    { art:'zug', von:'4D', nach:'1D', actor:LEARNER,
+      vorher:txt('anl.leerfeld.a2.vorher#html'),
+      nachher:txt('anl.leerfeld.a2.nachher#html') }
+  ]},
+
+{ id:'dreier', title:txt('anl.dreier.titel'), setup:()=>fromSpec(DREIERSPEC, LEARNER),
+  intro:txt('anl.dreier.intro#html'),
+  aktionen:[
+    { art:'zug', von:'3C', nach:'3B', actor:LEARNER, erwartet:'dreier',
+      nachher:txt('anl.dreier.a1.nachher#html') },
+    { art:'lesen',
+      text:txt('anl.dreier.a2.text#html') }
+  ]},
+
+{ id:'bonus', title:txt('anl.bonus.titel'), setup:()=>fromSpec(BONUSSPEC, LEARNER),
+  intro:txt('anl.bonus.intro#html'),
+  aktionen:[
+    { art:'lesen',
+      text:txt('anl.bonus.a1.text#html') },
+
+    { art:'zug', von:'2A', nach:'1A', actor:LEARNER, neu:true,
+      vorher:txt('anl.bonus.a2.vorher#html') },
+    { art:'zeigen', von:'2D', nach:'2A', blass:['2D'], geist:{von:'2D', auf:'2A'},
+      pruefungen:[{art:'absetzen', von:'2D', nach:'2A', summe:3}],
+      text:txt('anl.bonus.a3.text#html') },
+    { art:'zeigen', feld:'2D', blass:['2D'], geist:{von:'2D', auf:'2A'},
+      pruefungen:[{art:'anheben', feld:'2D', summe:3}],
+      text:txt('anl.bonus.a4.text#html') },
+
+    { art:'zug', von:'2B', nach:'1C', actor:LEARNER, neu:true,
+      vorher:txt('anl.bonus.a5.vorher#html'),
+      nachher:txt('anl.bonus.a5.nachher#html') },
+    { art:'zeigen', bereich:['1C','2C','3C','4C'],
+      text:txt('anl.bonus.a6.text#html') },
+    { art:'zeigen', feld:'3D', blass:['3D'], geist:{von:'3D', auf:'3C'},
+      pruefungen:[{art:'anheben', feld:'3D', summe:2}],
+      text:txt('anl.bonus.a7.text#html') },
+    { art:'zeigen', von:'3D', nach:'3C', blass:['3D'], geist:{von:'3D', auf:'3C'},
+      pruefungen:[{art:'absetzen', von:'3D', nach:'3C', summe:4}],
+      text:txt('anl.bonus.a8.text#html'),
+      zugDanach:{ von:'3D', nach:'3C', actor:OPPONENT, roh:true, summeAuf:4, erwartet:'sieg',
+        nachher:txt('anl.bonus.a8.zug.nachher#html') } }
+  ]},
+
+{ id:'rest', title:txt('anl.rest.titel'), nurText:true,
+  aktionen:[
+    { art:'lesen', text:txt('anl.rest.a1.text#html') },
+    { art:'lesen', text:txt('anl.rest.a2.text#html') },
+    { art:'lesen',
+      text:txt('anl.rest.a3.text#html') },
+    { art:'lesen',
+      text:txt('anl.rest.a4.text#html') },
+    { art:'lesen',
+      text:txt('anl.rest.a5.text#html') }
+  ]}
+];
+
+function phasenVon(a){
+  if(a.art==='lesen')   return ['lesen'];
+  if(a.art==='zeigen')  return ['zeigen'];
+  if(a.art==='tippen')  return ['tap'];
+  if(a.art==='fehlzug') return ['lift','fail'];
+  return a.nachher ? ['lift','drop','exec'] : ['lift','drop'];
+}
+const PHASES=[];
+STEPS.forEach(function(s,si){
+  s.aktionen.forEach(function(a,ai){
+    phasenVon(a).forEach(function(p){ PHASES.push({si:si, ai:ai, p:p}); });
+  });
+});
+const ersteImSchritt  = i => i===0 || PHASES[i-1].si !== PHASES[i].si;
+const ersteDerAktion  = i => i===0 || PHASES[i-1].si !== PHASES[i].si || PHASES[i-1].ai !== PHASES[i].ai;
+const aktionVon       = i => STEPS[PHASES[i].si].aktionen[PHASES[i].ai];
+
+function neuAufbau(j){
+  const s=STEPS[PHASES[j].si];
+  return ersteImSchritt(j) || (ersteDerAktion(j) && aktionVon(j).neu);
+}
+
+function brettAusAufbau(liste){
+  const b=initBoard();
+  liste.forEach(function(z){ const f=CELL[z[0]], t=CELL[z[1]];
+    applyMove(b,f[0],f[1],t[0],t[1],z[2]);
+    if(!(checkFourInRow(b,'black')||checkFourInRow(b,'red'))) applyLockOn(b); });
+  return b;
+}
+function aufbauVon(s){ return s.aufbau ? brettAusAufbau(s.aufbau) : (s.setup ? s.setup() : initBoard()); }
+
+function boardFor(i){
+  let b=null;
+  for(let j=0;j<=i;j++){
+    const ph=PHASES[j], s=STEPS[ph.si], a=s.aktionen[ph.ai];
+    if(neuAufbau(j)) b = aufbauVon(s);
+    if(ph.p==='exec') fuehreAus(b, a);
+
+    if(j<i && ph.p==='drop' && !a.nachher) fuehreAus(b, a);
+    if(j<i && a.zugDanach && (ph.p==='lesen'||ph.p==='zeigen')) fuehreAus(b, a.zugDanach);
+  }
+  return b;
+}
+function fuehreAus(b, z){
+  const f=CELL[z.von], t=CELL[z.nach];
+  applyMove(b,f[0],f[1],t[0],t[1],z.actor);
+  if(!(checkFourInRow(b,'black')||checkFourInRow(b,'red'))) applyLockOn(b);
+  return b;
+}
+
+function brettNachZug(i, z){ return fuehreAus(cloneBoard(boardFor(i)), z); }
+
+function amZug(i){
+  let cur=LEARNER;
+  for(let j=0;j<=i;j++){
+    const ph=PHASES[j], s=STEPS[ph.si], a=s.aktionen[ph.ai];
+    if(neuAufbau(j)) cur = s.startet || LEARNER;
+    const z = (ph.p==='exec') ? a
+            : (ph.p==='drop' && !a.nachher) ? a
+            : ((ph.p==='lesen'||ph.p==='zeigen') && a.zugDanach) ? a.zugDanach : null;
+    if(z && j<i){
+
+      const c=cloneBoard(ph.p==='exec' ? boardFor(j-1) : boardFor(j));
+      const f=CELL[z.von], t=CELL[z.nach];
+      applyMove(c,f[0],f[1],t[0],t[1],z.actor);
+      const vier=checkFourInRow(c,'black')||checkFourInRow(c,'red');
+      const trip=vier?null:applyLockOn(c);
+      cur = trip ? z.actor : (z.actor===LEARNER?OPPONENT:LEARNER);
+    }
+  }
+  return cur;
+}
+
+let idx=0, board=null, gezeigt=false, laeuft=false, gezogen=false;
+let mark={bereich:null, zaehlt:[], tippen:null, getan:null, geist:null, sieg:[], blass:[]};
+function leerMark(){ mark={bereich:null, zaehlt:[], tippen:null, getan:null, geist:null, sieg:[], blass:[]}; }
+
+function setzeMark(m, roh){
+  mark.bereich = roh ? null : m.bereich;
+  mark.zaehlt  = roh ? []   : (m.zaehlt||[]);
+}
+
+function markZeigen(b, a){
+  if(a.bereich) return {bereich:a.bereich.map(n=>CELL[n]), zaehlt:[], tippen:null, summe:null, text:''};
+  if(a.feld){ const p=CELL[a.feld]; return markAnheben(b,p[0],p[1],LEARNER); }
+  const f=CELL[a.von], t=CELL[a.nach];
+  return markAbsetzen(b,f[0],f[1],t[0],t[1],LEARNER);
+}
+
+function fig(p, getragen){
+  const f=document.createElement('div');
+  f.className='figure '+p.color+'-fig'+(getragen?' getragen':'');
+  f.textContent=String(p.stripe);
+  return f;
+}
+function renderBoard(){
+  const el=document.getElementById('board');
+  const alte=el.querySelectorAll('.cell');
+  for(let i=0;i<alte.length;i++) alte[i].remove();
+  const key=a=>a.map(x=>x[0]+','+x[1]);
+  const zaehltS={}, siegS={};
+  key(mark.zaehlt).forEach(k=>zaehltS[k]=1);
+  key(mark.sieg).forEach(k=>siegS[k]=1);
+  const blassS={};
+  key(mark.blass||[]).forEach(k=>blassS[k]=1);
+  const tip   = mark.tippen ? mark.tippen[0]+','+mark.tippen[1] : null;
+  const getan = mark.getan  ? mark.getan[0]+','+mark.getan[1]   : null;
+  for(let r=3;r>=0;r--) for(let c=0;c<4;c++){
+    const cell=board[r][c], k=r+','+c;
+    const d=document.createElement('div');
+    d.className='cell'; d.title=lab(r,c); d.setAttribute('data-rc',k);
+    if(siegS[k]) d.classList.add('sieg');
+    else {
+      if(cell.locked)  d.classList.add('gesperrt');
+      if(zaehltS[k])   d.classList.add('zaehlt');
+      if(getan===k)    d.classList.add('getan');
+      if(tip===k)      d.classList.add('tippen');
+    }
+    if(cell.stripe>0){
+      const sd=document.createElement('div'); sd.className='stripe-dots';
+      for(let i=0;i<cell.stripe;i++){ const p=document.createElement('div'); p.className='stripe-dot'; sd.appendChild(p); }
+      d.appendChild(sd);
+    }
+    const geist = (mark.geist && mark.geist.rc[0]===r && mark.geist.rc[1]===c) ? mark.geist.piece : null;
+    if(cell.stack){
+      const sw=document.createElement('div'); sw.className='stack-wrap';
+
+      sw.appendChild(fig(cell.stack.top, !!blassS[k])); sw.appendChild(fig(cell.stack.bottom));
+      d.appendChild(sw);
+    } else if(cell.piece && geist){
+      const sw=document.createElement('div'); sw.className='stack-wrap';
+      sw.appendChild(fig(geist,true)); sw.appendChild(fig(cell.piece));
+      d.appendChild(sw);
+    } else if(cell.piece){ d.appendChild(fig(cell.piece, !!blassS[k])); }
+    else if(geist){ d.appendChild(fig(geist,true)); }
+    d.onclick=(function(rr,cc){ return function(){ onCell(rr,cc); }; })(r,c);
+    el.appendChild(d);
+  }
+  zeichneBereich();
+}
+
+const GITTER_LUECKE = 6;
+const RAHMEN_LUFT   = 4;
+
+function zeichneBereich(){
+  const el=document.getElementById('bereich');
+  if(!mark.bereich || !mark.bereich.length){
+    el.style.display='none'; el.removeAttribute('data-rect'); return; }
+  let r0=9,r1=-1,c0=9,c1=-1;
+  for(let i=0;i<mark.bereich.length;i++){
+    const r=mark.bereich[i][0], c=mark.bereich[i][1];
+    if(r<r0)r0=r; if(r>r1)r1=r; if(c<c0)c0=c; if(c>c1)c1=c;
+  }
+  el.setAttribute('data-rect', c0+','+c1+','+r0+','+r1);
+
+  const g=GITTER_LUECKE, luft=RAHMEN_LUFT, gesamt=3*g;
+  const spanne=(start, gesamtmass) =>
+    'calc((' + gesamtmass + ' - ' + gesamt + 'px) / 4 * ' + start + ' + ' + (g*start - luft) + 'px)';
+  const laenge=(anzahl, gesamtmass) =>
+    'calc((' + gesamtmass + ' - ' + gesamt + 'px) / 4 * ' + anzahl + ' + ' + (g*(anzahl-1) + 2*luft) + 'px)';
+  const zeileOben=3-r1;
+  el.style.display='block';
+  el.style.left  = spanne(c0, '100%');
+  el.style.width = laenge(c1-c0+1, '100%');
+  el.style.top    = spanne(zeileOben, '100%');
+  el.style.height = laenge(r1-r0+1, '100%');
+}
+
+function alsText(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function setText(html, rechnung, aufgabe){
+  document.getElementById('ltext').innerHTML =
+      (html||'') + (rechnung ? '<div class="rechnung">'+rechnung+'</div>' : '')
+                 + (aufgabe  ? '<div class="aufgabe">'+alsText(aufgabe)+'</div>'   : '');
+  document.getElementById('lesson').scrollTop=0;
+}
+
+function textTeile(i, variante){
+  const ph=PHASES[i], s=STEPS[ph.si], a=s.aktionen[ph.ai], b=boardFor(i);
+  const kopf = (ersteImSchritt(i) ? (s.intro||'') : '')
+             + (ersteDerAktion(i) ? (a.vorher||'') : '');
+
+  if(ph.p==='lesen') return {html: kopf
+    + ((variante==='nach' && a.textNach) ? a.textNach : (a.text||''))
+    + (variante==='nach' && a.zugDanach ? (a.zugDanach.nachher||'') : '')};
+  if(ph.p==='zeigen'){
+    const m=markZeigen(b,a);
+    return {html: kopf + (a.text||'') + (variante==='nach' && a.zugDanach ? (a.zugDanach.nachher||'') : ''),
+
+            rechnung: a.rechnung ? (a.rechnung==='anheben' ? m.text : a.rechnung) : ''};
+  }
+
+  if(ph.p==='tap'){
+    const p=CELL[a.feld];
+    if(variante!=='nach') return {html:kopf, aufgabe:txt('anl.aufgabe.tippe', {0:a.feld})};
+
+    return {html: kopf + (a.nachher||''), rechnung: markAnheben(b,p[0],p[1],LEARNER).text};
+  }
+  if(ph.p==='lift'){
+    const f=CELL[a.von], m=markAnheben(b,f[0],f[1],a.actor);
+    return {html:kopf, rechnung: a.roh ? '' : m.text,
+      aufgabe: a.actor===LEARNER ? txt('anl.aufgabe.tippe', {0:a.von})
+                                 : txt('anl.aufgabe.mitspieler-hebt', {0:a.von})};
+  }
+  if(ph.p==='drop'){
+    const f=CELL[a.von], t=CELL[a.nach], m=markAbsetzen(b,f[0],f[1],t[0],t[1],a.actor);
+    if(variante==='nach' && !a.nachher) return {html:'', rechnung: a.roh ? '' : m.text};
+    return {html:'', rechnung: a.roh ? '' : m.text,
+      aufgabe: a.actor===LEARNER ? txt('anl.aufgabe.jetzt-antippen', {0:a.nach})
+                                 : txt('anl.aufgabe.mitspieler-setzt', {0:a.nach})};
+  }
+  if(ph.p==='fail'){
+    const f=CELL[a.von], t=CELL[a.nach], m=markAbsetzen(b,f[0],f[1],t[0],t[1],a.actor);
+    if(variante!=='nach') return {html:'', aufgabe:txt('anl.aufgabe.jetzt-antippen', {0:a.nach})};
+    return {html:(a.nachher||''), rechnung:m.text};
+  }
+  return {html: a.nachher||''};
+}
+
+function messeKastenhoehe(){
+  const kasten=document.getElementById('lesson'), probe=document.getElementById('lessonProbe');
+  if(!kasten||!probe) return;
+  const breite=kasten.getBoundingClientRect().width;
+  if(!breite) return;
+  probe.style.width=breite+'px';
+  let max=0;
+
+  for(let i=0;i<PHASES.length;i++){
+    for(const v of ['vor','nach']){
+      const tl=textTeile(i,v);
+      probe.innerHTML='<h2>'+STEPS[PHASES[i].si].title+'</h2>'
+        + (tl.html||'')
+        + (tl.rechnung?'<div class="rechnung">'+tl.rechnung+'</div>':'')
+        + (tl.aufgabe ?'<div class="aufgabe">' +alsText(tl.aufgabe) +'</div>':'');
+      if(probe.scrollHeight>max) max=probe.scrollHeight;
+    }
+  }
+  probe.innerHTML='';
+  if(max<40) return;
+
+  kasten.style.height=Math.min(max+2, kastenDeckel(), Math.round(window.innerHeight*0.46))+'px';
+  kasten.dataset.gemessen=max;
+
+  const area=document.getElementById('board-area');
+  if(area && area.style.display!=='none'){
+    const minBrett=Math.min(260, Math.round(window.innerHeight*0.34));
+    const fehlt=minBrett-area.clientHeight;
+    if(fehlt>0){
+      const neu=Math.max(120, parseFloat(kasten.style.height)-fehlt);
+      kasten.style.height=neu+'px';
+    }
+  }
+  kasten.dataset.hoehe=parseFloat(kasten.style.height);
+}
+
+function adresseSchreiben(){
+  try{ history.replaceState(null, '', '#schritt=' + idx); }catch(e){}
+
+  for(const [id, ziel] of [['legal-impressum','impressum'], ['legal-datenschutz','datenschutz']]){
+    const a=document.getElementById(id);
+    if(a) a.href = 'index.html#' + ziel + '&von=' + idx;
+  }
+}
+function schrittAusAdresse(){
+  const m=(location.hash||'').match(/^#schritt=(\d{1,3})$/);
+  if(!m) return 0;
+  const n=Number(m[1]);
+  return (n>=0 && n<PHASES.length) ? n : 0;
+}
+function zeigePhase(rueck){
+  const ph=PHASES[idx], s=STEPS[ph.si], a=s.aktionen[ph.ai];
+  adresseSchreiben();
+  board=boardFor(idx);
+  leerMark(); gezeigt=false; laeuft=false; gezogen=false;
+
+  weckerAus();
+  const brett = document.getElementById('board');
+  if(brett) brett.removeAttribute('data-sieg');
+  phaseSeit = Date.now();
+
+  document.getElementById('stepno').textContent=txt('anl.schritt-von', {0:ph.si+1, 1:STEPS.length});
+  document.getElementById('barfill').style.width=Math.round(idx/(PHASES.length-1)*100)+'%';
+  document.getElementById('ltitle').textContent=s.title;
+  document.getElementById('board-area').style.display = s.nurText ? 'none' : 'flex';
+
+  const tl=textTeile(idx,'vor');
+
+  if(ph.p==='lesen'){
+    setText(tl.html); gezeigt=true;
+    if(s.nurText){ navStand(); return; }
+  }
+  else if(ph.p==='zeigen'){
+    const m=markZeigen(board, a);
+    setzeMark(m, a.roh); mark.tippen=null;
+    if(a.getan) mark.getan=CELL[a.getan];
+    if(a.blass) mark.blass=a.blass.map(n=>CELL[n]);
+    if(a.geist){ const q=CELL[a.geist.von];
+      mark.geist={rc:CELL[a.geist.auf], piece:getMovingPiece(board[q[0]][q[1]])}; }
+    setText(tl.html, tl.rechnung); gezeigt=true;
+  }
+  else if(ph.p==='tap'){
+    const p=CELL[a.feld], m=markAnheben(board, p[0], p[1], LEARNER);
+    setzeMark(m, a.roh); mark.tippen=[p[0],p[1]];
+    setText(tl.html, tl.rechnung, tl.aufgabe);
+  }
+  else if(ph.p==='lift'){
+    const f=CELL[a.von], m=markAnheben(board, f[0], f[1], a.actor);
+    setzeMark(m, a.roh); mark.tippen=[f[0],f[1]];
+    setText(tl.html, tl.rechnung, tl.aufgabe);
+  }
+  else if(ph.p==='drop' || ph.p==='fail'){
+    const f=CELL[a.von], t=CELL[a.nach];
+    const m=markAbsetzen(board, f[0], f[1], t[0], t[1], a.actor);
+    setzeMark(m, a.roh); mark.tippen=[t[0],t[1]]; mark.getan=[f[0],f[1]];
+    if(!a.roh) mark.geist={rc:[t[0],t[1]], piece:getMovingPiece(board[f[0]][f[1]])};
+    setText(tl.html, tl.rechnung, tl.aufgabe);
+  }
+  else if(ph.p==='exec'){
+    setText(tl.html);
+    if(rueck){
+      const vier=checkFourInRow(board,'black')||checkFourInRow(board,'red');
+      if(vier) mark.sieg=vier;
+      renderBoard(); groesse(); gezeigt=true; navStand();
+      return;
+    }
+
+    board=boardFor(idx-1);
+    renderBoard(); groesse(); navStand();
+    spieleAus(a, function(){ return boardFor(idx); });
+    return;
+  }
+  renderBoard(); navStand(); groesse();
+}
+
+function spieleAus(z, brettDanach, fertig){
+  laeuft=true; navStand();
+  const mit = (z.actor===OPPONENT);
+  const abKlasse = mit ? 'abflug-mit'  : 'abflug';
+  const anKlasse = mit ? 'ankunft-mit' : 'ankunft';
+  const abDauer  = mit ? ABFLUG_MIT_MS : ABFLUG_MS;
+  const anDauer  = mit ? ANKUNFT_MIT_MS : ANKUNFT_MS;
+  const f=CELL[z.von], t=CELL[z.nach];
+  const hol=(r,c)=>document.querySelector('#board .cell[data-rc="'+r+','+c+'"]');
+  const ab=hol(f[0],f[1]); if(ab) ab.classList.add(abKlasse);
+  spaeter(function(){
+    board=brettDanach();
+    leerMark();
+    renderBoard(); groesse();
+    const an=hol(t[0],t[1]); if(an) an.classList.add(anKlasse);
+
+    const vier=checkFourInRow(board,'black')||checkFourInRow(board,'red');
+    if(vier){ document.getElementById('board').setAttribute('data-sieg','wartet');
+      spaeter(function(){ mark.sieg=vier; renderBoard(); groesse();
+        document.getElementById('board').setAttribute('data-sieg','gezeigt'); }, anDauer); }
+    laeuft=false; gezeigt=true; gezogen=true;
+    if(fertig) fertig();
+    navStand();
+  }, abDauer);
+}
+
+function navStand(){
+  const ph=PHASES[idx], a=aktionVon(idx);
+  document.getElementById('btn-back').disabled = (idx===0 || laeuft);
+  const nx=document.getElementById('btn-next');
+  let frei;
+  if(laeuft) frei=false;
+  else if(ph.p==='lesen'||ph.p==='zeigen') frei=true;
+  else if(ph.p==='exec'||ph.p==='tap'||ph.p==='fail') frei=gezeigt;
+  else if(ph.p==='drop' && !a.nachher) frei=gezogen;
+  else frei=(a.actor===OPPONENT);
+  nx.disabled=!frei;
+  nx.textContent=(idx===PHASES.length-1) ? txt('anl.zum-spiel') : txt('anl.weiter');
+}
+
+function onCell(r,c){
+  const ph=PHASES[idx], a=aktionVon(idx);
+  if(laeuft) return;
+
+  if(ph.p==='tap'){
+    if(gezeigt || a.feld!==lab(r,c)) return;
+    const m=markAnheben(board,r,c,LEARNER);
+    const echt=canLift(board,r,c,LEARNER,PARITY);
+    const behauptet=(m.summe!==null) ? parityOk(m.summe, LEARNER, PARITY) : false;
+    if(behauptet!==echt) return abweichung('canLift '+lab(r,c));
+    setzeMark(m, a.roh); mark.tippen=null;
+
+    if(echt) mark.getan=[r,c];
+    gezeigt=true;
+    const tn=textTeile(idx,'nach');
+    setText(tn.html, tn.rechnung);
+    renderBoard(); groesse(); navStand(); return;
+  }
+
+  if(ph.p==='lift'){
+    if(a.actor!==LEARNER || a.von!==lab(r,c)) return;
+    if(!canLift(board,r,c,LEARNER,PARITY)) return abweichung('canLift '+lab(r,c)+' im Schritt '+STEPS[ph.si].id);
+    idx++; zeigePhase(); return;
+  }
+
+  if(ph.p==='drop'){
+    if(a.actor!==LEARNER) return;
+    const f=CELL[a.von];
+    if(a.nach!==lab(r,c)){
+
+      if(f[0]===r && f[1]===c && (Date.now()-phaseSeit) >= RUECKNAHME_SPERRE_MS){
+        idx--; zeigePhase(true);
+      }
+      return;
+    }
+
+    if(gezogen) return;
+    if(!canDrop(board,f[0],f[1],r,c,LEARNER,PARITY)) return abweichung('canDrop '+a.von+'->'+a.nach);
+    if(!a.nachher){
+      spieleAus(a, function(){ return brettNachZug(idx, a); }, function(){
+        const tn=textTeile(idx,'nach'); setText(tn.html, tn.rechnung);
+      });
+      return;
+    }
+    idx++; zeigePhase(); return;
+  }
+
+  if(ph.p==='fail'){
+    if(gezeigt || a.actor!==LEARNER || a.nach!==lab(r,c)) return;
+    const f=CELL[a.von];
+
+    if(canDrop(board,f[0],f[1],r,c,LEARNER,PARITY)) return abweichung('canDrop '+a.von+'->'+a.nach+' ist erlaubt');
+
+    mark.tippen=null; mark.getan=null; mark.geist=null;
+    gezeigt=true;
+    const tn=textTeile(idx,'nach');
+    setText(tn.html, tn.rechnung);
+    renderBoard(); groesse(); navStand(); return;
+  }
+}
+function weiter(){
+  if(laeuft) return;
+  const a0=aktionVon(idx), p0=PHASES[idx].p;
+
+  if(a0.zugDanach && (p0==='lesen'||p0==='zeigen') && !gezogen){
+    const z=a0.zugDanach;
+    spieleAus(z, function(){ return brettNachZug(idx, z); }, function(){
+      const tn=textTeile(idx,'nach'); setText(tn.html, tn.rechnung);
+    });
+    return;
+  }
+  if(idx===PHASES.length-1){ location.href='index.html'; return; }
+  idx++; zeigePhase();
+}
+function zurueck(){ if(laeuft||idx===0) return; idx--; zeigePhase(true); }
+
+function groesse(){
+  const area=document.getElementById('board-area');
+  if(!area || area.style.display==='none') return;
+  const h=area.clientHeight, w=area.clientWidth;
+  if(!h || !w) return;
+  const seite=Math.max(120, Math.min(w-20, h-20));
+  const cont=document.getElementById('board-container');
+  cont.style.width=(seite+20)+'px';
+  cont.style.height=(seite+20)+'px';
+  document.getElementById('board-wrap').style.height=seite+'px';
+
+  zeichneBereich();
+}
+
+const AUSFALL_SATZ = (typeof window!=='undefined' && window.__ANL_AUSFALL) || '';
+function bail(diagnose){
+
+  if(typeof window!=='undefined' && typeof window.__anlAusfall==='function'){
+    window.__anlAusfall(String(diagnose).replace(/<[^>]+>/g,''));
+    return;
+  }
+  const el=document.getElementById('meldung');
+  if(el && AUSFALL_SATZ){ el.style.display='block'; el.innerHTML=AUSFALL_SATZ; }
+  ['lesson','board-area','nav','bar'].forEach(function(id){
+    const n=document.getElementById(id); if(n) n.style.display='none';
+  });
+  console.error('anleitung.html: '+String(diagnose).replace(/<[^>]+>/g,''));
+}
+function abweichung(wo){
+  laeuft=true;
+  bail('Erklaerung und Regelschicht stimmen nicht ueberein (' + wo + ') — Fehler in der '
+     + 'Anleitung, nicht im Spiel.');
+}
+
+function selfTest(){
+  const err=[];
+
+  const z=fromSpec(ZIELSPEC, LEARNER);
+  const inv={};
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+    const x=z[r][c];
+    if(x.stack){ [x.stack.bottom,x.stack.top].forEach(q=>{ inv[q.color+q.stripe]=(inv[q.color+q.stripe]||0)+1; }); }
+    else if(x.piece) inv[x.piece.color+x.piece.stripe]=(inv[x.piece.color+x.piece.stripe]||0)+1;
+    const base=getBasePiece(x);
+    if(base && base.stripe!==r) err.push('Ziel: Basisfigur '+lab(r,c)+' hat falsche Punktzahl');
+  }
+  ['red','black'].forEach(function(col){ for(let s=0;s<4;s++)
+    if((inv[col+s]||0)!==2) err.push('Ziel: '+col+' '+s+' kommt '+(inv[col+s]||0)+'x vor, erwartet 2'); });
+  if(checkFourInRow(z,'black')||checkFourInRow(z,'red')) err.push('Ziel: es steht schon ein Vierer');
+  if(applyLockOn(cloneBoard(z))) err.push('Ziel: es steht ein offener Dreier');
+  const wins=getLegalMoves(z,LEARNER,PARITY).filter(function(m){
+    const b2=applyMoveOn(z,m.fr,m.fc,m.tr,m.tc,LEARNER);
+    return checkFourInRow(b2,'black')||checkFourInRow(b2,'red'); });
+  if(wins.length!==1) err.push('Ziel: '+wins.length+' Siegzuege statt genau einem');
+  else if(lab(wins[0].fr,wins[0].fc)!=='1D' || lab(wins[0].tr,wins[0].tc)!=='1B')
+    err.push('Ziel: falscher Siegzug');
+
+  const inventarTreu=function(b,wo){
+    const iv={}; let n=0;
+    for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+      const x=b[r][c];
+      const st=x.stack ? [x.stack.bottom,x.stack.top] : (x.piece?[x.piece]:[]);
+      st.forEach(q=>{ iv[q.color+q.stripe]=(iv[q.color+q.stripe]||0)+1; n++; });
+    }
+    if(n!==16) err.push(wo+': '+n+' Figuren statt 16');
+    ['red','black'].forEach(function(col){ for(let s=0;s<4;s++)
+      if((iv[col+s]||0)!==2) err.push(wo+': '+col+' '+s+' kommt '+(iv[col+s]||0)+'x vor, erwartet 2'); });
+  };
+  inventarTreu(fromSpec(DREIERSPEC,LEARNER),'Dreier-Stellung');
+  inventarTreu(fromSpec(BONUSSPEC,LEARNER),'Bonus-Stellung');
+
+  const stapelTreu=function(b,wo){
+    for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+      const st=b[r][c].stack; if(!st) continue;
+      const n=countRedsInStack(st.bottom, st.top);
+      if(!parityOk(n, st.formedBy, PARITY))
+        err.push(wo+': Stapel auf '+lab(r,c)+' hat '+n+' rote ('+((n%2===1)?'ungerade':'gerade')+'), gehoert aber Spieler '
+          +st.formedBy+' — so eine Stellung ist nicht erreichbar');
+    }
+  };
+
+  const summeAbsetzen=function(b,f,t){
+    const mp=getMovingPiece(b[f[0]][f[1]]), to=b[t[0]][t[1]];
+    if(to.piece) return countRedsInStack(to.piece,mp);
+    let n=countRedNeighbors(b,t[0],t[1],f[0],f[1]);
+    const st=b[f[0]][f[1]].stack;
+    if(st){ const dr=Math.abs(f[0]-t[0]), dc=Math.abs(f[1]-t[1]);
+      if(dr<=1&&dc<=1&&!(dr===0&&dc===0)&&st.bottom.color==='red') n++; }
+    if(mp.color==='red') n++;
+    return n;
+  };
+  const summeAnheben=function(b,f){
+    const cell=b[f[0]][f[1]];
+    if(cell.stack) return countRedsInStack(cell.stack.bottom, cell.stack.top);
+    return countRedNeighbors(b,f[0],f[1]) + (getMovingPiece(cell).color==='red'?1:0);
+  };
+
+  function pruefZug(s, z, b, i){
+    if(!z) return;
+    const f=CELL[z.von], t=CELL[z.nach];
+    if(amZug(i)!==z.actor) err.push(s.id+'/'+z.von+': am Zug ist Spieler '+amZug(i)+', der Zug verlangt '+z.actor);
+    if(!canLift(b,f[0],f[1],z.actor,PARITY)) err.push(s.id+': '+z.von+' ist nicht anhebbar');
+    if(!canDrop(b,f[0],f[1],t[0],t[1],z.actor,PARITY)) err.push(s.id+': '+z.von+'->'+z.nach+' ist kein erlaubter Zug');
+    const mD=markAbsetzen(b,f[0],f[1],t[0],t[1],z.actor);
+    if(typeof z.summeAuf==='number' && mD.summe!==z.summeAuf)
+      err.push(s.id+': der Text nennt '+z.summeAuf+', gerechnet sind es '+mD.summe);
+    const c=cloneBoard(b); applyMove(c,f[0],f[1],t[0],t[1],z.actor);
+    const vier=checkFourInRow(c,'black')||checkFourInRow(c,'red');
+    if((z.erwartet==='sieg')!==!!vier) err.push(s.id+': '+z.von+'->'+z.nach+' und die Sieg-Erwartung passen nicht');
+  }
+
+  for(let i=0;i<PHASES.length;i++){
+    const ph=PHASES[i], s=STEPS[ph.si], a=s.aktionen[ph.ai], b=boardFor(i);
+    stapelTreu(b, s.id+'/'+ph.p);
+    if(ph.p==='lesen') pruefZug(s, a.zugDanach, b, i);
+
+    if(ph.p==='zeigen'){
+      (a.pruefungen||[]).forEach(function(pr){
+        if(pr.art==='anheben'){
+          const q=CELL[pr.feld], ist=summeAnheben(b,q);
+          if(ist!==pr.summe) err.push(s.id+': Text nennt fuer '+pr.feld+' die Summe '+pr.summe+', gerechnet '+ist);
+        } else {
+          const q1=CELL[pr.von], q2=CELL[pr.nach], ist=summeAbsetzen(b,q1,q2);
+          if(ist!==pr.summe) err.push(s.id+': Text nennt fuer '+pr.von+'->'+pr.nach+' die Summe '+pr.summe+', gerechnet '+ist);
+        }
+      });
+
+      (a.bereich||[]).forEach(function(n){ if(!CELL[n]) err.push(s.id+': unbekanntes Feld '+n+' im Bereich'); });
+      (a.blass||[]).forEach(function(n){
+        if(!CELL[n]) err.push(s.id+': unbekanntes Feld '+n+' unter blass');
+        else if(!b[CELL[n][0]][CELL[n][1]].piece) err.push(s.id+': '+n+' ist leer und kann nicht blass sein'); });
+
+      if(typeof a.rechnung==='string' && a.rechnung!=='anheben' && a.feld){
+        const q=CELL[a.feld], zelle=b[q[0]][q[1]];
+        const beh = Array.isArray(a.behauptet) ? a.behauptet : [];
+
+        if(!beh.length) err.push(s.id+': eigener Rechnungssatz ohne `behauptet` ('+a.feld+')');
+        if(beh.includes('anheben') && !canLift(b,q[0],q[1],LEARNER,PARITY))
+          err.push(s.id+': der Text sagt "darfst anheben", canLift sagt nein ('+a.feld+')');
+        if(beh.includes('stapelhoheit') && !(zelle.stack && zelle.stack.formedBy===LEARNER))
+          err.push(s.id+': der Text behauptet eigene Stapelhoheit, das Brett sagt etwas anderes ('+a.feld+')');
+      }
+      pruefZug(s, a.zugDanach, b, i);
+      continue;
+    }
+
+    if(ph.p==='tap'){
+      const p=CELL[a.feld];
+      const m=markAnheben(b,p[0],p[1],LEARNER);
+      const echt=canLift(b,p[0],p[1],LEARNER,PARITY);
+      if(m.ok!==echt) err.push(s.id+': Urteil und canLift widersprechen sich auf '+a.feld);
+      const behauptet=(m.summe!==null)?parityOk(m.summe,LEARNER,PARITY):false;
+      if(behauptet!==echt) err.push(s.id+': angezeigte Summe und canLift widersprechen sich auf '+a.feld);
+      if(m.summe!==null && m.summe!==summeAnheben(b,p)) err.push(s.id+': falsche Summe auf '+a.feld);
+      continue;
+    }
+    if(a.art!=='zug' && a.art!=='fehlzug') continue;
+    if(!ersteDerAktion(i)) continue;
+
+    const bv = (ph.p==='exec') ? boardFor(i-1) : b;
+    const f=CELL[a.von], t=CELL[a.nach];
+    if(amZug(i)!==a.actor) err.push(s.id+'/'+a.von+': am Zug ist Spieler '+amZug(i)+', die Aktion verlangt '+a.actor);
+    if(!canLift(bv,f[0],f[1],a.actor,PARITY)) err.push(s.id+': '+a.von+' ist nicht anhebbar');
+
+    const mL=markAnheben(bv,f[0],f[1],a.actor), mD=markAbsetzen(bv,f[0],f[1],t[0],t[1],a.actor);
+    if(mL.summe===null || parityOk(mL.summe,a.actor,PARITY)!==canLift(bv,f[0],f[1],a.actor,PARITY))
+      err.push(s.id+': Anhebe-Erklaerung und Regelschicht widersprechen sich ('+a.von+')');
+    if(mL.summe!==summeAnheben(bv,f)) err.push(s.id+': angezeigte Anhebe-Summe '+mL.summe+' auf '+a.von);
+    if(mD.summe!==null && mD.summe!==summeAbsetzen(bv,f,t))
+      err.push(s.id+': angezeigte Absetz-Summe '+mD.summe+', gerechnet '+summeAbsetzen(bv,f,t));
+    if(mD.ok!==canDrop(bv,f[0],f[1],t[0],t[1],a.actor,PARITY))
+      err.push(s.id+': Absetz-Urteil und canDrop widersprechen sich ('+a.von+'->'+a.nach+')');
+
+    if(typeof a.summeAuf==='number' && mD.summe!==a.summeAuf)
+      err.push(s.id+': der Text nennt '+a.summeAuf+', gerechnet sind es '+mD.summe);
+
+    const erlaubt=canDrop(bv,f[0],f[1],t[0],t[1],a.actor,PARITY);
+    if(a.art==='fehlzug'){
+      if(erlaubt) err.push(s.id+': '+a.von+'->'+a.nach+' soll abgelehnt werden, ist aber erlaubt');
+      continue;
+    }
+    if(!erlaubt) err.push(s.id+': '+a.von+'->'+a.nach+' ist kein erlaubter Zug');
+
+    const c2=cloneBoard(bv);
+    applyMove(c2,f[0],f[1],t[0],t[1],a.actor);
+    const vier=checkFourInRow(c2,'black')||checkFourInRow(c2,'red');
+    const trip=vier?null:applyLockOn(c2);
+    if(a.erwartet==='sieg'   && !vier) err.push(s.id+': der Zug '+a.von+'->'+a.nach+' gewinnt nicht');
+    if(a.erwartet!=='sieg'   &&  vier) err.push(s.id+': unerwarteter Partieschluss bei '+a.von+'->'+a.nach);
+    if(a.erwartet==='dreier' && !trip) err.push(s.id+': es entsteht kein Dreier');
+    if(a.erwartet!=='dreier' &&  trip) err.push(s.id+': unerwarteter Dreier bei '+a.von+'->'+a.nach);
+    if(a.erwartet==='dreier' &&  trip && !hasAnyMove(c2,a.actor,PARITY)) err.push('dreier: kein Bonuszug moeglich');
+
+    (a.pruefungen||[]).forEach(function(pr){
+      if(pr.art==='anheben'){
+        const q=CELL[pr.feld], ist=summeAnheben(c2,q);
+        if(ist!==pr.summe) err.push(s.id+': Text nennt fuer '+pr.feld+' die Summe '+pr.summe+', gerechnet '+ist);
+      } else {
+        const q1=CELL[pr.von], q2=CELL[pr.nach], ist=summeAbsetzen(c2,q1,q2);
+        if(ist!==pr.summe) err.push(s.id+': Text nennt fuer '+pr.von+'->'+pr.nach+' die Summe '+pr.summe+', gerechnet '+ist);
+      }
+    });
+  }
+
+  STEPS.forEach(function(s){
+    if(!s.aufbau) return;
+    const b=initBoard();
+    let dran=LEARNER;
+    s.aufbau.forEach(function(z, k){
+      const f=CELL[z[0]], t=CELL[z[1]];
+      if(z[2]!==dran) err.push(s.id+': Aufbauzug '+(k+1)+' ('+z[0]+'→'+z[1]+') ist nicht am Zug — '
+        +'so eine Stellung entsteht im Spiel nicht');
+      if(!canLift(b,f[0],f[1],z[2],PARITY)) err.push(s.id+': Aufbauzug '+(k+1)+': '+z[0]+' ist nicht anhebbar');
+      else if(!canDrop(b,f[0],f[1],t[0],t[1],z[2],PARITY)) err.push(s.id+': Aufbauzug '+(k+1)+': '+z[0]+'→'+z[1]+' ist nicht erlaubt');
+      applyMove(b,f[0],f[1],t[0],t[1],z[2]);
+      const vier=checkFourInRow(b,'black')||checkFourInRow(b,'red');
+      const trip=vier?null:applyLockOn(b);
+      dran = trip ? z[2] : (z[2]===LEARNER?OPPONENT:LEARNER);
+    });
+    if((s.startet||LEARNER)!==dran)
+      err.push(s.id+': nach dem Aufbau ist Spieler '+dran+' am Zug, der Schritt sagt '+(s.startet||LEARNER));
+  });
+
+  const beideNein=fn=>!fn(1)&&!fn(2);
+  const genauEiner=fn=>fn(1)!==fn(2);
+  const phaseVon=id=>{ for(let i=0;i<PHASES.length;i++) if(STEPS[PHASES[i].si].id===id) return i; return -1; };
+  {
+    const T=initBoard();
+    if(!genauEiner(pl=>canDrop(T,3,1,2,1,pl,PARITY)))
+      err.push('Regelschicht: den Stapel 1B->2B duerfen beide oder keiner bilden — die Stapel-Paritaet wirkt nicht');
+  }
+  {
+    const A=boardFor(phaseVon('leerfeld'));
+    if(!beideNein(pl=>canDrop(A,1,1,3,1,pl,PARITY)))
+      err.push('Regelschicht: 3B (Punktzahl 1) darf auf das leere 3-Punkte-Feld 1B — Stripe-Match wirkt nicht');
+    if(!beideNein(pl=>canDrop(A,1,1,0,3,pl,PARITY)))
+      err.push('Regelschicht: es darf auf den vorhandenen Stapel 4D gestapelt werden — Stapelhoehe wirkt nicht');
+    if(!canLift(A,0,3,1,PARITY) || canLift(A,0,3,2,PARITY))
+      err.push('Regelschicht: die Stapelhoheit auf 4D stimmt nicht');
+  }
+  {
+    const B=fromSpec(BONUSSPEC, LEARNER);
+    if(!beideNein(pl=>canLift(B,1,1,pl,PARITY))) err.push('Regelschicht: gesperrte Einzelfigur 3B ist anhebbar');
+    if(!beideNein(pl=>canLift(B,0,1,pl,PARITY))) err.push('Regelschicht: gesperrte Einzelfigur 4B ist anhebbar');
+    if(!canLift(B,2,1,1,PARITY)) err.push('Regelschicht: der eigene Stapel auf dem gesperrten 2B ist nicht anhebbar');
+    if(canLift(B,1,3,1,PARITY))  err.push('Regelschicht: der Stapel des Mitspielers auf 3D ist fuer den Lernenden anhebbar');
+  }
+
+  if(typeof canStack!=='function' || typeof applyLockOn!=='function')
+    err.push('countred_rules.js: erwartete Funktionen fehlen');
+  else {
+    const t=initBoard(); t[2][1].locked=true;
+    if(!canStack(t,getMovingPiece(t[3][1]),2,1,1,'odd'))
+      err.push('countred_rules.js: Stapeln auf gesperrte Einzelfigur wird abgelehnt (v2.0-Bug?)');
+  }
+  return err;
+}
+
+function init(){
+  window.__anlGestartet = true;
+
+  const ex=document.getElementById('btn-exit');
+  if(ex) ex.onclick=function(){ location.href='index.html'; };
+
+  if(ex) ex.textContent=txt('anl.zum-spiel-kopf');
+
+  document.title=txt('anl.seitentitel');
+  document.documentElement.lang=SPRACHE;
+
+  const fz=ANL_FASSUNG.match(/Fassung (\d+) · (\S+)$/)||[];
+  const fs_=document.getElementById('fassung'); if(fs_) fs_.textContent=txt('anl.fassung', {0:fz[1], 1:fz[2]});
+
+  [['btn-back','anl.zurueck'], ['btn-next','anl.weiter'],
+   ['legal-impressum','anl.impressum'], ['legal-datenschutz','anl.datenschutz']].forEach(function(p){
+    const n=document.getElementById(p[0]); if(n) n.textContent=txt(p[1]);
+  });
+  console.log('CountRed · ' + ANL_FASSUNG + ' · Regelschicht: countred_rules.js');
+
+  const noetig=['initBoard','canLift','canDrop','canStack','canPlaceOnEmpty','parityOk',
+                'countRedNeighbors','countRedsInStack','getMovingPiece','getBasePiece',
+                'getLegalMoves','applyMove','applyMoveOn','applyLockOn','checkFourInRow',
+                'cloneBoard','hasAnyMove','coordToLabel'];
+  const fehlt=noetig.filter(n=>typeof window[n]!=='function');
+  if(fehlt.length) return bail('Die Regelschicht fehlt — countred_rules.js muss im selben Ordner '
+    + 'liegen wie diese Seite. Nicht gefunden: ' + fehlt.join(', ')
+    + '. (Eine einzeln heruntergeladene HTML-Datei kann ihre Nachbardatei meist nicht holen — '
+    + 'dafuer gibt es die Vorschaufassung.)');
+
+  let err;
+  try { err=selfTest(); }
+  catch(e){ return bail('Selbsttest abgestuerzt: ' + String((e&&e.message)||e)); }
+  if(err.length){
+    console.error('anleitung.html selfTest:', err);
+    return bail('Selbsttest fehlgeschlagen — Anleitung und Regelschicht stimmen nicht ueberein: '
+      + err.join(' | '));
+  }
+
+  document.getElementById('btn-next').onclick=weiter;
+  document.getElementById('btn-back').onclick=zurueck;
+  window.addEventListener('resize', function(){ messeKastenhoehe(); groesse(); });
+  idx=schrittAusAdresse();
+
+  zeigePhase(idx>0);
+  setTimeout(function(){ messeKastenhoehe(); groesse(); }, 30);
+}
+if(typeof document!=='undefined' && typeof window!=='undefined'){
+  try { init(); }
+  catch(e){ bail('Unerwarteter Fehler beim Start: '+String((e&&e.message)||e)); }
+}
+</script>
+</body>
+</html>

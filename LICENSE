@@ -1,0 +1,66 @@
+CountRed — Urheberrecht und Nutzungsrechte
+
+© 1998–2026 Walter Rehm. Alle Rechte vorbehalten.
+
+Programmcode, Texte, Gestaltung und Bildschirmaufbau dieses Projekts sind
+urheberrechtlich geschützt. Dieses Repository steht unter KEINER
+Open-Source-Lizenz; es werden keine Nutzungsrechte eingeräumt, die über das
+Folgende hinausgehen.
+
+Ohne Rückfrage erlaubt
+  · das Spiel unter countred.com spielen,
+  · den Quelltext ansehen und daraus lernen,
+  · innerhalb von GitHub ansehen und forken, soweit die Nutzungsbedingungen
+    von GitHub das für öffentliche Repositories vorsehen.
+
+Ohne schriftliche Zustimmung nicht erlaubt
+  · Vervielfältigen, Verändern, Weitergeben oder Veröffentlichen des Codes
+    oder der Texte, ganz oder in Teilen, auch nicht in bearbeiteter Form,
+  · Betrieb einer eigenen Fassung unter anderem Namen oder anderer Adresse,
+  · jede kommerzielle Nutzung.
+
+Das Spiel stammt von Walter Rehm und ist seit 1998 nachweisbar; die
+limitierte Auflage als Brettspiel erschien unter dem Namen Gembel.
+
+Beansprucht werden der Programmcode, der Wortlaut der Spielregeln und der
+interaktiven Anleitung sowie Gestaltung und Bildschirmaufbau.
+
+Ausgenommen sind Inhalte Dritter, für die die Rechte ihrer Inhaber gelten und
+an denen dieses Repository keine Rechte einräumt, auch nicht durch das Forken:
+  · das Porträtfoto auf der Seite „Über das Spiel“ (Foto: Christian Alber),
+  · die Firebase-Bibliothek firebase-app-10.12.0.js und
+    firebase-database-10.12.0.js (Google LLC, Apache License 2.0, siehe
+    LICENSE-firebase.txt).
+
+Die Namen "CountRed" und "Gembel" werden als Kennzeichen dieses Projekts
+verwendet.
+
+Anfragen: info@countred.com
+
+─────────────────────────────────────────────────────────────────────
+Short version in English (the German text above is authoritative)
+
+© 1998–2026 Walter Rehm. All rights reserved. This repository is NOT
+open source and grants no licence.
+
+Permitted without asking: playing the game at countred.com, reading the
+source and learning from it, and viewing or forking it within GitHub as
+far as GitHub's Terms of Service provide for public repositories.
+
+Not permitted without written consent: copying, modifying, distributing
+or publishing the code or the texts, in whole or in part, including in
+modified form; running your own version under a different name or
+address; any commercial use.
+
+Claimed: the program code, the wording of the rules and of the
+interactive guide, the design and the screen layout.
+
+Excluded are third-party contents, which remain subject to their owners'
+rights and for which this repository grants no rights, including by
+forking: the portrait photo on the "About the game" page (photo: Christian
+Alber) and the Firebase library (Google LLC, Apache License 2.0, see
+LICENSE-firebase.txt).
+
+"CountRed" and "Gembel" are used as the marks of this project.
+
+Enquiries: info@countred.com
