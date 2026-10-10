@@ -292,14 +292,14 @@ setTimeout(function(){
 }, 12000);
 </script>
 
-<script src="countred_rules.js?v=185" charset="utf-8"></script>
+<script src="countred_rules.js?v=186" charset="utf-8"></script>
 
 <script>
 
 
 const LEARNER = 1, OPPONENT = 2, PARITY = 'odd';
 
-const ANL_FASSUNG = 'Anleitung · Fassung 80 · 09.10.2026';
+const ANL_FASSUNG = 'Anleitung · Fassung 81 · 10.10.2026';
 
 const SPRACHE = (function spracheWaehlen(){
   try {
@@ -316,7 +316,7 @@ const TEXTE = {
       'anl.aufgabe.mitspieler-setzt':                'Mit Weiter setzt er sie auf {0} ab.',
       'anl.aufgabe.tippe':                           'Tippe {0} an.',
       'anl.aufloesen.a2.rechnung':                   'Du darfst anheben. Du hast den Stapel gebildet.',
-      'anl.aufloesen.a2.text#html':                  '<p>Leichter zu merken: Nur wer den Stapel gebildet hat, kann ihn wieder auflösen.</p>',
+      'anl.aufloesen.a2.text#html':                  '<p>Leichter zu merken: Nur wer den Stapel gebildet hat, kann ihn wieder auflösen. Ist deine Parität ungerade, erkennst du deinen Stapel daran, dass 1 rote Figur darin ist. Ist deine Parität gerade, befinden sich 0 oder 2 rote Figuren darin.</p>',
       'anl.aufloesen.a3.text#html':                  '<p>Wichtig: nur die Top-Figur darf bewegt werden, nicht der Stapel als ganzes.</p><p>Strategie: mit jedem Zug einer roten Figur ändert sich die Parität vieler Felder. Da, wo die Figur weggezogen wird, und auch dort, wo sie abgesetzt wird. Nur im Stapel ist eine Figur also vor dem Zugriff deines Mitspielers sicher.</p>',
       'anl.aufloesen.a4.text#html':                  '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Mit Weiter zieht der Mitspieler von D3 auf C2:</p>',
       'anl.aufloesen.a4.text-nach#html':             '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Dein Mitspieler ist von D3 auf C2 gezogen.</p>',
@@ -344,7 +344,7 @@ const TEXTE = {
       'anl.dreier.intro#html':                       '<p>Erinnerst du dich an das Ziel: die vierte gleichfarbige Figur in einer Spalte? Es gibt noch ein Zwischenziel davor: die <b>dritte</b> gleichfarbige Figur in eine Spalte ziehen. Für den Dreier — und ebenso für den Vierer — zählt bei einem Stapel nur die untere Figur, nicht die darauf gestapelte.</p>',
       'anl.dreier.titel':                            'Drei in einer Spalte',
       'anl.erlaubnis.a5.text#html':                  '<p>Die Zugerlaubnis musst du genauso auch beim Absetzen der Figur beachten: Du darfst die Figur <b>absetzen</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>nach</b> dem Absetzen <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen.</p><p>Noch sind aber alle Felder belegt, also lernst du zuvor die Zugerlaubnis beim Stapel kennen …</p>',
-      'anl.erlaubnis.intro#html':                    '<p>Wer welche Figur ziehen darf, du oder dein Mitspieler, entscheidet allein die Parität: Du darfst eine Figur <b>anheben</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen.</p>',
+      'anl.erlaubnis.intro#html':                    '<p>Wer welche Figur ziehen darf, du oder dein Mitspieler, entscheidet allein die Parität (gerade oder ungerade): Du darfst eine Figur <b>anheben</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen.</p>',
       'anl.erlaubnis.titel':                         'Zugerlaubnis',
       'anl.fassung':                                 'Anleitung · Fassung {0} · {1}',
       'anl.grund.gesperrt#html':                     '{0} ist eine <b>gesperrte</b> Basis-Figur im Dreier.',
@@ -403,7 +403,7 @@ const TEXTE = {
       'anl.aufgabe.mitspieler-setzt':                'With Next, they set it down on {0}.',
       'anl.aufgabe.tippe':                           'Tap {0}.',
       'anl.aufloesen.a2.rechnung':                   'You may lift. You formed the stack.',
-      'anl.aufloesen.a2.text#html':                  '<p>Easier to remember: only the player who formed a stack can break it up again.</p>',
+      'anl.aufloesen.a2.text#html':                  '<p>Easier to remember: only the player who formed a stack can break it up again. If your parity is odd, you can recognise your stack by the 1 red piece in it. If your parity is even, it contains 0 or 2 red pieces.</p>',
       'anl.aufloesen.a3.text#html':                  '<p>Important: only the top piece may be moved, never the stack as a whole.</p><p>Strategy: every move of a red piece changes the parity of many squares — both where the piece is moved from and where it is set down. So a piece is only safe from the other player inside a stack.</p>',
       'anl.aufloesen.a4.text#html':                  '<p>For the next example, the other player also makes their first move. With Next, the other player moves from D3 to C2:</p>',
       'anl.aufloesen.a4.text-nach#html':             '<p>For the next example, the other player also makes their first move. The other player has moved from D3 to C2.</p>',
@@ -431,7 +431,7 @@ const TEXTE = {
       'anl.dreier.intro#html':                       '<p>Remember the aim: the fourth piece of the same colour in a column? There is an intermediate goal before that: moving the <b>third</b> piece of the same colour into a column. For the triple — and likewise for four in a column — only the lower piece of a stack counts, not the one stacked on top.</p>',
       'anl.dreier.titel':                            'Three in a column',
       'anl.erlaubnis.a5.text#html':                  '<p>The right to move applies in exactly the same way when you set the piece down: you may <b>set down</b> the piece if the sum of all <b>red</b> neighbouring pieces <b>after</b> setting it down is <b>odd</b>. If the moving piece itself is red, you must count it too.</p><p>But all squares are still occupied, so first you will learn the right to move for a stack …</p>',
-      'anl.erlaubnis.intro#html':                    '<p>Who may move which piece, you or the other player, is decided by parity alone: you may <b>lift</b> a piece if the sum of all <b>red</b> neighbouring pieces is <b>odd</b>. If the moving piece itself is red, you must count it too.</p>',
+      'anl.erlaubnis.intro#html':                    '<p>Who may move which piece, you or the other player, is decided by parity (even or odd) alone: you may <b>lift</b> a piece if the sum of all <b>red</b> neighbouring pieces is <b>odd</b>. If the moving piece itself is red, you must count it too.</p>',
       'anl.erlaubnis.titel':                         'The right to move',
       'anl.fassung':                                 'How to play · Version {0} · {1}',
       'anl.grund.gesperrt#html':                     '{0} is a <b>locked</b> base piece in the triple.',

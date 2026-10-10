@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=185'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=186'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=185" charset="utf-8"></script>
+<script src="countred_rules.js?v=186" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=185" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=186" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1502,7 +1502,7 @@ const TEXTE = {
       'regeln.anheben':                              'Anheben',
       'regeln.beim-nochmal-beginnt-der':             'Beim Nochmal beginnt der Verlierer der vorangegangenen Partie; nach einem Remis wechselt der Anziehende. Die Parität wechselt nach jeder Partie, sodass beide Spieler abwechselnd gerade und ungerade spielen.',
       'regeln.brett':                                'Brett',
-      'regeln.die-spieler-ziehen-abwechselnd':       'Die Spieler ziehen abwechselnd. Die Parität entscheidet, ob ein Zug erlaubt ist: einer zieht bei gerader Anzahl beteiligter roter Figuren, der andere bei ungerader.',
+      'regeln.die-spieler-ziehen-abwechselnd':       'Die Spieler ziehen abwechselnd. Die Parität (gerade oder ungerade) entscheidet, ob ein Zug erlaubt ist: einer zieht bei gerader Anzahl beteiligter roter Figuren, der andere bei ungerader.',
       'regeln.die-zahl-auf-der':                     'Die Zahl auf der Figur muss zu den Punkten des Feldes passen. Zähle die roten Nachbarn des Zielfeldes nach dem geplanten Zug. Zugfigur mitzählen, wenn sie rot ist. Ungerade Summe → der ungerade Spieler darf absetzen, gerade Summe → der gerade.',
       'regeln.drei-in-einer-spalte#html':            '<strong style="color:var(--text);">Drei in einer Spalte → Bonuszug</strong><br>Drei gleichfarbige Figuren direkt übereinander in einer Spalte, bei einem Stapel zählt die Basis. Diese drei Figuren werden gesperrt, und wer den Dreier gebildet hat, bekommt einen Bonuszug. Ist kein Bonuszug möglich, zieht der Mitspieler.<br><br>Gesperrt heißt: Diese Figur lässt sich nicht mehr bewegen. Auf sie darf aber weiterhin gestapelt werden, und die obere Figur eines so gebildeten Stapels darf auch wieder heruntergenommen werden. Für die Parität zählen auch die gesperrten Figuren weiterhin mit.<br><br>Wer die vierte passende Figur in eine Spalte zieht, gewinnt — unabhängig davon, wer die drei darunter gebaut hat.',
       'regeln.eine-figur-auf-eine':                  'Eine Figur auf eine Einzelfigur setzen. Es zählen nur die roten Figuren im neuen Stapel — keine Nachbarn. Die Punkte spielen dabei keine Rolle. Ein Stapel fasst 2 Figuren; auf einen Stapel darf nicht gestapelt werden.',
@@ -1511,7 +1511,7 @@ const TEXTE = {
       'regeln.hat-ein-spieler-keinen':               'Kann ein Spieler keinen erlaubten Zug machen, zieht der Mitspieler nochmals.',
       'regeln.keine-zugmoeglichkeit':                'Keine Zugmöglichkeit',
       'regeln.nochmal':                              'Nochmal',
-      'regeln.nur-wer-einen-stapel':                 'Nur wer einen Stapel gebildet hat, darf ihn wieder auflösen. Bewegt wird immer nur die Top-Figur, nie der Stapel als Ganzes. Fürs Absetzen gelten die Regeln oben.',
+      'regeln.nur-wer-einen-stapel':                 'Nur wer einen Stapel gebildet hat, darf ihn wieder auflösen. Ist deine Parität ungerade, erkennst du deinen Stapel daran, dass 1 rote Figur darin ist. Ist deine Parität gerade, befinden sich 0 oder 2 rote Figuren darin. Bewegt wird immer nur die Top-Figur, nie der Stapel als Ganzes. Fürs Absetzen gelten die Regeln oben.',
       'regeln.passen-ist-nicht-erlaubt':             'Passen ist nicht erlaubt.',
       'regeln.regeln':                               'Regeln',
       'regeln.remis-eine-einigung-auf#html':         '<strong style="color:var(--text);">Remis</strong><br>Eine Einigung auf Remis ist jederzeit möglich; ein solches Angebot darf abgelehnt werden.<br><br>Tritt dieselbe Stellung — mit demselben Spieler am Zug — zum <strong style="color:var(--text);">dritten</strong> Mal auf, kann der Spieler am Zug Remis <strong style="color:var(--text);">einfordern</strong>. Der Mitspieler kann es nicht ablehnen.<br><br>Beim <strong style="color:var(--text);">fünften</strong> Auftreten derselben Stellung endet die Partie automatisch unentschieden, ebenso wenn 50 Züge lang kein neuer Dreier gebildet wurde.',
@@ -1822,7 +1822,7 @@ const TEXTE = {
       'regeln.anheben':                              'Lifting',
       'regeln.beim-nochmal-beginnt-der':             'In Play again, the loser of the previous game begins; after a draw, the first player changes. Parity changes after every game, so both players alternate between even and odd.',
       'regeln.brett':                                'Board',
-      'regeln.die-spieler-ziehen-abwechselnd':       'The players take turns. Parity decides whether a move is allowed: one player moves when the number of red pieces involved is even, the other when it is odd.',
+      'regeln.die-spieler-ziehen-abwechselnd':       'The players take turns. Parity (even or odd) decides whether a move is allowed: one player moves when the number of red pieces involved is even, the other when it is odd.',
       'regeln.die-zahl-auf-der':                     'The number on the piece must match the points of the square. Count the red neighbours of the target square after the planned move. Count the moving piece if it is red. Odd sum → the odd player may set down, even sum → the even player.',
       'regeln.drei-in-einer-spalte#html':            '<strong style="color:var(--text);">Three in a column → bonus move</strong><br>Three pieces of the same colour directly one above the other in a column; for a stack, the base counts. These three pieces become locked, and whoever formed the triple gets a bonus move. If no bonus move is possible, the other player moves.<br><br>Locked means: this piece can no longer be moved. But you may still stack on it, and the upper piece of a stack formed this way may be taken off again. The locked pieces still count for parity.<br><br>Whoever moves the fourth matching piece into a column wins — no matter who built the three below it.',
       'regeln.eine-figur-auf-eine':                  'Set a piece on a single piece. Only the red pieces in the new stack count — no neighbours. The points do not matter here. A stack holds 2 pieces; you may not stack onto a stack.',
@@ -1831,7 +1831,7 @@ const TEXTE = {
       'regeln.hat-ein-spieler-keinen':               'If a player has no legal move, the other player moves again.',
       'regeln.keine-zugmoeglichkeit':                'No legal move',
       'regeln.nochmal':                              'Play again',
-      'regeln.nur-wer-einen-stapel':                 'Only the player who formed a stack may break it up again. Only the top piece is ever moved, never the stack as a whole. The rules above apply to setting it down.',
+      'regeln.nur-wer-einen-stapel':                 'Only the player who formed a stack may break it up again. If your parity is odd, you can recognise your stack by the 1 red piece in it. If your parity is even, it contains 0 or 2 red pieces. Only the top piece is ever moved, never the stack as a whole. The rules above apply to setting it down.',
       'regeln.passen-ist-nicht-erlaubt':             'Passing is not allowed.',
       'regeln.regeln':                               'Rules',
       'regeln.remis-eine-einigung-auf#html':         '<strong style="color:var(--text);">Draw</strong><br>A draw can be agreed at any time; such an offer may be declined.<br><br>If the same position — with the same player to move — occurs for the <strong style="color:var(--text);">third</strong> time, the player to move can <strong style="color:var(--text);">claim</strong> a draw. The other player cannot decline it.<br><br>When the same position occurs for the <strong style="color:var(--text);">fifth</strong> time, the game ends automatically in a draw, and likewise if no new triple has been formed for 50 moves.',
@@ -2308,7 +2308,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v185';
+const BUILD_MARKER='· Build v186';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2455,7 +2455,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=185');
+    aiWorker=new Worker('countred_ai_worker.js?v=186');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
