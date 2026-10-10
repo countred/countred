@@ -204,8 +204,9 @@ body{padding:max(env(safe-area-inset-top),10px) max(env(safe-area-inset-right),1
   <div id="board-area">
     <div id="board-container">
       <div id="row-labels">
-        <div class="row-label">1</div><div class="row-label">2</div>
-        <div class="row-label">3</div><div class="row-label">4</div>
+
+        <div class="row-label">3</div><div class="row-label">2</div>
+        <div class="row-label">1</div><div class="row-label">0</div>
       </div>
       <div id="board-wrap"><div id="board"><div id="bereich"></div></div></div>
       <div id="col-labels">
@@ -291,14 +292,14 @@ setTimeout(function(){
 }, 12000);
 </script>
 
-<script src="countred_rules.js?v=184" charset="utf-8"></script>
+<script src="countred_rules.js?v=185" charset="utf-8"></script>
 
 <script>
 
 
 const LEARNER = 1, OPPONENT = 2, PARITY = 'odd';
 
-const ANL_FASSUNG = 'Anleitung · Fassung 79 · 02.10.2026';
+const ANL_FASSUNG = 'Anleitung · Fassung 80 · 09.10.2026';
 
 const SPRACHE = (function spracheWaehlen(){
   try {
@@ -317,28 +318,28 @@ const TEXTE = {
       'anl.aufloesen.a2.rechnung':                   'Du darfst anheben. Du hast den Stapel gebildet.',
       'anl.aufloesen.a2.text#html':                  '<p>Leichter zu merken: Nur wer den Stapel gebildet hat, kann ihn wieder auflösen.</p>',
       'anl.aufloesen.a3.text#html':                  '<p>Wichtig: nur die Top-Figur darf bewegt werden, nicht der Stapel als ganzes.</p><p>Strategie: mit jedem Zug einer roten Figur ändert sich die Parität vieler Felder. Da, wo die Figur weggezogen wird, und auch dort, wo sie abgesetzt wird. Nur im Stapel ist eine Figur also vor dem Zugriff deines Mitspielers sicher.</p>',
-      'anl.aufloesen.a4.text#html':                  '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Mit Weiter zieht der Mitspieler von 1D auf 2C:</p>',
-      'anl.aufloesen.a4.text-nach#html':             '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Dein Mitspieler ist von 1D auf 2C gezogen.</p>',
+      'anl.aufloesen.a4.text#html':                  '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Mit Weiter zieht der Mitspieler von D3 auf C2:</p>',
+      'anl.aufloesen.a4.text-nach#html':             '<p>Für das nächste Beispiel macht dein Mitspieler auch seinen ersten Zug. Dein Mitspieler ist von D3 auf C2 gezogen.</p>',
       'anl.aufloesen.intro#html':                    '<p>Die Zugerlaubnis musst du genauso auch beim Anheben der Figur von einem Stapel beachten: Du darfst die Top-Figur anheben, wenn die Summe der <b>roten</b> Figuren im Stapel <b>ungerade</b> ist. In deinem Fall ist das 1 rote Figur. Die Parität des Mitspielers ist gerade, also sind es bei ihm 0 oder 2 rote Figuren.</p>',
       'anl.aufloesen.titel':                         'Stapel auflösen',
-      'anl.beginn.a1.nachher#html':                  '<p>Du hast einen Stapel auf 4D gebildet.</p>',
+      'anl.beginn.a1.nachher#html':                  '<p>Du hast einen Stapel auf D0 gebildet.</p>',
       'anl.beginn.a2.text#html':                     '<p>Grundsätzliches, bevor du die Zugerlaubnis kennenlernst: Du darfst jede Figur bewegen, rote <b>und</b> schwarze. Du darfst überall hinziehen. Es gibt keine vorgeschriebene Richtung. Es gibt keine Beschränkung der Zugweite. Du kannst Stapel bilden und wieder auflösen. Nur Zweierstapel, ein Top auf einer Basis. Beim Top spielen auch die Punkte und die Zahl auf der Figur keine Rolle.</p>',
-      'anl.beginn.intro#html':                       '<p>Die Punktezahl oben auf einem Feld (3, 2, 1 oder 0 Punkte) und die Zahl auf der Figur (3, 2, 1 oder 0) auf diesem Feld müssen übereinstimmen. Beispiel: Auf den leeren Feldern 2A, 2B, 2C oder 2D können nur Figuren mit einer <b>2</b> abgesetzt werden.</p>',
+      'anl.beginn.intro#html':                       '<p>Die Punktezahl oben auf einem Feld (3, 2, 1 oder 0 Punkte) und die Zahl auf der Figur (3, 2, 1 oder 0) auf diesem Feld müssen übereinstimmen. Beispiel: Auf den leeren Feldern A2, B2, C2 oder D2 können nur Figuren mit einer <b>2</b> abgesetzt werden.</p>',
       'anl.beginn.titel':                            'Spielbeginn',
       'anl.bonus.a1.text#html':                      '<p>Den Dreier kann aber auch dein Mitspieler zum Vierer vervollständigen und gewinnen.</p><p>Lote mit zwei Varianten deines Bonuszuges diese strategischen Möglichkeiten aus.</p>',
       'anl.bonus.a2.vorher#html':                    '<p>Ein <b>guter</b> Bonuszug:</p>',
-      'anl.bonus.a3.text#html':                      '<p>Zwischen den zwei schwarzen Figuren in Spalte A wird das Feld 2A frei. Für die passende dritte schwarze Figur und damit den nächsten möglichen Dreier ist die Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>.</p>',
-      'anl.bonus.a4.text#html':                      '<p>Die passende Figur mit Zahl auf der Figur und Punkte auf dem Feld (2) steht auf 2D und hat gerade ebenfalls deine Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>. Die andere passende Figur ist bereits im Dreier gesperrt.</p><p>Mit diesem Bonuszug hast du dir die perfekte Ausgangslage für deinen nächsten Dreier geschaffen und setzt deinen Mitspieler unter Druck.</p>',
+      'anl.bonus.a3.text#html':                      '<p>Zwischen den zwei schwarzen Figuren in Spalte A wird das Feld A2 frei. Für die passende dritte schwarze Figur und damit den nächsten möglichen Dreier ist die Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>.</p>',
+      'anl.bonus.a4.text#html':                      '<p>Die passende Figur mit Zahl auf der Figur und Punkte auf dem Feld (2) steht auf D2 und hat gerade ebenfalls deine Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>. Die andere passende Figur ist bereits im Dreier gesperrt.</p><p>Mit diesem Bonuszug hast du dir die perfekte Ausgangslage für deinen nächsten Dreier geschaffen und setzt deinen Mitspieler unter Druck.</p>',
       'anl.bonus.a5.nachher#html':                   '<p>Dein Bonuszug ist korrekt, aber du schenkst dem Mitspieler damit direkt den Sieg. Drei Dinge musst du beachten:</p>',
       'anl.bonus.a5.vorher#html':                    '<p>Ein <b>nicht so schlauer</b> Bonuszug — der Spielstand ist wieder wie vor der ersten Variante:</p>',
       'anl.bonus.a6.text#html':                      '<p><b>Erstens:</b> Die Lücke zwischen den drei gleichfarbigen Figuren in Spalte C ermöglicht den Sieg, obwohl zuvor kein Dreier in dieser Spalte bestand.</p>',
-      'anl.bonus.a7.text#html':                      '<p><b>Zweitens:</b> Die für das Sieg-Feld 3C passenden roten Figuren werden beide von deinem Mitspieler in dem von ihm gebildeten Stapel auf 3D kontrolliert: Summe der roten Figuren im Stapel: <b>2 = gerade</b>. Zahl auf der Figur und Punkte auf dem Feld (1) stimmen überein für das Sieg-Feld 3C.</p>',
-      'anl.bonus.a8.text#html':                      '<p><b>Drittens:</b> Dein Mitspieler kann die Sieg-Figur direkt auf 3C absetzen: Summe der roten Nachbarfiguren und der Zugfigur: <b>4 = gerade</b>.</p><p>Mit Weiter zieht dein Mitspieler und gewinnt.</p>',
+      'anl.bonus.a7.text#html':                      '<p><b>Zweitens:</b> Die für das Sieg-Feld C1 passenden roten Figuren werden beide von deinem Mitspieler in dem von ihm gebildeten Stapel auf D1 kontrolliert: Summe der roten Figuren im Stapel: <b>2 = gerade</b>. Zahl auf der Figur und Punkte auf dem Feld (1) stimmen überein für das Sieg-Feld C1.</p>',
+      'anl.bonus.a8.text#html':                      '<p><b>Drittens:</b> Dein Mitspieler kann die Sieg-Figur direkt auf C1 absetzen: Summe der roten Nachbarfiguren und der Zugfigur: <b>4 = gerade</b>.</p><p>Mit Weiter zieht dein Mitspieler und gewinnt.</p>',
       'anl.bonus.a8.zug.nachher#html':               '<p>Vier rote Figuren in Spalte C — dein Mitspieler hat gewonnen.</p>',
-      'anl.bonus.intro#html':                        '<p>Ein Dreier ist meistens gut, vor allem wegen dem Bonuszug.</p>',
+      'anl.bonus.intro#html':                        '<p>Ein Dreier ist meistens gut, vor allem wegen des Bonuszugs.</p>',
       'anl.bonus.titel':                             'Bonuszug und Taktik',
       'anl.datenschutz':                             'Datenschutz',
-      'anl.dreier.a1.nachher#html':                  '<p>Du hast einen <b>Dreier</b> gebaut: 4B, 3B, 2B — drei schwarze übereinander.</p>',
+      'anl.dreier.a1.nachher#html':                  '<p>Du hast einen <b>Dreier</b> gebaut: B0, B1, B2 — drei schwarze übereinander.</p>',
       'anl.dreier.a2.text#html':                     '<p>Jetzt gelten mehrere Besonderheiten. Die wichtigste: <b>Du bekommst einen Bonuszug.</b></p><p>Die drei unteren Figuren bleiben für den Rest des Spieles gesperrt. Stapeln darauf bleibt erlaubt, und die obere Figur darfst du auch wieder herunternehmen. Für die Parität zählen auch die gesperrten Figuren weiterhin mit.</p>',
       'anl.dreier.intro#html':                       '<p>Erinnerst du dich an das Ziel: die vierte gleichfarbige Figur in einer Spalte? Es gibt noch ein Zwischenziel davor: die <b>dritte</b> gleichfarbige Figur in eine Spalte ziehen. Für den Dreier — und ebenso für den Vierer — zählt bei einem Stapel nur die untere Figur, nicht die darauf gestapelte.</p>',
       'anl.dreier.titel':                            'Drei in einer Spalte',
@@ -361,7 +362,7 @@ const TEXTE = {
       'anl.leerfeld.intro#html':                     '<p>Du darfst eine Figur auf ein leeres Feld <b>absetzen</b>, wenn die Summe aller <b>roten</b> Nachbarfiguren <b>nach</b> dem Absetzen <b>ungerade</b> ist. Ist die Zugfigur selbst auch rot, musst du sie mitzählen. Nicht vergessen: Punktezahl auf dem Feld und Zahl auf der Figur müssen übereinstimmen.</p>',
       'anl.leerfeld.titel':                          'Figur auf ein leeres Feld',
       'anl.rest.a1.text#html':                       '<p>Passen gibt es nicht.</p>',
-      'anl.rest.a2.text#html':                       '<p>Wer keinen erlaubten Zug hat, setzt aus — der andere zieht nochmals.</p>',
+      'anl.rest.a2.text#html':                       '<p>Wer keinen erlaubten Zug machen kann, setzt aus — der andere zieht nochmals.</p>',
       'anl.rest.a3.text#html':                       '<p>Wer beginnt, entscheidet beim ersten Spiel der Zufall, ebenso, wer gerade und wer ungerade spielt. Beim Nochmal beginnt der Verlierer, nach einem Remis wechselt der Anziehende — und die Parität wechselt nach jedem Spiel.</p>',
       'anl.rest.a4.text#html':                       '<p>Remis könnt ihr jederzeit vereinbaren. Steht dieselbe Stellung zum dritten Mal auf dem Brett, kannst du Remis einfordern, wenn du am Zug bist. Beim fünften Mal endet die Partie automatisch mit Remis, ebenso nach 50 Zügen ohne neuen Dreier.</p>',
       'anl.rest.a5.text#html':                       '<p>Im Spiel kannst du nicht falsch ziehen. Tippst du eine Figur an, die du gerade nicht anheben oder nirgends absetzen kannst, dann siehst du unten, warum der Zug nicht erlaubt ist.</p>',
@@ -404,28 +405,28 @@ const TEXTE = {
       'anl.aufloesen.a2.rechnung':                   'You may lift. You formed the stack.',
       'anl.aufloesen.a2.text#html':                  '<p>Easier to remember: only the player who formed a stack can break it up again.</p>',
       'anl.aufloesen.a3.text#html':                  '<p>Important: only the top piece may be moved, never the stack as a whole.</p><p>Strategy: every move of a red piece changes the parity of many squares — both where the piece is moved from and where it is set down. So a piece is only safe from the other player inside a stack.</p>',
-      'anl.aufloesen.a4.text#html':                  '<p>For the next example, the other player also makes their first move. With Next, the other player moves from 1D to 2C:</p>',
-      'anl.aufloesen.a4.text-nach#html':             '<p>For the next example, the other player also makes their first move. The other player has moved from 1D to 2C.</p>',
+      'anl.aufloesen.a4.text#html':                  '<p>For the next example, the other player also makes their first move. With Next, the other player moves from D3 to C2:</p>',
+      'anl.aufloesen.a4.text-nach#html':             '<p>For the next example, the other player also makes their first move. The other player has moved from D3 to C2.</p>',
       'anl.aufloesen.intro#html':                    '<p>The right to move also applies in exactly the same way when you lift the piece off a stack: you may lift the top piece if the sum of the <b>red</b> pieces in the stack is <b>odd</b>. In your case that is 1 red piece. The other player’s parity is even, so for them it is 0 or 2 red pieces.</p>',
       'anl.aufloesen.titel':                         'Breaking up a stack',
-      'anl.beginn.a1.nachher#html':                  '<p>You have formed a stack on 4D.</p>',
+      'anl.beginn.a1.nachher#html':                  '<p>You have formed a stack on D0.</p>',
       'anl.beginn.a2.text#html':                     '<p>Some basics before you learn the right to move: you may move any piece, red <b>and</b> black. You may move anywhere. There is no set direction. There is no limit on how far a piece moves. You can form stacks and break them up again. Only two-piece stacks, one top piece on one base. For the top piece, the points and the number on the piece do not matter.</p>',
-      'anl.beginn.intro#html':                       '<p>The points at the top of a square (3, 2, 1 or 0 points) and the number on the piece (3, 2, 1 or 0) on that square must match. Example: on the empty squares 2A, 2B, 2C or 2D, only pieces with a <b>2</b> can be set down.</p>',
+      'anl.beginn.intro#html':                       '<p>The points at the top of a square (3, 2, 1 or 0 points) and the number on the piece (3, 2, 1 or 0) on that square must match. Example: on the empty squares A2, B2, C2 or D2, only pieces with a <b>2</b> can be set down.</p>',
       'anl.beginn.titel':                            'Starting the game',
       'anl.bonus.a1.text#html':                      '<p>But the other player can also complete your triple to four in a column and win.</p><p>Explore these strategic possibilities with two versions of your bonus move.</p>',
       'anl.bonus.a2.vorher#html':                    '<p>A <b>good</b> bonus move:</p>',
-      'anl.bonus.a3.text#html':                      '<p>Between the two black pieces in column A, square 2A becomes free. For the matching third black piece, and with it the next possible triple, the parity is: sum of the red neighbouring pieces: <b>3 = odd</b>.</p>',
-      'anl.bonus.a4.text#html':                      '<p>The matching piece, with number on the piece and points on the square (2), is on 2D and right now also has your parity: sum of the red neighbouring pieces: <b>3 = odd</b>. The other matching piece is already locked in the triple.</p><p>With this bonus move you have set yourself up perfectly for your next triple and put the other player under pressure.</p>',
+      'anl.bonus.a3.text#html':                      '<p>Between the two black pieces in column A, square A2 becomes free. For the matching third black piece, and with it the next possible triple, the parity is: sum of the red neighbouring pieces: <b>3 = odd</b>.</p>',
+      'anl.bonus.a4.text#html':                      '<p>The matching piece, with number on the piece and points on the square (2), is on D2 and right now also has your parity: sum of the red neighbouring pieces: <b>3 = odd</b>. The other matching piece is already locked in the triple.</p><p>With this bonus move you have set yourself up perfectly for your next triple and put the other player under pressure.</p>',
       'anl.bonus.a5.nachher#html':                   '<p>Your bonus move is correct, but it hands the other player the win straight away. There are three things to watch out for:</p>',
       'anl.bonus.a5.vorher#html':                    '<p>A <b>not so clever</b> bonus move — the position is back to where it was before the first version:</p>',
       'anl.bonus.a6.text#html':                      '<p><b>First:</b> the gap between the three pieces of the same colour in column C makes the win possible, even though there was no triple in this column before.</p>',
-      'anl.bonus.a7.text#html':                      '<p><b>Second:</b> the red pieces that fit the winning square 3C are both controlled by the other player, in the stack they formed on 3D: sum of the red pieces in the stack: <b>2 = even</b>. Number on the piece and points on the square (1) match for the winning square 3C.</p>',
-      'anl.bonus.a8.text#html':                      '<p><b>Third:</b> the other player can set the winning piece down on 3C straight away: sum of the red neighbouring pieces and the moving piece: <b>4 = even</b>.</p><p>With Next, the other player moves and wins.</p>',
+      'anl.bonus.a7.text#html':                      '<p><b>Second:</b> the red pieces that fit the winning square C1 are both controlled by the other player, in the stack they formed on D1: sum of the red pieces in the stack: <b>2 = even</b>. Number on the piece and points on the square (1) match for the winning square C1.</p>',
+      'anl.bonus.a8.text#html':                      '<p><b>Third:</b> the other player can set the winning piece down on C1 straight away: sum of the red neighbouring pieces and the moving piece: <b>4 = even</b>.</p><p>With Next, the other player moves and wins.</p>',
       'anl.bonus.a8.zug.nachher#html':               '<p>Four red pieces in column C — the other player has won.</p>',
       'anl.bonus.intro#html':                        '<p>A triple is usually good, above all because of the bonus move.</p>',
       'anl.bonus.titel':                             'Bonus move and tactics',
       'anl.datenschutz':                             'Privacy',
-      'anl.dreier.a1.nachher#html':                  '<p>You have built a <b>triple</b>: 4B, 3B, 2B — three black pieces one above the other.</p>',
+      'anl.dreier.a1.nachher#html':                  '<p>You have built a <b>triple</b>: B0, B1, B2 — three black pieces one above the other.</p>',
       'anl.dreier.a2.text#html':                     '<p>Now several special rules apply. The most important: <b>you get a bonus move.</b></p><p>The three lower pieces stay locked for the rest of the game. Stacking on them is still allowed, and you may take the upper piece off again. The locked pieces still count for parity.</p>',
       'anl.dreier.intro#html':                       '<p>Remember the aim: the fourth piece of the same colour in a column? There is an intermediate goal before that: moving the <b>third</b> piece of the same colour into a column. For the triple — and likewise for four in a column — only the lower piece of a stack counts, not the one stacked on top.</p>',
       'anl.dreier.titel':                            'Three in a column',
@@ -520,10 +521,10 @@ function weckerAus(){ weckerListe.forEach(clearTimeout); weckerListe = []; }
 let phaseSeit = 0;
 
 const COL = {0:'A',1:'B',2:'C',3:'D'};
-const ROW = {3:'1',2:'2',1:'3',0:'4'};
+
 const CELL = {};
-for(let r=0;r<4;r++) for(let c=0;c<4;c++) CELL[ROW[r]+COL[c]] = [r,c];
-const lab = (r,c) => ROW[r]+COL[c];
+for(let r=0;r<4;r++) for(let c=0;c<4;c++) CELL[coordToLabel(r,c)] = [r,c];
+const lab = (r,c) => coordToLabel(r,c);
 
 const RICHTUNGEN=[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
 const nachbarn=(r,c)=>RICHTUNGEN.map(a=>[r+a[0],c+a[1]]).filter(p=>p[0]>=0&&p[0]<4&&p[1]>=0&&p[1]<4);
@@ -650,14 +651,14 @@ const STEPS = [
 { id:'ziel', title:txt('anl.ziel.titel'), setup:()=>fromSpec(ZIELSPEC, LEARNER),
   intro:txt('anl.ziel.intro#html'),
   aktionen:[
-    { art:'zug', von:'1D', nach:'1B', actor:LEARNER, roh:true, erwartet:'sieg',
+    { art:'zug', von:'D3', nach:'B3', actor:LEARNER, roh:true, erwartet:'sieg',
       nachher:txt('anl.ziel.nachher#html') }
   ]},
 
 { id:'beginn', title:txt('anl.beginn.titel'), setup:()=>initBoard(),
   intro:txt('anl.beginn.intro#html'),
   aktionen:[
-    { art:'zug', von:'1B', nach:'4D', actor:LEARNER, roh:true,
+    { art:'zug', von:'B3', nach:'D0', actor:LEARNER, roh:true,
       nachher:txt('anl.beginn.a1.nachher#html') },
     { art:'lesen',
       text:txt('anl.beginn.a2.text#html') }
@@ -666,10 +667,10 @@ const STEPS = [
 { id:'erlaubnis', title:txt('anl.erlaubnis.titel'), setup:()=>initBoard(),
   intro:txt('anl.erlaubnis.intro#html'),
   aktionen:[
-    { art:'tippen', feld:'1B' },
-    { art:'tippen', feld:'3A', neu:true },
-    { art:'tippen', feld:'3C', neu:true },
-    { art:'tippen', feld:'1D', neu:true },
+    { art:'tippen', feld:'B3' },
+    { art:'tippen', feld:'A1', neu:true },
+    { art:'tippen', feld:'C1', neu:true },
+    { art:'tippen', feld:'D3', neu:true },
     { art:'lesen', neu:true,
       text:txt('anl.erlaubnis.a5.text#html') }
   ]},
@@ -677,36 +678,36 @@ const STEPS = [
 { id:'stapelbilden', title:txt('anl.stapelbilden.titel'), setup:()=>initBoard(),
   intro:txt('anl.stapelbilden.intro#html'),
   aktionen:[
-    { art:'zug',     von:'1B', nach:'4D', actor:LEARNER },
-    { art:'zug',     von:'3A', nach:'3D', actor:LEARNER, neu:true },
-    { art:'fehlzug', von:'1B', nach:'4C', actor:LEARNER, neu:true },
-    { art:'fehlzug', von:'3A', nach:'3C', actor:LEARNER, neu:true }
+    { art:'zug',     von:'B3', nach:'D0', actor:LEARNER },
+    { art:'zug',     von:'A1', nach:'D1', actor:LEARNER, neu:true },
+    { art:'fehlzug', von:'B3', nach:'C0', actor:LEARNER, neu:true },
+    { art:'fehlzug', von:'A1', nach:'C1', actor:LEARNER, neu:true }
   ]},
 
 { id:'aufloesen', title:txt('anl.aufloesen.titel'), startet:OPPONENT,
-  aufbau:[['1B','4D',LEARNER]],
+  aufbau:[['B3','D0',LEARNER]],
   intro:txt('anl.aufloesen.intro#html'),
   aktionen:[
 
-    { art:'tippen', feld:'4D' },
+    { art:'tippen', feld:'D0' },
 
-    { art:'zeigen', feld:'4D', getan:'4D',
+    { art:'zeigen', feld:'D0', getan:'D0',
       rechnung:txt('anl.aufloesen.a2.rechnung'), behauptet:['anheben','stapelhoheit'],
       text:txt('anl.aufloesen.a2.text#html') },
-    { art:'zeigen', feld:'4D', getan:'4D',
+    { art:'zeigen', feld:'D0', getan:'D0',
       text:txt('anl.aufloesen.a3.text#html') },
     { art:'lesen',
       text:txt('anl.aufloesen.a4.text#html'),
       textNach:txt('anl.aufloesen.a4.text-nach#html'),
-      zugDanach:{ von:'1D', nach:'2C', actor:OPPONENT, roh:true } }
+      zugDanach:{ von:'D3', nach:'C2', actor:OPPONENT, roh:true } }
   ]},
 
 { id:'leerfeld', title:txt('anl.leerfeld.titel'),
-  aufbau:[['1B','4D',LEARNER],['1D','2C',OPPONENT]],
+  aufbau:[['B3','D0',LEARNER],['D3','C2',OPPONENT]],
   intro:txt('anl.leerfeld.intro#html'),
   aktionen:[
-    { art:'fehlzug', von:'4D', nach:'1B', actor:LEARNER },
-    { art:'zug', von:'4D', nach:'1D', actor:LEARNER,
+    { art:'fehlzug', von:'D0', nach:'B3', actor:LEARNER },
+    { art:'zug', von:'D0', nach:'D3', actor:LEARNER,
       vorher:txt('anl.leerfeld.a2.vorher#html'),
       nachher:txt('anl.leerfeld.a2.nachher#html') }
   ]},
@@ -714,7 +715,7 @@ const STEPS = [
 { id:'dreier', title:txt('anl.dreier.titel'), setup:()=>fromSpec(DREIERSPEC, LEARNER),
   intro:txt('anl.dreier.intro#html'),
   aktionen:[
-    { art:'zug', von:'3C', nach:'3B', actor:LEARNER, erwartet:'dreier',
+    { art:'zug', von:'C1', nach:'B1', actor:LEARNER, erwartet:'dreier',
       nachher:txt('anl.dreier.a1.nachher#html') },
     { art:'lesen',
       text:txt('anl.dreier.a2.text#html') }
@@ -726,27 +727,27 @@ const STEPS = [
     { art:'lesen',
       text:txt('anl.bonus.a1.text#html') },
 
-    { art:'zug', von:'2A', nach:'1A', actor:LEARNER, neu:true,
+    { art:'zug', von:'A2', nach:'A3', actor:LEARNER, neu:true,
       vorher:txt('anl.bonus.a2.vorher#html') },
-    { art:'zeigen', von:'2D', nach:'2A', blass:['2D'], geist:{von:'2D', auf:'2A'},
-      pruefungen:[{art:'absetzen', von:'2D', nach:'2A', summe:3}],
+    { art:'zeigen', von:'D2', nach:'A2', blass:['D2'], geist:{von:'D2', auf:'A2'},
+      pruefungen:[{art:'absetzen', von:'D2', nach:'A2', summe:3}],
       text:txt('anl.bonus.a3.text#html') },
-    { art:'zeigen', feld:'2D', blass:['2D'], geist:{von:'2D', auf:'2A'},
-      pruefungen:[{art:'anheben', feld:'2D', summe:3}],
+    { art:'zeigen', feld:'D2', blass:['D2'], geist:{von:'D2', auf:'A2'},
+      pruefungen:[{art:'anheben', feld:'D2', summe:3}],
       text:txt('anl.bonus.a4.text#html') },
 
-    { art:'zug', von:'2B', nach:'1C', actor:LEARNER, neu:true,
+    { art:'zug', von:'B2', nach:'C3', actor:LEARNER, neu:true,
       vorher:txt('anl.bonus.a5.vorher#html'),
       nachher:txt('anl.bonus.a5.nachher#html') },
-    { art:'zeigen', bereich:['1C','2C','3C','4C'],
+    { art:'zeigen', bereich:['C3','C2','C1','C0'],
       text:txt('anl.bonus.a6.text#html') },
-    { art:'zeigen', feld:'3D', blass:['3D'], geist:{von:'3D', auf:'3C'},
-      pruefungen:[{art:'anheben', feld:'3D', summe:2}],
+    { art:'zeigen', feld:'D1', blass:['D1'], geist:{von:'D1', auf:'C1'},
+      pruefungen:[{art:'anheben', feld:'D1', summe:2}],
       text:txt('anl.bonus.a7.text#html') },
-    { art:'zeigen', von:'3D', nach:'3C', blass:['3D'], geist:{von:'3D', auf:'3C'},
-      pruefungen:[{art:'absetzen', von:'3D', nach:'3C', summe:4}],
+    { art:'zeigen', von:'D1', nach:'C1', blass:['D1'], geist:{von:'D1', auf:'C1'},
+      pruefungen:[{art:'absetzen', von:'D1', nach:'C1', summe:4}],
       text:txt('anl.bonus.a8.text#html'),
-      zugDanach:{ von:'3D', nach:'3C', actor:OPPONENT, roh:true, summeAuf:4, erwartet:'sieg',
+      zugDanach:{ von:'D1', nach:'C1', actor:OPPONENT, roh:true, summeAuf:4, erwartet:'sieg',
         nachher:txt('anl.bonus.a8.zug.nachher#html') } }
   ]},
 
@@ -1266,7 +1267,7 @@ function selfTest(){
     const b2=applyMoveOn(z,m.fr,m.fc,m.tr,m.tc,LEARNER);
     return checkFourInRow(b2,'black')||checkFourInRow(b2,'red'); });
   if(wins.length!==1) err.push('Ziel: '+wins.length+' Siegzuege statt genau einem');
-  else if(lab(wins[0].fr,wins[0].fc)!=='1D' || lab(wins[0].tr,wins[0].tc)!=='1B')
+  else if(lab(wins[0].fr,wins[0].fc)!=='D3' || lab(wins[0].tr,wins[0].tc)!=='B3')
     err.push('Ziel: falscher Siegzug');
 
   const inventarTreu=function(b,wo){
@@ -1441,23 +1442,23 @@ function selfTest(){
   {
     const T=initBoard();
     if(!genauEiner(pl=>canDrop(T,3,1,2,1,pl,PARITY)))
-      err.push('Regelschicht: den Stapel 1B->2B duerfen beide oder keiner bilden — die Stapel-Paritaet wirkt nicht');
+      err.push('Regelschicht: den Stapel B3->B2 duerfen beide oder keiner bilden — die Stapel-Paritaet wirkt nicht');
   }
   {
     const A=boardFor(phaseVon('leerfeld'));
     if(!beideNein(pl=>canDrop(A,1,1,3,1,pl,PARITY)))
-      err.push('Regelschicht: 3B (Punktzahl 1) darf auf das leere 3-Punkte-Feld 1B — Stripe-Match wirkt nicht');
+      err.push('Regelschicht: B1 (Punktzahl 1) darf auf das leere 3-Punkte-Feld B3 — Stripe-Match wirkt nicht');
     if(!beideNein(pl=>canDrop(A,1,1,0,3,pl,PARITY)))
-      err.push('Regelschicht: es darf auf den vorhandenen Stapel 4D gestapelt werden — Stapelhoehe wirkt nicht');
+      err.push('Regelschicht: es darf auf den vorhandenen Stapel D0 gestapelt werden — Stapelhoehe wirkt nicht');
     if(!canLift(A,0,3,1,PARITY) || canLift(A,0,3,2,PARITY))
-      err.push('Regelschicht: die Stapelhoheit auf 4D stimmt nicht');
+      err.push('Regelschicht: die Stapelhoheit auf D0 stimmt nicht');
   }
   {
     const B=fromSpec(BONUSSPEC, LEARNER);
-    if(!beideNein(pl=>canLift(B,1,1,pl,PARITY))) err.push('Regelschicht: gesperrte Einzelfigur 3B ist anhebbar');
-    if(!beideNein(pl=>canLift(B,0,1,pl,PARITY))) err.push('Regelschicht: gesperrte Einzelfigur 4B ist anhebbar');
-    if(!canLift(B,2,1,1,PARITY)) err.push('Regelschicht: der eigene Stapel auf dem gesperrten 2B ist nicht anhebbar');
-    if(canLift(B,1,3,1,PARITY))  err.push('Regelschicht: der Stapel des Mitspielers auf 3D ist fuer den Lernenden anhebbar');
+    if(!beideNein(pl=>canLift(B,1,1,pl,PARITY))) err.push('Regelschicht: gesperrte Einzelfigur B1 ist anhebbar');
+    if(!beideNein(pl=>canLift(B,0,1,pl,PARITY))) err.push('Regelschicht: gesperrte Einzelfigur B0 ist anhebbar');
+    if(!canLift(B,2,1,1,PARITY)) err.push('Regelschicht: der eigene Stapel auf dem gesperrten B2 ist nicht anhebbar');
+    if(canLift(B,1,3,1,PARITY))  err.push('Regelschicht: der Stapel des Mitspielers auf D1 ist fuer den Lernenden anhebbar');
   }
 
   if(typeof canStack!=='function' || typeof applyLockOn!=='function')

@@ -383,8 +383,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   <div id="board-area">
     <div id="board-container">
       <div id="row-labels">
-        <div class="row-label" data-t="seite.1"></div><div class="row-label" data-t="seite.2"></div>
-        <div class="row-label" data-t="seite.3"></div><div class="row-label" data-t="seite.4"></div>
+
+        <div class="row-label" data-t="seite.3"></div><div class="row-label" data-t="seite.2"></div>
+        <div class="row-label" data-t="seite.1"></div><div class="row-label" data-t="seite.0"></div>
       </div>
       <div id="board-wrap"><div id="board"></div></div>
       <div></div>
@@ -412,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=184'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=185'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -971,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=184" charset="utf-8"></script>
+<script src="countred_rules.js?v=185" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=184" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=185" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1495,7 +1496,7 @@ const TEXTE = {
       'punkte.sieg-gegen-max-michu#html':            '\n        Gewonnene Partie mit Max Michu <strong>Einsteiger</strong> = 1 Punkt<br>\n        Gewonnene Partie mit Max Michu <strong>Fortgeschritten</strong> = 1,5 Punkte<br>\n        Gewonnene Partie mit Max Michu <strong>Meister</strong> = 3 Punkte',
       'punkte.um-jemand-zum-spiel':                  'Um jemand zum Spiel mit dir einzuladen, brauchst du 3 Punkte:',
       'punkte.willst-du-deinen-punktestand':         'Willst du deinen Punktestand auf ein anderes Gerät mitnehmen? Kopier einfach diesen Übertragungscode in das Fenster auf deinem anderen Gerät:',
-      'regeln.4-4-felder-zeilen':                    '4×4 Felder, Zeilen 1–4, Spalten A–D. Jedes Feld hat Punkte (oben im Feld): Zeile 1 = 3, Zeile 2 = 2, Zeile 3 = 1, Zeile 4 = 0.',
+      'regeln.4-4-felder-zeilen':                    '4×4 Felder, Zeilen 0–3, Spalten A–D. Jedes Feld trägt so viele Punkte wie seine Zeile (oben im Feld).',
       'regeln.4-gleichfarbige-figuren-in':           '4 gleichfarbige Figuren in einer Spalte (A, B, C oder D). Bei einem Stapel zählt die Basis, nicht die Figur darauf.',
       'regeln.absetzen-auf-ein-leeres':              'Absetzen auf ein leeres Feld',
       'regeln.anheben':                              'Anheben',
@@ -1507,7 +1508,7 @@ const TEXTE = {
       'regeln.eine-figur-auf-eine':                  'Eine Figur auf eine Einzelfigur setzen. Es zählen nur die roten Figuren im neuen Stapel — keine Nachbarn. Die Punkte spielen dabei keine Rolle. Ein Stapel fasst 2 Figuren; auf einen Stapel darf nicht gestapelt werden.',
       'regeln.figuren':                              'Figuren',
       'regeln.seit-1998':                            'Seit 1998 nachweisbar · limitierte Auflage unter dem Namen Gembel',
-      'regeln.hat-ein-spieler-keinen':               'Hat ein Spieler keinen erlaubten Zug, zieht der Mitspieler nochmals.',
+      'regeln.hat-ein-spieler-keinen':               'Kann ein Spieler keinen erlaubten Zug machen, zieht der Mitspieler nochmals.',
       'regeln.keine-zugmoeglichkeit':                'Keine Zugmöglichkeit',
       'regeln.nochmal':                              'Nochmal',
       'regeln.nur-wer-einen-stapel':                 'Nur wer einen Stapel gebildet hat, darf ihn wieder auflösen. Bewegt wird immer nur die Top-Figur, nie der Stapel als Ganzes. Fürs Absetzen gelten die Regeln oben.',
@@ -1535,10 +1536,10 @@ const TEXTE = {
       'remis.mitspieler-bietet-remis-an#html':       'Mitspieler bietet Remis an.<br>Einverstanden?',
       'remis.remis-angebot':                         'Remis-Angebot',
       'remis.remis-angebot-2':                       'Remis-Angebot',
+      'seite.0':                                     '0',
       'seite.1':                                     '1',
       'seite.2':                                     '2',
       'seite.3':                                     '3',
-      'seite.4':                                     '4',
       'seite.a':                                     'A',
       'seite.abbrechen':                             'Abbrechen',
       'seite.b':                                     'B',
@@ -1815,7 +1816,7 @@ const TEXTE = {
       'punkte.sieg-gegen-max-michu#html':            'Game won with Max Michu <strong>Beginner</strong> = 1 point<br>Game won with Max Michu <strong>Advanced</strong> = 1.5 points<br>Game won with Max Michu <strong>Master</strong> = 3 points',
       'punkte.um-jemand-zum-spiel':                  'To invite someone to play with you, you need 3 points:',
       'punkte.willst-du-deinen-punktestand':         'Want to take your score to another device? Simply copy this transfer code into the window on your other device:',
-      'regeln.4-4-felder-zeilen':                    '4×4 squares, rows 1–4, columns A–D. Each square has points (at the top of the square): row 1 = 3, row 2 = 2, row 3 = 1, row 4 = 0.',
+      'regeln.4-4-felder-zeilen':                    '4×4 squares, rows 0–3, columns A–D. Each square has as many points as its row (at the top of the square).',
       'regeln.4-gleichfarbige-figuren-in':           '4 pieces of the same colour in one column (A, B, C or D). For a stack, the base counts, not the piece on top.',
       'regeln.absetzen-auf-ein-leeres':              'Setting down on an empty square',
       'regeln.anheben':                              'Lifting',
@@ -1855,10 +1856,10 @@ const TEXTE = {
       'remis.mitspieler-bietet-remis-an#html':       'The other player offers a draw.<br>Do you agree?',
       'remis.remis-angebot':                         'Draw offer',
       'remis.remis-angebot-2':                       'Draw offer',
+      'seite.0':                                     '0',
       'seite.1':                                     '1',
       'seite.2':                                     '2',
       'seite.3':                                     '3',
-      'seite.4':                                     '4',
       'seite.a':                                     'A',
       'seite.abbrechen':                             'Cancel',
       'seite.b':                                     'B',
@@ -2307,7 +2308,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v184';
+const BUILD_MARKER='· Build v185';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2454,7 +2455,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=184');
+    aiWorker=new Worker('countred_ai_worker.js?v=185');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
@@ -4097,9 +4098,8 @@ async function maybeTriggerAI(){
 
     if(myToken!==aiTurnToken || !aiThinking){ aiThinking=false; return; }
 
-    const colLabels={0:'A',1:'B',2:'C',3:'D'}, rowLabels={3:'1',2:'2',1:'3',0:'4'};
     pendingLastMove={player:currentPlayer,
-      from:rowLabels[move.fr]+colLabels[move.fc], to:rowLabels[move.tr]+colLabels[move.tc]};
+      from:coordToLabel(move.fr,move.fc), to:coordToLabel(move.tr,move.tc)};
     applyMoveA(move.fr,move.fc,move.tr,move.tc);
 
     if(res.meta && typeof res.meta.score==='number'){
@@ -4158,9 +4158,8 @@ window.handleCellClick=function(r,c){
     if(validTargets.some(([tr,tc])=>tr===r&&tc===c)){
       const moveFrom={r:sr,c:sc};
       const moveTo={r,c};
-      const colLabels={0:'A',1:'B',2:'C',3:'D'};
-      const rowLabels={3:'1',2:'2',1:'3',0:'4'};
-      pendingLastMove={player:currentPlayer,from:rowLabels[sr]+colLabels[sc],to:rowLabels[r]+colLabels[c],
+
+      pendingLastMove={player:currentPlayer,from:coordToLabel(sr,sc),to:coordToLabel(r,c),
         fr:sr,fc:sc,tr:r,tc:c};
       applyMoveA(sr,sc,r,c);
       isMyTurn=false;
@@ -4261,14 +4260,13 @@ function dropFailLog(fr,fc,tr,tc){
 
 async function logMove(from,to){
   if(!roomCode) return;
-  const colLabels={0:'A',1:'B',2:'C',3:'D'};
-  const rowLabels={3:'1',2:'2',1:'3',0:'4'};
+
   const i=moveIndex++;
   const entry={
     i,
     player: currentPlayer,
-    from: rowLabels[from.r]+colLabels[from.c],
-    to:   rowLabels[to.r]+colLabels[to.c],
+    from: coordToLabel(from.r,from.c),
+    to:   coordToLabel(to.r,to.c),
     ts:   Date.now(),
     ...devFeld()
   };
@@ -4367,12 +4365,12 @@ window.showMarkedGames=async function(){
 };
 
 function mvkiLogEntry(move, meta, by, i, nowTs){
-  const colLabels={0:'A',1:'B',2:'C',3:'D'}, rowLabels={3:'1',2:'2',1:'3',0:'4'};
+
   return {
     i,
     by,
-    from: rowLabels[move.fr]+colLabels[move.fc],
-    to:   rowLabels[move.tr]+colLabels[move.tc],
+    from: coordToLabel(move.fr,move.fc),
+    to:   coordToLabel(move.tr,move.tc),
     depth:     (meta&&typeof meta.depth==='number')?meta.depth:null,
     ms:        (meta&&typeof meta.ms==='number')?Math.round(meta.ms):null,
     budgetHit: (meta&&meta.budgetHit===true)?true:false,
@@ -4464,8 +4462,7 @@ async function finalizeMvkiGame(winner, reason){
 
 async function logAttempt(fr,fc,tr,tc,reason){
   if(!roomCode) return;
-  const colLabels={0:'A',1:'B',2:'C',3:'D'};
-  const rowLabels={3:'1',2:'2',1:'3',0:'4'};
+
   const cell=board[fr][fc];
   const mp=getMovingPiece(cell);
 
@@ -4498,8 +4495,8 @@ async function logAttempt(fr,fc,tr,tc,reason){
     attemptType,
     reason,
     player: currentPlayer,
-    from: rowLabels[fr]+colLabels[fc],
-    to:   rowLabels[tr]+colLabels[tc],
+    from: coordToLabel(fr,fc),
+    to:   coordToLabel(tr,tc),
     piece: mp ? (mp.color==='red'?'R':'S')+mp.stripe : '?',
     wFrom,
     ts: Date.now(),

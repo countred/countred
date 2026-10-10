@@ -13,7 +13,13 @@ function initBoard(){
 }
 
 function coordToLabel(r,c){
-  return ({3:'1',2:'2',1:'3',0:'4'})[r]+({0:'A',1:'B',2:'C',3:'D'})[c];
+  return ({0:'A',1:'B',2:'C',3:'D'})[c]+String(r);
+}
+
+function labelToCoord(s){
+  if(typeof s!=='string' || s.length!==2) return null;
+  const c='ABCD'.indexOf(s[0]), r='0123'.indexOf(s[1]);
+  return (c<0 || r<0) ? null : [r,c];
 }
 
 function getMovingPiece(cell){ return cell.stack ? cell.stack.top : cell.piece; }
