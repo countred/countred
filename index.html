@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=187'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=188'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=187" charset="utf-8"></script>
+<script src="countred_rules.js?v=188" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=187" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=188" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1095,7 +1095,7 @@ let selbstOfflineSeit = null;
 let eigenerAusfallSichtbar = false;
 
 let standWirdGeprueft = false;
-const OPP_ABORT_GRACE_MS    = 45000;
+const OPP_ABORT_GRACE_MS    = 120000;
 const OPP_ABORT_MINWAIT_MS  = 5000;
 let heartbeatTimer=null;
 let oppOfflineSince=null;
@@ -1280,12 +1280,23 @@ function finalizeOppAbort(msg, reason){
 
   logMvmAbort(reason||'disconnect-timeout', offlineForMs);
 
+  const laeuft = (phase==='playing' || phase==='bonus');
+  if(laeuft && !(EIGENE_PRAESENZ_AN && selbstOffline)){
+    const remis = (reason==='manual-abort');
+    handleDisconnect(remis ? `${txt('meldung.mitspieler-nicht-erreichbar-remis')}`
+                           : `${txt('meldung.mitspieler-nicht-erreichbar-gewonnen')}`,
+                     `${txt('meldung.partie-beendet')}`);
+    if(wasRoom) update(wasRoom,{'meta/aborted':true, 'meta/abortedBy':wasRole||null,
+                                'meta/abortReason': remis ? 'ausfall-remis' : 'ausfall'}).catch(()=>{});
+    return;
+  }
+
   handleDisconnect(msg||`${txt('meldung.mitspieler-offline-spiel-abgebroch')}`);
 
   if(wasRoom){
 
     update(wasRoom,{'meta/aborted':true, 'meta/abortedBy':wasRole||null}).catch(()=>{});
-    if(wasRole==='host') remove(wasRoom).catch(()=>{});
+
   }
 }
 
@@ -1331,6 +1342,18 @@ function abbruchText(data){
     return (wer && myRole && wer===myRole)
       ? `${txt('meldung.du-hast-den-raum')}`
       : `${txt('meldung.mitspieler-hat-den-raum')}`;
+  }
+
+  if(grund==='ausfall'){
+    return (wer && myRole && wer===myRole)
+      ? `${txt('meldung.mitspieler-nicht-erreichbar-gewonnen')}`
+      : `${txt('meldung.deine-verbindung-unterbrochen-gewonnen')}`;
+  }
+
+  if(grund==='ausfall-remis'){
+    return (wer && myRole && wer===myRole)
+      ? `${txt('meldung.mitspieler-nicht-erreichbar-remis')}`
+      : `${txt('meldung.deine-verbindung-unterbrochen-remis')}`;
   }
   if(wer && myRole && wer!==myRole)
     return `${txt('meldung.mitspieler-hat-die-partie')}`;
@@ -1628,7 +1651,7 @@ const TEXTE = {
       'meldung.anfrage-laeuft-bereits-warte':        'Anfrage läuft bereits – warte auf Mitspieler…',
       'meldung.aufgeben':                            'Aufgeben',
       'meldung.aufgeben-nur-wenn-du':                'Aufgeben (nur wenn du am Zug bist)',
-      'meldung.automatischer-abbruch-in':            'Automatischer Abbruch in {0} s.',
+      'meldung.automatischer-abbruch-in':            'Kommt dein Mitspieler nicht zurück, gewinnst du in {0} s.',
       'meldung.basis-figur-im-dreier':               '{0}: Basis-Figur im Dreier ist gesperrt',
       'meldung.bitte-5-zeichen-eingeben':            'Bitte 5 Zeichen eingeben (aktuell: {0}).',
       'meldung.bonuszug-nicht-moeglich-am':          'Bonuszug nicht möglich — {0} am Zug',
@@ -1695,12 +1718,15 @@ const TEXTE = {
       'meldung.mitspieler-gewinnt':                  '🏅 Mitspieler gewinnt!',
       'meldung.mitspieler-hat':                      'Mitspieler hat',
       'meldung.mitspieler-hat-aufgegeben':           'Mitspieler hat aufgegeben',
-      'meldung.mitspieler-hat-den-raum':             'Mitspieler hat den Raum verlassen — die Partie ist beendet.',
+      'meldung.mitspieler-hat-den-raum':             'Dein Mitspieler hat die Partie verlassen — du hast gewonnen.',
+      'meldung.mitspieler-nicht-erreichbar-gewonnen': 'Dein Mitspieler war nicht mehr erreichbar — du hast gewonnen.',
+      'meldung.deine-verbindung-unterbrochen-gewonnen': 'Deine Verbindung war unterbrochen — dein Mitspieler hat gewonnen.',
+      'meldung.mitspieler-nicht-erreichbar-remis':   'Dein Mitspieler war nicht erreichbar — die Partie endet remis.',
+      'meldung.deine-verbindung-unterbrochen-remis': 'Deine Verbindung war unterbrochen — die Partie endet remis.',
       'meldung.mitspieler-hat-den-raum-2':           'Mitspieler hat den Raum verlassen.',
-      'meldung.mitspieler-hat-den-raum-3':           'Mitspieler hat den Raum verlassen',
-      'meldung.mitspieler-hat-den-raum-4':           'Mitspieler hat den Raum verlassen — du hast gewonnen.',
+      'meldung.mitspieler-hat-den-raum-3':           'Dein Mitspieler hat die Partie verlassen',
       'meldung.mitspieler-hat-den-raum-5':           'Mitspieler hat den Raum verlassen. {0}.',
-      'meldung.mitspieler-hat-die-partie':           'Mitspieler hat die Partie beendet — die Verbindung war zu lange unterbrochen.',
+      'meldung.mitspieler-hat-die-partie':           'Deine Verbindung war unterbrochen — die Partie ist beendet.',
       'meldung.mitspieler-hat-gewonnen':             'Mitspieler hat gewonnen',
       'meldung.mitspieler-hat-remis-eingefordert':   'Mitspieler hat Remis eingefordert — Stellung 3× wiederholt',
       'meldung.mitspieler-im-satz':                  'Mitspieler',
@@ -1947,7 +1973,7 @@ const TEXTE = {
       'meldung.anfrage-laeuft-bereits-warte':        'Request already sent – waiting for the other player…',
       'meldung.aufgeben':                            'Resign',
       'meldung.aufgeben-nur-wenn-du':                'Resign (only when it is your move)',
-      'meldung.automatischer-abbruch-in':            'Automatic cancellation in {0} s.',
+      'meldung.automatischer-abbruch-in':            'If the other player does not come back, you win in {0} s.',
       'meldung.basis-figur-im-dreier':               '{0}: base piece in the triple is locked',
       'meldung.bitte-5-zeichen-eingeben':            'Please enter 5 characters (currently: {0}).',
       'meldung.bonuszug-nicht-moeglich-am':          'No bonus move possible — {0} to move',
@@ -2014,12 +2040,15 @@ const TEXTE = {
       'meldung.mitspieler-gewinnt':                  '🏅 The other player wins!',
       'meldung.mitspieler-hat':                      'The other player has',
       'meldung.mitspieler-hat-aufgegeben':           'The other player has resigned',
-      'meldung.mitspieler-hat-den-raum':             'The other player has left the room — the game is over.',
+      'meldung.mitspieler-hat-den-raum':             'The other player has left the game — you have won.',
+      'meldung.mitspieler-nicht-erreichbar-gewonnen': 'The other player could no longer be reached — you have won.',
+      'meldung.deine-verbindung-unterbrochen-gewonnen': 'Your connection was lost — the other player has won.',
+      'meldung.mitspieler-nicht-erreichbar-remis':   'The other player could not be reached — the game ends in a draw.',
+      'meldung.deine-verbindung-unterbrochen-remis': 'Your connection was lost — the game ends in a draw.',
       'meldung.mitspieler-hat-den-raum-2':           'The other player has left the room.',
-      'meldung.mitspieler-hat-den-raum-3':           'The other player has left the room',
-      'meldung.mitspieler-hat-den-raum-4':           'The other player has left the room — you have won.',
+      'meldung.mitspieler-hat-den-raum-3':           'The other player has left the game',
       'meldung.mitspieler-hat-den-raum-5':           'The other player has left the room. {0}.',
-      'meldung.mitspieler-hat-die-partie':           'The other player has ended the game — the connection was lost for too long.',
+      'meldung.mitspieler-hat-die-partie':           'Your connection was lost — the game is over.',
       'meldung.mitspieler-hat-gewonnen':             'The other player has won',
       'meldung.mitspieler-hat-remis-eingefordert':   'The other player has claimed a draw — position repeated 3×',
       'meldung.mitspieler-im-satz':                  'the other player',
@@ -2322,7 +2351,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v187';
+const BUILD_MARKER='· Build v188';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2469,7 +2498,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=187');
+    aiWorker=new Worker('countred_ai_worker.js?v=188');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
@@ -3019,6 +3048,13 @@ async function handleGuestDeparture(data){
       pushState(myPlayer);
       console.log('§177: Gast hat die laufende Partie verlassen — als Aufgabe gewertet');
       render();
+
+      const raumJetzt = roomRef;
+      update(raumJetzt,{'meta/aborted':true,'meta/abortedBy':'guest','meta/abortReason':'verlassen'}).catch(()=>{});
+      setTimeout(()=>{
+        if(roomRef===raumJetzt && phase==='finished')
+          handleDisconnect(`${txt('meldung.mitspieler-hat-den-raum')}`, `${txt('meldung.partie-beendet')}`);
+      }, RAUM_AUFLOESEN_VERZUG_MS);
     }
   }
   return true;
@@ -3526,7 +3562,7 @@ function applyRemoteState(state){
     if(!iResigned && weg==='host'){
       mitspielerGegangen=true;
 
-      raumEndeText=`${txt('meldung.mitspieler-hat-den-raum-4')}`;
+      raumEndeText=`${txt('meldung.mitspieler-hat-den-raum')}`;
     }
     setLog(`<span class="msg signal">${satz}</span>`);
   } else if(state.lastMove && state.lastMove.drawReason){
@@ -3665,6 +3701,11 @@ async function letzterBlickAufDenRaum(wasRoom, wasPlayer){
     if(!st || st.phase!=='finished') return;
 
     const verlassen = !!(data.meta && data.meta.abortReason==='verlassen');
+
+    if(verlassen && st.winner===wasPlayer){
+      setzeAbschlussTafel(`${txt('meldung.partie-beendet')}`, `${txt('meldung.mitspieler-hat-den-raum')}`);
+      return;
+    }
     if(verlassen)
       setzeAbschlussTafel(`${txt('meldung.partie-beendet')}`,
         `${txt('meldung.mitspieler-hat-den-raum-5', {0:(ergebnisSatz(st, wasPlayer))})}`);
