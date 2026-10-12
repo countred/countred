@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=186'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=187'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=186" charset="utf-8"></script>
+<script src="countred_rules.js?v=187" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=186" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=187" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1044,6 +1044,8 @@ const FB_LEERLAUF_MS = 20000;
 const FB_WARTE_MS    = 8000;
 let fbGestartet=false, fbAn=false, fbVerbunden=false, fbLeerlaufTimer=null, fbWarteTimer=null;
 function fbIdle(){
+
+  if(EIGENE_PRAESENZ_AN && selbstOffline) return false;
   return !roomRef && !(gameMode==='mvki' && (phase==='playing' || phase==='bonus'));
 }
 function fbWach(){
@@ -1087,6 +1089,8 @@ const PRESENCE_STALE_MS     = 12000;
 
 const EIGENE_PRAESENZ_AN = true;
 let selbstOffline = false;
+
+let selbstOfflineSeit = null;
 
 let eigenerAusfallSichtbar = false;
 
@@ -1207,15 +1211,23 @@ function clearEigenenAusfall(){
   }
 }
 
+function rueckfrageOffen(){
+  const n=document.getElementById('neu-overlay');
+  return !!(n && !n.classList.contains('hidden'));
+}
 function zeigeEigenenAusfall(){
   eigenerAusfallSichtbar=true;
   const msgEl=document.getElementById('opp-offline-msg');
   if(msgEl) msgEl.textContent = `${txt('meldung.deine-verbindung-ist-unterbrochen')}`;
+
+  const frei = (typeof selbstOfflineSeit!=='number') || (Date.now()-selbstOfflineSeit >= OPP_ABORT_MINWAIT_MS);
   const cnt=document.getElementById('opp-offline-count');
   if(cnt) cnt.textContent='';
+
+  if(rueckfrageOffen()) return;
   document.getElementById('opp-offline-overlay').classList.remove('hidden');
   const btn=document.getElementById('opp-offline-abort');
-  if(btn) btn.disabled=false;
+  if(btn) btn.disabled=!frei;
 }
 
 function zeigeStandWirdGeprueft(){
@@ -1304,6 +1316,8 @@ async function logMvmAbort(reason, offlineForMs){
 window.abortToLobbyNow=function(){
 
   const eigene = (EIGENE_PRAESENZ_AN && selbstOffline);
+
+  if(eigene && (phase==='playing' || phase==='bonus')){ verlassenFragen(); return; }
   finalizeOppAbort(eigene ? `${txt('meldung.partie-verlassen-deine-verbindung')}`
                           : `${txt('meldung.spiel-abgebrochen-zurueck-zur')}`,
                    eigene ? 'manual-abort-offline' : 'manual-abort');
@@ -2308,7 +2322,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v186';
+const BUILD_MARKER='· Build v187';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2455,7 +2469,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=186');
+    aiWorker=new Worker('countred_ai_worker.js?v=187');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
@@ -2704,6 +2718,8 @@ window.showNeuMenu=function(){
 
 window.closeNeuMenu=function(){
   document.getElementById('neu-overlay').classList.add('hidden');
+
+  if(EIGENE_PRAESENZ_AN && selbstOffline && (phase==='playing' || phase==='bonus')) zeigeEigenenAusfall();
 
   if(aiDrawOfferPending) document.getElementById('ai-draw-offer-overlay').classList.remove('hidden');
 };
@@ -4640,14 +4656,16 @@ function eigeneVerbindungUeberwachen(){
     if(!verbunden){
       if(selbstOffline) return;
       selbstOffline=true;
+      selbstOfflineSeit=Date.now();
       console.log('§163 eigene Verbindung: WEG');
       return;
     }
     if(!selbstOffline) return;
     selbstOffline=false;
+    selbstOfflineSeit=null;
 
     if(roomRef && myRole) zeigeStandWirdGeprueft();
-    else clearEigenenAusfall();
+    else { clearEigenenAusfall(); fbLeerlauf(); }
     console.log('§163 eigene Verbindung: ZURÜCK — Raum wird frisch gelesen');
 
     if(oppOfflineSince!==null){
