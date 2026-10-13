@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=189'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=190'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=189" charset="utf-8"></script>
+<script src="countred_rules.js?v=190" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=189" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=190" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1207,6 +1207,27 @@ function evaluateOpponentPresence(data){
   }
 }
 
+let eigeneAbwesenheitSeit = null;
+function eigeneAbwesenheitBeginnt(){ if(eigeneAbwesenheitSeit===null) eigeneAbwesenheitSeit = serverNow(); }
+function fristNachRueckkehr(data){
+  const jetzt = serverNow();
+  const gegnerFeld = myRole==='host' ? 'guestSeen' : 'hostSeen';
+  if(typeof data[gegnerFeld]==='number') oppLastSeen = data[gegnerFeld];
+  else if(oppLastSeen===null) oppLastSeen = jetzt;
+  if(!presenceIsStale(jetzt, oppLastSeen, PRESENCE_STALE_MS)){ eigeneAbwesenheitSeit = null; return; }
+  const neu = (oppOfflineSince===null);
+
+  const seit = neu ? oppLastSeen + PRESENCE_STALE_MS : oppOfflineSince;
+
+  const luecke = (eigeneAbwesenheitSeit===null) ? 0 : Math.max(0, jetzt - Math.max(eigeneAbwesenheitSeit, seit));
+  eigeneAbwesenheitSeit = null;
+  if(neu){ oppOfflineSince = seit; oppAbortDeadline = seit + OPP_ABORT_GRACE_MS + luecke; }
+  else oppAbortDeadline += luecke;
+  console.log('§236 Frist nach Rückkehr: Mitspieler weg seit', Math.round((jetzt-seit)/1000), 's · eigene Lücke',
+              Math.round(luecke/1000), 's · Rest', Math.round((oppAbortDeadline-jetzt)/1000), 's');
+  if(neu) showOppOfflineOverlay();
+}
+
 function clearEigenenAusfall(){
   eigenerAusfallSichtbar=false;
   standWirdGeprueft=false;
@@ -1292,8 +1313,9 @@ function finalizeOppAbort(msg, reason){
     handleDisconnect(remis ? `${txt('meldung.mitspieler-nicht-erreichbar-remis')}`
                            : `${txt('meldung.mitspieler-nicht-erreichbar-gewonnen')}`,
                      `${txt('meldung.partie-beendet')}`);
+
     if(wasRoom) update(wasRoom,{'meta/aborted':true, 'meta/abortedBy':wasRole||null,
-                                'meta/abortReason': remis ? 'ausfall-remis' : 'ausfall'}).catch(()=>{});
+                                'meta/abortReason': remis ? 'ausfall-remis' : 'ausfall'}).catch(()=>ersteWertungZeigen(wasRoom, wasRole));
     return;
   }
 
@@ -1304,6 +1326,15 @@ function finalizeOppAbort(msg, reason){
     update(wasRoom,{'meta/aborted':true, 'meta/abortedBy':wasRole||null}).catch(()=>{});
 
   }
+}
+
+async function ersteWertungZeigen(wasRoom, wasRole){
+  try{
+    const d=(await get(wasRoom)).val();
+    const dc=document.getElementById('dc-overlay');
+    if(d && d.meta && d.meta.aborted && dc && !dc.classList.contains('hidden'))
+      setzeAbschlussTafel(`${txt('meldung.partie-beendet')}`, abbruchText(d, wasRole));
+  }catch(e){   }
 }
 
 async function logMvmAbort(reason, offlineForMs){
@@ -1340,28 +1371,29 @@ window.abortToLobbyNow=function(){
                    eigene ? 'manual-abort-offline' : 'manual-abort');
 };
 
-function abbruchText(data){
+function abbruchText(data, rolle){
+  const ich = (rolle!==undefined) ? rolle : myRole;
   const wer = (data && data.meta) ? data.meta.abortedBy : null;
 
   const grund = (data && data.meta) ? data.meta.abortReason : null;
   if(grund==='verlassen'){
-    return (wer && myRole && wer===myRole)
+    return (wer && ich && wer===ich)
       ? `${txt('meldung.du-hast-den-raum')}`
       : `${txt('meldung.mitspieler-hat-den-raum')}`;
   }
 
   if(grund==='ausfall'){
-    return (wer && myRole && wer===myRole)
+    return (wer && ich && wer===ich)
       ? `${txt('meldung.mitspieler-nicht-erreichbar-gewonnen')}`
       : `${txt('meldung.deine-verbindung-unterbrochen-gewonnen')}`;
   }
 
   if(grund==='ausfall-remis'){
-    return (wer && myRole && wer===myRole)
+    return (wer && ich && wer===ich)
       ? `${txt('meldung.mitspieler-nicht-erreichbar-remis')}`
       : `${txt('meldung.deine-verbindung-unterbrochen-remis')}`;
   }
-  if(wer && myRole && wer!==myRole)
+  if(wer && ich && wer!==ich)
     return `${txt('meldung.mitspieler-hat-die-partie')}`;
   return `${txt('meldung.verbindung-zu-lange-unterbrochen')}`;
 }
@@ -2357,7 +2389,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v189';
+const BUILD_MARKER='· Build v190';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2504,7 +2536,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=189');
+    aiWorker=new Worker('countred_ai_worker.js?v=190');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
@@ -3051,16 +3083,12 @@ async function handleGuestDeparture(data){
       const gastSpieler = (myPlayer===1) ? 2 : 1;
       phase='finished';
       pendingLastMove={player:null, drawReason:null, resignedBy:gastSpieler, verlassen:'guest'};
+      const raumJetzt = roomRef;
       pushState(myPlayer);
       console.log('§177: Gast hat die laufende Partie verlassen — als Aufgabe gewertet');
-      render();
 
-      const raumJetzt = roomRef;
       update(raumJetzt,{'meta/aborted':true,'meta/abortedBy':'guest','meta/abortReason':'verlassen'}).catch(()=>{});
-      setTimeout(()=>{
-        if(roomRef===raumJetzt && phase==='finished')
-          handleDisconnect(`${txt('meldung.mitspieler-hat-den-raum')}`, `${txt('meldung.partie-beendet')}`);
-      }, RAUM_AUFLOESEN_VERZUG_MS);
+      endeNachVerlassen();
     }
   }
   return true;
@@ -3439,6 +3467,14 @@ function schlussbildAuffrischen(){
   winArea.innerHTML = letztesBanner + ((hindernis && hindernis.endgueltig) ? '' : REMATCH_BTN_HTML) + wegHinweis;
 }
 
+function endeNachVerlassen(){
+  const raum = roomRef;
+  queueMicrotask(()=>{
+    if(roomRef===raum && phase==='finished')
+      handleDisconnect(`${txt('meldung.mitspieler-hat-den-raum')}`, `${txt('meldung.partie-beendet')}`);
+  });
+}
+
 function applyRemoteState(state){
 
   if(phase==='finished' && state.phase!=='finished' &&
@@ -3571,6 +3607,8 @@ function applyRemoteState(state){
       raumEndeText=`${txt('meldung.mitspieler-hat-den-raum')}`;
     }
     setLog(`<span class="msg signal">${satz}</span>`);
+
+    if(!iResigned && weg && phase==='finished' && roomRef) endeNachVerlassen();
   } else if(state.lastMove && state.lastMove.drawReason){
 
     const lm=state.lastMove;
@@ -3706,7 +3744,7 @@ async function letzterBlickAufDenRaum(wasRoom, wasPlayer){
     const st=data.state;
     if(!st || st.phase!=='finished') return;
 
-    const verlassen = !!(data.meta && data.meta.abortReason==='verlassen');
+    const verlassen = !!((data.meta && data.meta.abortReason==='verlassen') || (st.lastMove && st.lastMove.verlassen));
 
     if(verlassen && st.winner===wasPlayer){
       setzeAbschlussTafel(`${txt('meldung.partie-beendet')}`, `${txt('meldung.mitspieler-hat-den-raum')}`);
@@ -3741,6 +3779,7 @@ function cleanup(removeRoom=true){
   stopRematchWaitTimeout();
   clearOppOffline();
   oppLastSeen=null;
+  eigeneAbwesenheitSeit=null;
   lastAppliedStateSig=null;
   mvmGameGen=0;
   if(roomListener){roomListener();roomListener=null;}
@@ -3769,6 +3808,7 @@ document.addEventListener('visibilitychange',async()=>{
   if(document.visibilityState==='hidden'){
 
     stopHeartbeat();
+    if(roomRef) eigeneAbwesenheitBeginnt();
   } else {
     raumRueckkehrPruefen();
   }
@@ -3804,7 +3844,7 @@ async function raumRueckkehrPruefen(){
       if(data[selfField]!=='online'){ try{ await update(roomRef,{[selfField]:'online'}); }catch(e){} }
 
       evaluateOpponentPresence(data);
-      oppLastSeen = (oppLastSeen===null) ? serverNow() : Math.max(oppLastSeen, serverNow());
+      fristNachRueckkehr(data);
       startHeartbeat();
 
       if(!roomListener){
@@ -4704,6 +4744,7 @@ function eigeneVerbindungUeberwachen(){
       if(selbstOffline) return;
       selbstOffline=true;
       selbstOfflineSeit=Date.now();
+      if(roomRef) eigeneAbwesenheitBeginnt();
       console.log('§163 eigene Verbindung: WEG');
       return;
     }
@@ -4715,10 +4756,6 @@ function eigeneVerbindungUeberwachen(){
     else { clearEigenenAusfall(); fbLeerlauf(); }
     console.log('§163 eigene Verbindung: ZURÜCK — Raum wird frisch gelesen');
 
-    if(oppOfflineSince!==null){
-      oppOfflineSince=serverNow();
-      oppAbortDeadline=oppOfflineSince+OPP_ABORT_GRACE_MS;
-    }
     raumRueckkehrPruefen();
   });
 }
