@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=188'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=189'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=188" charset="utf-8"></script>
+<script src="countred_rules.js?v=189" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=188" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=189" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1048,6 +1048,11 @@ function fbIdle(){
   if(EIGENE_PRAESENZ_AN && selbstOffline) return false;
   return !roomRef && !(gameMode==='mvki' && (phase==='playing' || phase==='bonus'));
 }
+
+function fbVerbindungMelden(snap){
+  fbVerbunden = snap.val()===true;
+  if(fbVerbunden && fbWarteTimer){ clearTimeout(fbWarteTimer); fbWarteTimer=null; }
+}
 function fbWach(){
   if(fbLeerlaufTimer){ clearTimeout(fbLeerlaufTimer); fbLeerlaufTimer=null; }
   if(!fbGestartet){
@@ -1055,7 +1060,7 @@ function fbWach(){
     onValue(ref(db,'.info/serverTimeOffset'), snap=>{
       const v=snap.val(); if(typeof v==='number') serverTimeOffset=v;
     });
-    onValue(ref(db,'.info/connected'), snap=>{ fbVerbunden = snap.val()===true; });
+    onValue(ref(db,'.info/connected'), fbVerbindungMelden);
     if(EIGENE_PRAESENZ_AN) eigeneVerbindungUeberwachen();
     pruefeWartung();
     return;
@@ -1064,7 +1069,8 @@ function fbWach(){
 }
 function fbStart(){
   fbWach();
-  if(fbWarteTimer) clearTimeout(fbWarteTimer);
+  if(fbWarteTimer){ clearTimeout(fbWarteTimer); fbWarteTimer=null; }
+  if(fbVerbunden) return;
   fbWarteTimer=setTimeout(()=>{
     fbWarteTimer=null;
     if(fbVerbunden) return;
@@ -2351,7 +2357,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v188';
+const BUILD_MARKER='· Build v189';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2498,7 +2504,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=188');
+    aiWorker=new Worker('countred_ai_worker.js?v=189');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
