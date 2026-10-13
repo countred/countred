@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=191'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=192'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=191" charset="utf-8"></script>
+<script src="countred_rules.js?v=192" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=191" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=192" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1311,12 +1311,15 @@ function finalizeOppAbort(msg, reason){
   const laeuft = (phase==='playing' || phase==='bonus');
   if(laeuft && !(EIGENE_PRAESENZ_AN && selbstOffline)){
     const remis = (reason==='manual-abort');
+
+    const wasCode = roomCode, wasPlayer = myPlayer;
+    const eintrag = ergebnisEintrag(remis ? null : wasPlayer, remis ? 'ausfall-remis' : 'ausfall', aktuelleGen(), aktuelleZuege());
     handleDisconnect(remis ? `${txt('meldung.mitspieler-nicht-erreichbar-remis')}`
                            : `${txt('meldung.mitspieler-nicht-erreichbar-gewonnen')}`,
                      `${txt('meldung.partie-beendet')}`);
 
-    if(wasRoom) update(wasRoom,{'meta/aborted':true, 'meta/abortedBy':wasRole||null,
-                                'meta/abortReason': remis ? 'ausfall-remis' : 'ausfall'}).catch(()=>ersteWertungZeigen(wasRoom, wasRole));
+    if(wasRoom && wasCode) endeMarkieren(wasCode, {'meta/aborted':true, 'meta/abortedBy':wasRole||null,
+                                'meta/abortReason': remis ? 'ausfall-remis' : 'ausfall'}, eintrag).catch(()=>ersteWertungZeigen(wasRoom, wasRole, wasPlayer));
     return;
   }
 
@@ -1329,12 +1332,14 @@ function finalizeOppAbort(msg, reason){
   }
 }
 
-async function ersteWertungZeigen(wasRoom, wasRole){
+async function ersteWertungZeigen(wasRoom, wasRole, wasPlayer){
   try{
     const d=(await get(wasRoom)).val();
     const dc=document.getElementById('dc-overlay');
-    if(d && d.meta && d.meta.aborted && dc && !dc.classList.contains('hidden'))
-      setzeAbschlussTafel(`${txt('meldung.partie-beendet')}`, abbruchText(d, wasRole));
+    if(!d || !dc || dc.classList.contains('hidden')) return;
+    if(d.meta && d.meta.aborted) setzeAbschlussTafel(`${txt('meldung.partie-beendet')}`, abbruchText(d, wasRole));
+
+    else if(d.state && d.state.phase==='finished') letzterBlickAufDenRaum(wasRoom, wasPlayer);
   }catch(e){   }
 }
 
@@ -2390,7 +2395,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v191';
+const BUILD_MARKER='· Build v192';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2537,7 +2542,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=191');
+    aiWorker=new Worker('countred_ai_worker.js?v=192');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
@@ -3008,18 +3013,20 @@ window.verlassenAlsAufgabe=function(){
   if(!roomRef || !myRole){ showModeMenu(); return; }
   const laeuft = (phase==='playing' || phase==='bonus');
   if(!laeuft || myRole!=='host'){ leaveRoom(); return; }
-  const wasRoom = roomRef;
+  const wasRoom = roomRef, wasCode = roomCode;
   const gegner = (myPlayer===1) ? 2 : 1;
   phase='finished';
   pendingLastMove={player:null, drawReason:null, resignedBy:myPlayer, verlassen:'host'};
   pushState(gegner);
   console.log('§177: Host löst die laufende Partie auf — als Aufgabe gewertet, Abschluss in',
               RAUM_AUFLOESEN_VERZUG_MS, 'ms');
+  const eintrag = ergebnisEintrag(gegner, 'verlassen', aktuelleGen(), aktuelleZuege());
+  const code = wasCode;
   cleanup(false);
   showModeMenu();
 
   setTimeout(()=>{
-    update(wasRoom,{'meta/aborted':true,'meta/abortedBy':'host','meta/abortReason':'verlassen'})
+    endeMarkieren(code, {'meta/aborted':true,'meta/abortedBy':'host','meta/abortReason':'verlassen'}, eintrag)
       .catch(()=>{});
   }, RAUM_AUFLOESEN_VERZUG_MS);
 };
@@ -3088,7 +3095,8 @@ async function handleGuestDeparture(data){
       pushState(myPlayer);
       console.log('§177: Gast hat die laufende Partie verlassen — als Aufgabe gewertet');
 
-      update(raumJetzt,{'meta/aborted':true,'meta/abortedBy':'guest','meta/abortReason':'verlassen'}).catch(()=>{});
+      endeMarkieren(roomCode, {'meta/aborted':true,'meta/abortedBy':'guest','meta/abortReason':'verlassen'},
+                    ergebnisEintrag(myPlayer, 'verlassen', aktuelleGen(), aktuelleZuege())).catch(()=>{});
       endeNachVerlassen();
     }
   }
@@ -3444,8 +3452,15 @@ async function pushState(winner=null){
 
   if(phase==='finished') update(roomRef,{'meta/drawOffer':null}).catch(()=>{});
 
+  const lmE = state.lastMove || {};
+  const grundE = (state.phase!=='finished') ? null
+    : lmE.verlassen ? null
+    : lmE.drawReason ? lmE.drawReason
+    : lmE.resignedBy ? 'aufgabe'
+    : (state.winner===1 || state.winner===2) ? 'vierer' : 'remis';
   try{
     await update(roomRef,{state});
+    if(grundE) finalizeGame(state.winner, grundE);
   }catch(e){
     console.error('§164 pushState: Zustand NICHT geschrieben —', (e && e.message) ? e.message : e);
   }
@@ -3781,6 +3796,7 @@ function cleanup(removeRoom=true){
   clearOppOffline();
   oppLastSeen=null;
   eigeneAbwesenheitSeit=null;
+  ergebnisGeschriebenGen=null;
   lastAppliedStateSig=null;
   mvmGameGen=0;
   if(roomListener){roomListener();roomListener=null;}
@@ -4059,7 +4075,6 @@ async function nextTurn(){
     trackEvent('game_finished',{winner:justMoved});
     const winningMove=pendingLastMove;
     await pushState(justMoved);
-    finalizeGame(justMoved);
     if(winningMove){
       const movedByMe=(winningMove.player===myPlayer);
       const who=movedByMe?`${txt('meldung.du-hast')}`:txt('meldung.name-hat', {0:oppSatzanfang});
@@ -4390,16 +4405,30 @@ async function logMove(from,to){
   const key=`${entry.ts}_${i}_${currentPlayer}`;
   await update(ref(db,`games_mp/${roomCode}/moves/${key}`), entry).catch(()=>{});
 }
-async function finalizeGame(winner){
+
+let ergebnisGeschriebenGen = null;
+function ergebnisEintrag(winner, grund, gen, zuege){
+  return { winner: winner||null, reason: grund, moves: zuege, gameGen: gen, ts: Date.now() };
+}
+function aktuelleGen(){ return (typeof mvmGameGen==='number' && mvmGameGen>=1) ? mvmGameGen : 1; }
+function aktuelleZuege(){ return (typeof mvmMoveSeq==='number' && mvmMoveSeq>0) ? mvmMoveSeq : moveIndex; }
+async function finalizeGame(winner, grund){
   if(!roomCode) return;
 
-  const gen = (typeof mvmGameGen==='number' && mvmGameGen>=1) ? mvmGameGen : 1;
-  await update(ref(db,`games_mp/${roomCode}/results/g${gen}`),{
-    winner: winner||null,
-    moves: (typeof mvmMoveSeq==='number' && mvmMoveSeq>0) ? mvmMoveSeq : moveIndex,
-    gameGen: gen,
-    ts: Date.now()
-  }).catch(e=>console.warn('§226 finalizeGame: Ergebnis nicht geschrieben —', e && e.message ? e.message : e));
+  const gen = aktuelleGen();
+  if(ergebnisGeschriebenGen===gen) return;
+  ergebnisGeschriebenGen = gen;
+  await update(ref(db,`games_mp/${roomCode}/results/g${gen}`), ergebnisEintrag(winner, grund||'vierer', gen, aktuelleZuege()))
+    .catch(e=>console.warn('§226 finalizeGame: Ergebnis nicht geschrieben —', e && e.message ? e.message : e));
+}
+
+function endeMarkieren(code, markierung, eintrag){
+  const u = {};
+  for(const [k, v] of Object.entries(markierung)) u[['rooms', code, k].join('/')] = v;
+  u[['games_mp', code, 'results', 'g' + eintrag.gameGen].join('/')] = eintrag;
+  ergebnisGeschriebenGen = eintrag.gameGen;
+
+  return update(ref(db), u).catch(()=>update(ref(db,`rooms/${code}`), markierung));
 }
 
 window.markMvkiPosition=async function(){
