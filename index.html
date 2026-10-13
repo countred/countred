@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=190'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=191'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -972,14 +972,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=190" charset="utf-8"></script>
+<script src="countred_rules.js?v=191" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=190" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=191" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1210,6 +1210,7 @@ function evaluateOpponentPresence(data){
 let eigeneAbwesenheitSeit = null;
 function eigeneAbwesenheitBeginnt(){ if(eigeneAbwesenheitSeit===null) eigeneAbwesenheitSeit = serverNow(); }
 function fristNachRueckkehr(data){
+  if(!roomRef || !myRole) return;
   const jetzt = serverNow();
   const gegnerFeld = myRole==='host' ? 'guestSeen' : 'hostSeen';
   if(typeof data[gegnerFeld]==='number') oppLastSeen = data[gegnerFeld];
@@ -1225,7 +1226,7 @@ function fristNachRueckkehr(data){
   else oppAbortDeadline += luecke;
   console.log('§236 Frist nach Rückkehr: Mitspieler weg seit', Math.round((jetzt-seit)/1000), 's · eigene Lücke',
               Math.round(luecke/1000), 's · Rest', Math.round((oppAbortDeadline-jetzt)/1000), 's');
-  if(neu) showOppOfflineOverlay();
+  showOppOfflineOverlay();
 }
 
 function clearEigenenAusfall(){
@@ -2389,7 +2390,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v190';
+const BUILD_MARKER='· Build v191';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2536,7 +2537,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=190');
+    aiWorker=new Worker('countred_ai_worker.js?v=191');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
@@ -3817,8 +3818,20 @@ document.addEventListener('visibilitychange',async()=>{
 async function raumRueckkehrPruefen(){
 
     if(!roomRef || !myRole){ console.log('§162 Rückkehr: kein Raum mehr (roomRef/myRole leer) — nichts zu tun'); return; }
+    const raum=roomRef, rolle=myRole;
     try{
+
+      if(eigeneAbwesenheitSeit!==null){
+        if(EIGENE_PRAESENZ_AN && selbstOffline) zeigeEigenenAusfall(); else zeigeStandWirdGeprueft();
+        standWirdGeprueft=true;
+        startPresenceMonitor();
+        await update(raum, rolle==='host' ? {hostSeen:serverTimestamp(), host:'online'}
+                                          : {guestSeen:serverTimestamp(), guest:'online'}).catch(()=>{});
+        if(roomRef!==raum || myRole!==rolle){ console.log('§236 Rückkehr: inzwischen beendet — nichts mehr zu prüfen'); return; }
+      }
       const snap=await get(roomRef);
+
+      if(roomRef!==raum || myRole!==rolle){ console.log('§236 Rückkehr: inzwischen beendet — nichts mehr zu prüfen'); return; }
       if(!snap.exists()){
         console.log('§162 Rückkehr: der Raum existiert nicht mehr');
 
