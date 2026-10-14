@@ -413,7 +413,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=192'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=193'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -608,6 +608,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
         der Europäischen Kommission besteht. Für die Datenbank enthalten die
         Auftragsverarbeitungsbedingungen von Google ergänzend die Standardvertragsklauseln
         der Europäischen Kommission nach Art. 46 Abs. 2 lit. c DSGVO.</div>
+
+      <div><strong style="color:var(--text);">Wenn du uns schreibst</strong><br>
+        Wenn du uns per E-Mail schreibst, verwenden wir deine Adresse und deine Nachricht nur,
+        um dir zu antworten (Art. 6 Abs. 1 lit. f DSGVO). Wir löschen sie, sobald die Sache
+        erledigt ist; eine Anfrage nach der DSGVO halten wir als kurze Notiz fest (Datum, Art der
+        Anfrage, Nummer der Partie), um sie nachweisen zu können.</div>
       <div><strong style="color:var(--text);">Deine Rechte</strong><br>
         Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung
         und Datenübertragbarkeit; zum Widerspruch siehe den nächsten Abschnitt. Du kannst dich
@@ -627,7 +633,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
         setzen wir den Widerspruch über die Nummer der Partie um (siehe „Deine Rechte“): die
         Partie, die du uns nennst, löschen wir.</div>
       <div style="font-size:var(--fs-sm);color:var(--text3);">
-        Verantwortlich ist die im Impressum genannte Person. Stand: 8. Oktober 2026</div>
+        Verantwortlich ist die im Impressum genannte Person. Stand: 14. Oktober 2026</div>
 
       <div lang="en" style="display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--border,#ccc);padding-top:14px;margin-top:6px;">
       <div><strong style="color:var(--text);font-size:var(--fs-lg);">Privacy — English version</strong><br>
@@ -703,6 +709,11 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
         of the European Commission. For the database, Google’s data processing terms
         additionally contain the European Commission’s standard contractual clauses
         under Art. 46(2)(c) GDPR.</div>
+      <div><strong style="color:var(--text);">If you write to us</strong><br>
+        If you write to us by e-mail, we use your address and your message only to reply to
+        you (Art. 6(1)(f) GDPR). We delete them once the matter is settled; we keep a short
+        note of a request under the GDPR (date, type of request, number of the game) so that
+        we can demonstrate how we handled it.</div>
       <div><strong style="color:var(--text);">Your rights</strong><br>
         You have the right of access, rectification, erasure, restriction of processing
         and data portability; on objection, see the next section. You can also lodge a
@@ -721,7 +732,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
         implement an objection via the number of the game (see “Your rights”): we delete the
         game you name.</div>
       <div style="font-size:var(--fs-sm);color:var(--text3);">
-        The person named in the legal notice (Impressum) is responsible. Last updated: 8 October 2026</div>
+        The person named in the legal notice (Impressum) is responsible. Last updated: 14 October 2026</div>
       </div>
     </div>
     <button class="big-btn primary" style="width:100%;"
@@ -972,14 +983,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=192" charset="utf-8"></script>
+<script src="countred_rules.js?v=193" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=192" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=193" charset="utf-8"></script>
 
 <script type="module">
 
@@ -2395,7 +2406,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v192';
+const BUILD_MARKER='· Build v193';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2542,7 +2553,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=192');
+    aiWorker=new Worker('countred_ai_worker.js?v=193');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
