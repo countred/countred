@@ -13,7 +13,22 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f5f4ef" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1a1a18" media="(prefers-color-scheme: dark)">
-<title data-t="seite.titel"></title>
+<title data-t="seite.titel">CountRed – Strategiespiel für zwei</title>
+
+<meta name="apple-mobile-web-app-title" content="CountRed">
+<meta name="application-name" content="CountRed">
+<meta name="description" content="CountRed ist ein Strategiespiel für zwei auf einem 4×4-Brett. Spiele mit Max Michu oder zu zweit über einen Code – im Browser, ohne Anmeldung.">
+<link rel="canonical" href="https://countred.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CountRed">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://countred.com/">
+<meta property="og:title" content="CountRed – Strategiespiel für zwei">
+<meta property="og:description" content="CountRed ist ein Strategiespiel für zwei auf einem 4×4-Brett. Spiele mit Max Michu oder zu zweit über einen Code – im Browser, ohne Anmeldung.">
+<meta property="og:image" content="https://countred.com/apple-touch-icon.png">
+<meta property="og:image:width" content="180">
+<meta property="og:image:height" content="180">
+<meta name="twitter:card" content="summary">
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -413,7 +428,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=193'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=194'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -983,14 +998,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=193" charset="utf-8"></script>
+<script src="countred_rules.js?v=194" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=193" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=194" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1641,7 +1656,7 @@ const TEXTE = {
       'seite.countred-ist-fuer-das':                 'CountRed ist für das Hochformat gebaut.',
       'seite.d':                                     'D',
       'seite.du':                                    'Du',
-      'seite.titel':                                 'CountRed',
+      'seite.titel':                                 'CountRed – Strategiespiel für zwei',
       'seite.gerade':                                'gerade',
       'seite.gib-den-5-stelligen':                   'Gib den 5-stelligen Code ein:',
       'seite.mitspieler':                            'Mitspieler',
@@ -1964,7 +1979,7 @@ const TEXTE = {
       'seite.countred-ist-fuer-das':                 'CountRed is made for portrait mode.',
       'seite.d':                                     'D',
       'seite.du':                                    'You',
-      'seite.titel':                                 'CountRed',
+      'seite.titel':                                 'CountRed – strategy game for two',
       'seite.gerade':                                'even',
       'seite.gib-den-5-stelligen':                   'Enter the 5-character code:',
       'seite.mitspieler':                            'Other player',
@@ -2406,7 +2421,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v193';
+const BUILD_MARKER='· Build v194';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2553,7 +2568,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=193');
+    aiWorker=new Worker('countred_ai_worker.js?v=194');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
