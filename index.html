@@ -92,6 +92,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
 .wortmarke .wm-red{font-weight:700;color:var(--text);}
 .logo-line2.wortmarke{font-size:var(--fs-sm);display:flex;align-items:center;justify-content:center;}
 
+h1.wortmarke{margin:0;font-weight:inherit;}
+
 .sym{width:1.15em;height:1.15em;vertical-align:-.21em;margin-right:.42em;color:var(--text2);flex:none;}
 .sym-gross{width:1.2em;height:1.2em;vertical-align:-.12em;margin:0;color:var(--text2);}
 
@@ -379,9 +381,9 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
 
 <div id="app">
   <div id="logo">
-    <div class="logo-line2 wortmarke">
+    <h1 class="logo-line2 wortmarke">
       <span class="wm-count">Count</span><span class="wm-red">Red</span>
-    </div>
+    </h1>
   </div>
   <div id="testlabel" data-t="seite.testversion"></div>
   <div id="header">
@@ -428,7 +430,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=194'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=195'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -998,14 +1000,14 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-
   </div>
 </div>
 
-<script src="countred_rules.js?v=194" charset="utf-8"></script>
+<script src="countred_rules.js?v=195" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=194" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=195" charset="utf-8"></script>
 
 <script type="module">
 
@@ -2421,7 +2423,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v194';
+const BUILD_MARKER='· Build v195';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2568,7 +2570,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=194');
+    aiWorker=new Worker('countred_ai_worker.js?v=195');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);

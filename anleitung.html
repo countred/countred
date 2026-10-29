@@ -78,6 +78,8 @@ body{padding:max(env(safe-area-inset-top),10px) max(env(safe-area-inset-right),1
 .wortmarke .wm-red{font-weight:700;color:var(--text);}
 #head .t{font-size:var(--fs-sm);letter-spacing:-.2px;}
 
+h1.wortmarke{margin:0;font-weight:inherit;}
+
 @media print{
   html,body{background:#fff;color:#2c2c2a;}
   .wortmarke .wm-count{color:#5f5e5a;}
@@ -189,7 +191,7 @@ body{padding:max(env(safe-area-inset-top),10px) max(env(safe-area-inset-right),1
 <body>
 
 <div id="app">
-  <div id="head"><span class="t wortmarke"><span class="wm-count">Count</span><span class="wm-red">Red</span></span>
+  <div id="head"><h1 class="t wortmarke"><span class="wm-count">Count</span><span class="wm-red">Red</span></h1>
     <span class="rechts"><span class="n" id="stepno"></span><button type="button" id="btn-exit">Zum Spiel</button></span>
   </div>
   <div id="bar"><i id="barfill"></i></div>
@@ -307,7 +309,7 @@ setTimeout(function(){
 }, 12000);
 </script>
 
-<script src="countred_rules.js?v=194" charset="utf-8"></script>
+<script src="countred_rules.js?v=195" charset="utf-8"></script>
 
 <script>
 
