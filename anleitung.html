@@ -168,7 +168,9 @@ h1.wortmarke{margin:0;font-weight:inherit;}
   align-items:center;justify-content:center;flex-shrink:0;font-size:var(--fs-xs);font-weight:700;line-height:1;}
 .figure.black-fig{background:#2c2c2a;border-color:rgba(255,255,255,.08);color:#fff;}
 .figure.red-fig{background:var(--red-fig-bg);border-color:rgba(0,0,0,.08);color:#fff;}
-@media(prefers-color-scheme:dark){.figure.black-fig{background:#e0ddd6;border-color:rgba(0,0,0,.08);color:#1a1a18;}}
+
+.wort-dunkelmodus{display:none;}
+@media(prefers-color-scheme:dark){.figure.black-fig{background:#e0ddd6;border-color:rgba(0,0,0,.08);color:#1a1a18;}.wort-hellmodus{display:none;}.wort-dunkelmodus{display:inline;}}
 
 .figure.getragen{opacity:.45;border-style:dashed;border-color:var(--text2);}
 .stack-wrap{display:flex;flex-direction:column;align-items:center;}
@@ -309,14 +311,14 @@ setTimeout(function(){
 }, 12000);
 </script>
 
-<script src="countred_rules.js?v=195" charset="utf-8"></script>
+<script src="countred_rules.js?v=196" charset="utf-8"></script>
 
 <script>
 
 
 const LEARNER = 1, OPPONENT = 2, PARITY = 'odd';
 
-const ANL_FASSUNG = 'Anleitung · Fassung 83 · 12.10.2026';
+const ANL_FASSUNG = 'Anleitung · Fassung 84 · 30.10.2026';
 
 const SPRACHE = (function spracheWaehlen(){
   try {
@@ -340,12 +342,12 @@ const TEXTE = {
       'anl.aufloesen.intro#html':                    '<p>Die Zugerlaubnis musst du genauso auch beim Anheben der Figur von einem Stapel beachten: Du darfst die Top-Figur anheben, wenn die Summe der <b>roten</b> Figuren im Stapel <b>ungerade</b> ist. In deinem Fall ist das 1 rote Figur. Die Parität des Mitspielers ist gerade, also sind es bei ihm 0 oder 2 rote Figuren.</p>',
       'anl.aufloesen.titel':                         'Stapel auflösen',
       'anl.beginn.a1.nachher#html':                  '<p>Du hast einen Stapel auf D0 gebildet.</p>',
-      'anl.beginn.a2.text#html':                     '<p>Grundsätzliches, bevor du die Zugerlaubnis kennenlernst: Du darfst jede Figur bewegen, rote <b>und</b> schwarze. Du darfst überall hinziehen. Es gibt keine vorgeschriebene Richtung. Es gibt keine Beschränkung der Zugweite. Du kannst Stapel bilden und wieder auflösen. Nur Zweierstapel, ein Top auf einer Basis. Beim Top spielen auch die Punkte und die Zahl auf der Figur keine Rolle.</p>',
+      'anl.beginn.a2.text#html':                     '<p>Grundsätzliches, bevor du die Zugerlaubnis kennenlernst: Du darfst jede Figur bewegen, rote <b>und</b> <span class="wort-hellmodus">schwarze</span><span class="wort-dunkelmodus">weiße</span>. Du darfst überall hinziehen. Es gibt keine vorgeschriebene Richtung. Es gibt keine Beschränkung der Zugweite. Du kannst Stapel bilden und wieder auflösen. Nur Zweierstapel, ein Top auf einer Basis. Beim Top spielen auch die Punkte und die Zahl auf der Figur keine Rolle.</p>',
       'anl.beginn.intro#html':                       '<p>Die Punktezahl oben auf einem Feld (3, 2, 1 oder 0 Punkte) und die Zahl auf der Figur (3, 2, 1 oder 0) auf diesem Feld müssen übereinstimmen. Beispiel: Auf den leeren Feldern A2, B2, C2 oder D2 können nur Figuren mit einer <b>2</b> abgesetzt werden.</p>',
       'anl.beginn.titel':                            'Spielbeginn',
       'anl.bonus.a1.text#html':                      '<p>Den Dreier kann aber auch dein Mitspieler zum Vierer vervollständigen und gewinnen.</p><p>Lote mit zwei Varianten deines Bonuszuges diese strategischen Möglichkeiten aus.</p>',
       'anl.bonus.a2.vorher#html':                    '<p>Ein <b>guter</b> Bonuszug:</p>',
-      'anl.bonus.a3.text#html':                      '<p>Zwischen den zwei schwarzen Figuren in Spalte A wird das Feld A2 frei. Für die passende dritte schwarze Figur und damit den nächsten möglichen Dreier ist die Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>.</p>',
+      'anl.bonus.a3.text#html':                      '<p>Zwischen den zwei <span class="wort-hellmodus">schwarzen</span><span class="wort-dunkelmodus">weißen</span> Figuren in Spalte A wird das Feld A2 frei. Für die passende dritte <span class="wort-hellmodus">schwarze</span><span class="wort-dunkelmodus">weiße</span> Figur und damit den nächsten möglichen Dreier ist die Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>.</p>',
       'anl.bonus.a4.text#html':                      '<p>Die passende Figur mit Zahl auf der Figur und Punkte auf dem Feld (2) steht auf D2 und hat gerade ebenfalls deine Parität: Summe der roten Nachbarfiguren: <b>3 = ungerade</b>. Die andere passende Figur ist bereits im Dreier gesperrt.</p><p>Mit diesem Bonuszug hast du dir die perfekte Ausgangslage für deinen nächsten Dreier geschaffen und setzt deinen Mitspieler unter Druck.</p>',
       'anl.bonus.a5.nachher#html':                   '<p>Dein Bonuszug ist korrekt, aber du schenkst dem Mitspieler damit direkt den Sieg. Drei Dinge musst du beachten:</p>',
       'anl.bonus.a5.vorher#html':                    '<p>Ein <b>nicht so schlauer</b> Bonuszug — der Spielstand ist wieder wie vor der ersten Variante:</p>',
@@ -356,7 +358,7 @@ const TEXTE = {
       'anl.bonus.intro#html':                        '<p>Ein Dreier ist meistens gut, vor allem wegen des Bonuszugs.</p>',
       'anl.bonus.titel':                             'Bonuszug und Taktik',
       'anl.datenschutz':                             'Datenschutz',
-      'anl.dreier.a1.nachher#html':                  '<p>Du hast einen <b>Dreier</b> gebaut: B0, B1, B2 — drei schwarze übereinander.</p>',
+      'anl.dreier.a1.nachher#html':                  '<p>Du hast einen <b>Dreier</b> gebaut: B0, B1, B2 — drei <span class="wort-hellmodus">schwarze</span><span class="wort-dunkelmodus">weiße</span> übereinander.</p>',
       'anl.dreier.a2.text#html':                     '<p>Jetzt gelten mehrere Besonderheiten. Die wichtigste: <b>Du bekommst einen Bonuszug.</b></p><p>Die drei unteren Figuren bleiben für den Rest des Spieles gesperrt. Stapeln darauf bleibt erlaubt, und die obere Figur darfst du auch wieder herunternehmen. Für die Parität zählen auch die gesperrten Figuren weiterhin mit.</p>',
       'anl.dreier.intro#html':                       '<p>Erinnerst du dich an das Ziel: die vierte gleichfarbige Figur in einer Spalte? Es gibt noch ein Zwischenziel davor: die <b>dritte</b> gleichfarbige Figur in eine Spalte ziehen. Für den Dreier — und ebenso für den Vierer — zählt bei einem Stapel nur die untere Figur, nicht die darauf gestapelte.</p>',
       'anl.dreier.titel':                            'Drei in einer Spalte',
@@ -404,7 +406,7 @@ const TEXTE = {
       'anl.urteil.er-stapeln#html':                  'Er darf stapeln.',
       'anl.weiter':                                  'Weiter',
       'anl.ziel.intro#html':                         '<p>Gewonnen hat, wer die <b>vierte gleichfarbige Figur in eine Spalte</b> ziehen kann — A, B, C oder D.</p>',
-      'anl.ziel.nachher#html':                       '<p>Vier schwarze Figuren in Spalte B. Du hast gewonnen.</p>',
+      'anl.ziel.nachher#html':                       '<p>Vier <span class="wort-hellmodus">schwarze</span><span class="wort-dunkelmodus">weiße</span> Figuren in Spalte B. Du hast gewonnen.</p>',
       'anl.ziel.titel':                              'Spielziel',
       'anl.zum-spiel':                               'Zum Spiel',
       'anl.zum-spiel-kopf':                          'Zum Spiel',
@@ -427,12 +429,12 @@ const TEXTE = {
       'anl.aufloesen.intro#html':                    '<p>The right to move also applies in exactly the same way when you lift the piece off a stack: you may lift the top piece if the sum of the <b>red</b> pieces in the stack is <b>odd</b>. In your case that is 1 red piece. The other player’s parity is even, so for them it is 0 or 2 red pieces.</p>',
       'anl.aufloesen.titel':                         'Breaking up a stack',
       'anl.beginn.a1.nachher#html':                  '<p>You have formed a stack on D0.</p>',
-      'anl.beginn.a2.text#html':                     '<p>Some basics before you learn the right to move: you may move any piece, red <b>and</b> black. You may move anywhere. There is no set direction. There is no limit on how far a piece moves. You can form stacks and break them up again. Only two-piece stacks, one top piece on one base. For the top piece, the points and the number on the piece do not matter.</p>',
+      'anl.beginn.a2.text#html':                     '<p>Some basics before you learn the right to move: you may move any piece, red <b>and</b> <span class="wort-hellmodus">black</span><span class="wort-dunkelmodus">white</span>. You may move anywhere. There is no set direction. There is no limit on how far a piece moves. You can form stacks and break them up again. Only two-piece stacks, one top piece on one base. For the top piece, the points and the number on the piece do not matter.</p>',
       'anl.beginn.intro#html':                       '<p>The points at the top of a square (3, 2, 1 or 0 points) and the number on the piece (3, 2, 1 or 0) on that square must match. Example: on the empty squares A2, B2, C2 or D2, only pieces with a <b>2</b> can be set down.</p>',
       'anl.beginn.titel':                            'Starting the game',
       'anl.bonus.a1.text#html':                      '<p>But the other player can also complete your triple to four in a column and win.</p><p>Explore these strategic possibilities with two versions of your bonus move.</p>',
       'anl.bonus.a2.vorher#html':                    '<p>A <b>good</b> bonus move:</p>',
-      'anl.bonus.a3.text#html':                      '<p>Between the two black pieces in column A, square A2 becomes free. For the matching third black piece, and with it the next possible triple, the parity is: sum of the red neighbouring pieces: <b>3 = odd</b>.</p>',
+      'anl.bonus.a3.text#html':                      '<p>Between the two <span class="wort-hellmodus">black</span><span class="wort-dunkelmodus">white</span> pieces in column A, square A2 becomes free. For the matching third <span class="wort-hellmodus">black</span><span class="wort-dunkelmodus">white</span> piece, and with it the next possible triple, the parity is: sum of the red neighbouring pieces: <b>3 = odd</b>.</p>',
       'anl.bonus.a4.text#html':                      '<p>The matching piece, with number on the piece and points on the square (2), is on D2 and right now also has your parity: sum of the red neighbouring pieces: <b>3 = odd</b>. The other matching piece is already locked in the triple.</p><p>With this bonus move you have set yourself up perfectly for your next triple and put the other player under pressure.</p>',
       'anl.bonus.a5.nachher#html':                   '<p>Your bonus move is correct, but it hands the other player the win straight away. There are three things to watch out for:</p>',
       'anl.bonus.a5.vorher#html':                    '<p>A <b>not so clever</b> bonus move — the position is back to where it was before the first version:</p>',
@@ -443,7 +445,7 @@ const TEXTE = {
       'anl.bonus.intro#html':                        '<p>A triple is usually good, above all because of the bonus move.</p>',
       'anl.bonus.titel':                             'Bonus move and tactics',
       'anl.datenschutz':                             'Privacy',
-      'anl.dreier.a1.nachher#html':                  '<p>You have built a <b>triple</b>: B0, B1, B2 — three black pieces one above the other.</p>',
+      'anl.dreier.a1.nachher#html':                  '<p>You have built a <b>triple</b>: B0, B1, B2 — three <span class="wort-hellmodus">black</span><span class="wort-dunkelmodus">white</span> pieces one above the other.</p>',
       'anl.dreier.a2.text#html':                     '<p>Now several special rules apply. The most important: <b>you get a bonus move.</b></p><p>The three lower pieces stay locked for the rest of the game. Stacking on them is still allowed, and you may take the upper piece off again. The locked pieces still count for parity.</p>',
       'anl.dreier.intro#html':                       '<p>Remember the aim: the fourth piece of the same colour in a column? There is an intermediate goal before that: moving the <b>third</b> piece of the same colour into a column. For the triple — and likewise for four in a column — only the lower piece of a stack counts, not the one stacked on top.</p>',
       'anl.dreier.titel':                            'Three in a column',
@@ -491,7 +493,7 @@ const TEXTE = {
       'anl.urteil.er-stapeln#html':                  'They may stack.',
       'anl.weiter':                                  'Next',
       'anl.ziel.intro#html':                         '<p>The winner is whoever can move the <b>fourth piece of the same colour into a column</b> — A, B, C or D.</p>',
-      'anl.ziel.nachher#html':                       '<p>Four black pieces in column B. You have won.</p>',
+      'anl.ziel.nachher#html':                       '<p>Four <span class="wort-hellmodus">black</span><span class="wort-dunkelmodus">white</span> pieces in column B. You have won.</p>',
       'anl.ziel.titel':                              'Aim of the game',
       'anl.zum-spiel':                               'To the game',
       'anl.zum-spiel-kopf':                          'To the game',

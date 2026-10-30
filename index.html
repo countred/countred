@@ -204,7 +204,9 @@ h1.wortmarke{margin:0;font-weight:inherit;}
 }
 .figure.black-fig{background:#2c2c2a;border-color:rgba(255,255,255,0.08);color:#fff;}
 .figure.red-fig{background:var(--red-fig-bg);border-color:rgba(0,0,0,0.08);color:#fff;}
-@media(prefers-color-scheme:dark){.figure.black-fig{background:#e0ddd6;border-color:rgba(0,0,0,0.08);color:#1a1a18;}}
+
+.wort-dunkelmodus{display:none;}
+@media(prefers-color-scheme:dark){.figure.black-fig{background:#e0ddd6;border-color:rgba(0,0,0,0.08);color:#1a1a18;}.wort-hellmodus{display:none;}.wort-dunkelmodus{display:inline;}}
 
 .stack-wrap{display:flex;flex-direction:column;align-items:center;}
 .stack-wrap .figure{width:26px;height:26px;font-size:var(--fs-sm);}
@@ -430,7 +432,7 @@ h1.wortmarke{margin:0;font-weight:inherit;}
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=195'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=196'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -968,7 +970,7 @@ h1.wortmarke{margin:0;font-weight:inherit;}
 
       <div data-t-label="regeln.4-4-felder-zeilen"><strong style="color:var(--text);" data-t="regeln.brett"></strong><br></div>
 
-      <div data-t-label="regeln.zwei-farben-schwarz-und"><strong style="color:var(--text);" data-t="regeln.figuren"></strong><br></div>
+      <div><strong style="color:var(--text);" data-t="regeln.figuren"></strong><br><span data-t-html="regeln.zwei-farben-schwarz-und#html"></span></div>
 
       <div data-t-label="regeln.die-spieler-ziehen-abwechselnd"><strong style="color:var(--text);" data-t="regeln.spieler-und-paritaet"></strong><br></div>
 
@@ -1000,14 +1002,14 @@ h1.wortmarke{margin:0;font-weight:inherit;}
   </div>
 </div>
 
-<script src="countred_rules.js?v=195" charset="utf-8"></script>
+<script src="countred_rules.js?v=196" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=195" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=196" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1636,7 +1638,7 @@ const TEXTE = {
       'regeln.ziel':                                 'Ziel',
       'regeln.zugrichtung-und-zugweite-keine#html':  '<strong style="color:var(--text);">Zugrichtung und Zugweite</strong><br>Keine Beschränkung. Eine Figur darf auf <em>jedes</em> Feld des Bretts gezogen werden — vorwärts, rückwärts, seitwärts, diagonal, über beliebige Entfernung und über andere Figuren hinweg. Ob ein Zug erlaubt ist, entscheidet allein die Parität, beim leeren Zielfeld zusätzlich die Punktzahl.',
       'regeln.zugverzicht':                          'Zugverzicht',
-      'regeln.zwei-farben-schwarz-und':              'Zwei Farben, schwarz und rot, mit Zahlen 0–3. Die Zahl entspricht dem Punktwert des Feldes, auf dem die Figur zu Beginn steht. Die Figuren gehören keinem Spieler.',
+      'regeln.zwei-farben-schwarz-und#html':         'Zwei Farben, <span class="wort-hellmodus">schwarz</span><span class="wort-dunkelmodus">weiß</span> und rot, mit Zahlen 0–3. Die Zahl entspricht dem Punktwert des Feldes, auf dem die Figur zu Beginn steht. Die Figuren gehören keinem Spieler.',
       'remis.ablehnen':                              'Ablehnen',
       'remis.ablehnen-2':                            'Ablehnen',
       'remis.einverstanden':                         'Einverstanden',
@@ -1959,7 +1961,7 @@ const TEXTE = {
       'regeln.ziel':                                 'Aim',
       'regeln.zugrichtung-und-zugweite-keine#html':  '<strong style="color:var(--text);">Direction and distance</strong><br>No restriction. A piece may be moved to <em>any</em> square on the board — forwards, backwards, sideways, diagonally, over any distance and over other pieces. Whether a move is allowed is decided by parity alone, and for an empty target square also by the points.',
       'regeln.zugverzicht':                          'Passing',
-      'regeln.zwei-farben-schwarz-und':              'Two colours, black and red, with numbers 0–3. The number matches the point value of the square the piece stands on at the start. The pieces do not belong to either player.',
+      'regeln.zwei-farben-schwarz-und#html':         'Two colours, <span class="wort-hellmodus">black</span><span class="wort-dunkelmodus">white</span> and red, with numbers 0–3. The number matches the point value of the square the piece stands on at the start. The pieces do not belong to either player.',
       'remis.ablehnen':                              'Decline',
       'remis.ablehnen-2':                            'Decline',
       'remis.einverstanden':                         'Agree',
@@ -2423,7 +2425,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v195';
+const BUILD_MARKER='· Build v196';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2570,7 +2572,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=195');
+    aiWorker=new Worker('countred_ai_worker.js?v=196');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
