@@ -432,7 +432,7 @@ h1.wortmarke{margin:0;font-weight:inherit;}
     <p data-t="start.wie-moechtest-du-spielen"></p>
 
     <div class="card-col">
-      <button class="big-btn" onclick="location.href='anleitung.html?v=196'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
+      <button class="big-btn" onclick="location.href='anleitung.html?v=197'" data-t-label="start.interaktive-spielanleitung"><svg class="sym" aria-hidden="true"><use href="#s-buch"/></svg></button>
       <button class="big-btn" onclick="showAISetup()" data-t-label="start.gegen-max-michu"><svg class="sym" aria-hidden="true"><use href="#s-robot"/></svg></button>
       <button class="big-btn" id="btn-mvm" onclick="showLobby()" data-t-label="start.mit-code-zu-zweit"><svg class="sym" aria-hidden="true"><use href="#s-zweit"/></svg></button>
     </div>
@@ -1002,14 +1002,14 @@ h1.wortmarke{margin:0;font-weight:inherit;}
   </div>
 </div>
 
-<script src="countred_rules.js?v=196" charset="utf-8"></script>
+<script src="countred_rules.js?v=197" charset="utf-8"></script>
 
 <script>
 
   window.PARITY_P1 = 'odd';
 </script>
 
-<script src="countred_ai_core.js?v=196" charset="utf-8"></script>
+<script src="countred_ai_core.js?v=197" charset="utf-8"></script>
 
 <script type="module">
 
@@ -1614,7 +1614,7 @@ const TEXTE = {
       'regeln.beim-nochmal-beginnt-der':             'Beim Nochmal beginnt der Verlierer der vorangegangenen Partie; nach einem Remis wechselt der Anziehende. Die Parität wechselt nach jeder Partie, sodass beide Spieler abwechselnd gerade und ungerade spielen.',
       'regeln.brett':                                'Brett',
       'regeln.die-spieler-ziehen-abwechselnd':       'Die Spieler ziehen abwechselnd. Die Parität (gerade oder ungerade) entscheidet, ob ein Zug erlaubt ist: einer zieht bei gerader Anzahl beteiligter roter Figuren, der andere bei ungerader.',
-      'regeln.die-zahl-auf-der':                     'Die Zahl auf der Figur muss zu den Punkten des Feldes passen. Zähle die roten Nachbarn des Zielfeldes nach dem geplanten Zug. Zugfigur mitzählen, wenn sie rot ist. Ungerade Summe → der ungerade Spieler darf absetzen, gerade Summe → der gerade.',
+      'regeln.die-zahl-auf-der':                     'Die Zahl auf der Figur muss zu den Punkten des Feldes passen. Zähle die roten Nachbarn des Zielfeldes nach dem geplanten Zug. Zugfigur mitzählen, wenn sie rot ist. Ungerade Anzahl → der ungerade Spieler darf absetzen, gerade Anzahl → der gerade.',
       'regeln.drei-in-einer-spalte#html':            '<strong style="color:var(--text);">Drei in einer Spalte → Bonuszug</strong><br>Drei gleichfarbige Figuren direkt übereinander in einer Spalte, bei einem Stapel zählt die Basis. Diese drei Figuren werden gesperrt, und wer den Dreier gebildet hat, bekommt einen Bonuszug. Ist kein Bonuszug möglich, zieht der Mitspieler.<br><br>Gesperrt heißt: Diese Figur lässt sich nicht mehr bewegen. Auf sie darf aber weiterhin gestapelt werden, und die obere Figur eines so gebildeten Stapels darf auch wieder heruntergenommen werden. Für die Parität zählen auch die gesperrten Figuren weiterhin mit.<br><br>Wer die vierte passende Figur in eine Spalte zieht, gewinnt — unabhängig davon, wer die drei darunter gebaut hat.',
       'regeln.eine-figur-auf-eine':                  'Eine Figur auf eine Einzelfigur setzen. Es zählen nur die roten Figuren im neuen Stapel — keine Nachbarn. Die Punkte spielen dabei keine Rolle. Ein Stapel fasst 2 Figuren; auf einen Stapel darf nicht gestapelt werden.',
       'regeln.figuren':                              'Figuren',
@@ -1634,7 +1634,7 @@ const TEXTE = {
       'regeln.stapel-aufloesen':                     'Stapel auflösen',
       'regeln.stapeln':                              'Stapeln',
       'regeln.wer-beginnt-und-wer':                  'Wer beginnt und wer die gerade bzw. ungerade Parität erhält, wird zu Spielbeginn ausgelost.',
-      'regeln.zaehle-alle-roten-figuren':            'Zähle alle roten Figuren auf den bis zu 8 Nachbarfeldern (in einem Stapel jede rote einzeln). Zähle die Zugfigur selbst mit, wenn sie rot ist. Ungerade Summe → der ungerade Spieler darf anheben, gerade Summe → der gerade.',
+      'regeln.zaehle-alle-roten-figuren':            'Zähle alle roten Figuren auf den bis zu 8 Nachbarfeldern (in einem Stapel jede rote einzeln). Zähle die Zugfigur selbst mit, wenn sie rot ist. Ungerade Anzahl → der ungerade Spieler darf anheben, gerade Anzahl → der gerade.',
       'regeln.ziel':                                 'Ziel',
       'regeln.zugrichtung-und-zugweite-keine#html':  '<strong style="color:var(--text);">Zugrichtung und Zugweite</strong><br>Keine Beschränkung. Eine Figur darf auf <em>jedes</em> Feld des Bretts gezogen werden — vorwärts, rückwärts, seitwärts, diagonal, über beliebige Entfernung und über andere Figuren hinweg. Ob ein Zug erlaubt ist, entscheidet allein die Parität, beim leeren Zielfeld zusätzlich die Punktzahl.',
       'regeln.zugverzicht':                          'Zugverzicht',
@@ -1698,7 +1698,7 @@ const TEXTE = {
       'ueber.bild-walter':                           'Walter Rehm, im Schneidersitz sitzend, schwarzweiß.',
       'ueber.countred-ist-ein-strategiespiel':       'CountRed ist ein Strategiespiel. Kein Würfel, kein Zufall, kein Glück. Die Regeln lesen sich in drei Minuten, eine Partie dauert selten länger als 15 Minuten.',
       'ueber.dahinter-steht-kein-studio#html':       'Dahinter steht kein Studio, sondern eine Person: Mein Name ist\n          Walter Rehm, ich wohne in München. Fragen, Fehlermeldungen und Ideen gerne an\n          <a href="mailto:info@countred.com" style="color:var(--text2);">info@countred.com</a>.',
-      'ueber.dann-kommt-meistens-diese':             'Dann kommt meistens diese Frage: „Was sind denn jetzt meine Figuren? Welche Farbe gehört mir?“ Antwort: keine. Jeder kann prinzipiell jede Figur ziehen — niemand ist rot, niemand ist schwarz. Was du ziehen darfst, entscheidet das Brett: Zähle die roten Nachbarn der Figur. Ist die Zahl gerade, darfst du sie ziehen. Ist sie ungerade, darf dein Mitspieler.',
+      'ueber.dann-kommt-meistens-diese':             'Dann kommt meistens diese Frage: „Was sind denn jetzt meine Figuren? Welche Farbe gehört mir?“ Antwort: keine. Jeder kann prinzipiell jede Figur ziehen — niemand ist rot, niemand ist schwarz. Was du ziehen darfst, entscheidet das Brett: Zähle die roten Nachbarn der Figur. Ist die Anzahl gerade, darfst du sie ziehen. Ist sie ungerade, darf dein Mitspieler.',
       'ueber.der-computergegner-heisst-max':         'Am Computer heißt dein Mitspieler Max Michu. Max Michu ist kein lernendes Modell, sondern rechnet Züge durch und bewertet Stellungen nach Regeln, die ich selbst aufgestellt und in Tausenden von Testpartien nachgeschärft habe. Drei Stufen, von nachsichtig bis unangenehm.',
       'ueber.die-limitierte-auflage-design':         'Die limitierte Auflage. Design-Entwicklung: Gerd Reger, Bernd Schiller, Walter Rehm',
       'ueber.foto-christian-alber':                  'Foto: Christian Alber',
@@ -1937,7 +1937,7 @@ const TEXTE = {
       'regeln.beim-nochmal-beginnt-der':             'In Play again, the loser of the previous game begins; after a draw, the first player changes. Parity changes after every game, so both players alternate between even and odd.',
       'regeln.brett':                                'Board',
       'regeln.die-spieler-ziehen-abwechselnd':       'The players take turns. Parity (even or odd) decides whether a move is allowed: one player moves when the number of red pieces involved is even, the other when it is odd.',
-      'regeln.die-zahl-auf-der':                     'The number on the piece must match the points of the square. Count the red neighbours of the target square after the planned move. Count the moving piece if it is red. Odd sum → the odd player may set down, even sum → the even player.',
+      'regeln.die-zahl-auf-der':                     'The number on the piece must match the points of the square. Count the red neighbours of the target square after the planned move. Count the moving piece if it is red. Odd number → the odd player may set down, even number → the even player.',
       'regeln.drei-in-einer-spalte#html':            '<strong style="color:var(--text);">Three in a column → bonus move</strong><br>Three pieces of the same colour directly one above the other in a column; for a stack, the base counts. These three pieces become locked, and whoever formed the triple gets a bonus move. If no bonus move is possible, the other player moves.<br><br>Locked means: this piece can no longer be moved. But you may still stack on it, and the upper piece of a stack formed this way may be taken off again. The locked pieces still count for parity.<br><br>Whoever moves the fourth matching piece into a column wins — no matter who built the three below it.',
       'regeln.eine-figur-auf-eine':                  'Set a piece on a single piece. Only the red pieces in the new stack count — no neighbours. The points do not matter here. A stack holds 2 pieces; you may not stack onto a stack.',
       'regeln.figuren':                              'Pieces',
@@ -1957,7 +1957,7 @@ const TEXTE = {
       'regeln.stapel-aufloesen':                     'Breaking up a stack',
       'regeln.stapeln':                              'Stacking',
       'regeln.wer-beginnt-und-wer':                  'Who begins, and who gets even or odd parity, is decided by lot at the start of the game.',
-      'regeln.zaehle-alle-roten-figuren':            'Count all red pieces on the up to 8 neighbouring squares (in a stack, each red piece separately). Count the moving piece itself if it is red. Odd sum → the odd player may lift, even sum → the even player.',
+      'regeln.zaehle-alle-roten-figuren':            'Count all red pieces on the up to 8 neighbouring squares (in a stack, each red piece separately). Count the moving piece itself if it is red. Odd number → the odd player may lift, even number → the even player.',
       'regeln.ziel':                                 'Aim',
       'regeln.zugrichtung-und-zugweite-keine#html':  '<strong style="color:var(--text);">Direction and distance</strong><br>No restriction. A piece may be moved to <em>any</em> square on the board — forwards, backwards, sideways, diagonally, over any distance and over other pieces. Whether a move is allowed is decided by parity alone, and for an empty target square also by the points.',
       'regeln.zugverzicht':                          'Passing',
@@ -2425,7 +2425,7 @@ if(SPRACHKNOPF_SICHTBAR){
 gateState = gateLoad();
 gateRefresh();
 
-const BUILD_MARKER='· Build v196';
+const BUILD_MARKER='· Build v197';
 const BUILD_NO=parseInt((BUILD_MARKER.match(/v(\d+)/)||[])[1],10);
 
 const AI_SCORE_WINDOW=6;
@@ -2572,7 +2572,7 @@ const aiPending=new Map();
 
 function getAIWorker(){
   if(!aiWorker){
-    aiWorker=new Worker('countred_ai_worker.js?v=196');
+    aiWorker=new Worker('countred_ai_worker.js?v=197');
     aiWorker.onmessage=function(e){
       const {id}=e.data;
       const p=aiPending.get(id);
