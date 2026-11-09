@@ -35,6 +35,12 @@ an denen dieses Repository keine Rechte einräumt, auch nicht durch das Forken:
 Die Namen "CountRed" und "Gembel" werden als Kennzeichen dieses Projekts
 verwendet.
 
+Text und Data Mining (§ 44b UrhG)
+Inhalte unter countred.com dürfen für Text und Data Mining nur in dem Umfang
+genutzt werden, den die Datei https://countred.com/robots.txt zulässt. Im
+Übrigen, insbesondere für dieses Repository, behält sich der Rechteinhaber
+diese Nutzung nach § 44b Abs. 3 UrhG vor.
+
 Anfragen: info@countred.com
 
 ─────────────────────────────────────────────────────────────────────
@@ -62,5 +68,10 @@ Alber) and the Firebase library (Google LLC, Apache License 2.0, see
 LICENSE-firebase.txt).
 
 "CountRed" and "Gembel" are used as the marks of this project.
+
+Text and data mining: content at countred.com may be used for text and data
+mining only to the extent permitted by https://countred.com/robots.txt.
+Otherwise, in particular for this repository, the rights holder reserves this
+use (Section 44b(3) German Copyright Act; Art. 4(3) Directive (EU) 2019/790).
 
 Enquiries: info@countred.com

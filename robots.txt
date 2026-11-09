@@ -3,7 +3,6 @@ Allow: /
 
 User-agent: GPTBot
 User-agent: ClaudeBot
-User-agent: Google-Extended
 User-agent: Applebot-Extended
 User-agent: CCBot
 User-agent: Meta-ExternalAgent
