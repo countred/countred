@@ -2,7 +2,7 @@
 
 'use strict';
 
-importScripts('countred_rules.js?v=198', 'countred_ai_core.js?v=198');
+importScripts('countred_rules.js?v=199', 'countred_ai_core.js?v=199');
 
 const _antisymTestDone = {};
 
